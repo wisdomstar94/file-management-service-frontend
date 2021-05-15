@@ -1,3 +1,5 @@
 <div class="wrapper">
   <router-outlet></router-outlet>
 </div>
+
+<app-alert (onInit)="childComponentNgOnInited($event);"></app-alert>

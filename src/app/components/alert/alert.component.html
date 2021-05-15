@@ -1,0 +1,16 @@
+<app-content-center class="alert-container-box" [@alertAnimation]="isShow" *ngIf="isShow">
+  <div class="alert-box">
+    <div class="title-area">{{ title }}</div>
+    <div class="content-area">{{ message }}</div>
+    <div class="button-area">
+      <ul class="button-list">
+        <li class="item" *ngIf="isCancelButtonShow">
+          <button class="button-style-a gray radius width-auto" (click)="events.cancelButtonClick();">취소</button>
+        </li>
+        <li class="item" *ngIf="isConfirmButtonShow">
+          <button class="button-style-a sky-blue radius width-auto" (click)="events.confirmButtonClick();">확인</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</app-content-center>

@@ -1,0 +1,35 @@
+<div (window:resize)="windowResize();"></div>
+
+<div class="login-form-box" [ngStyle]="loginFormBoxStyle">
+  <div class="left-area">
+    <div class="image-area" [ngStyle]="leftAreaImageAreaStyle">
+
+    </div>
+  </div>
+  <div class="right-area">
+    <div class="title-area">
+      <div class="top">File Management Service</div>
+      <div class="bottom">파일 관리 서비스</div>
+    </div>
+    <div class="input-area">
+      <ul class="input-list">
+        <li class="item">
+          <input class="input-style-a radius" type="text" placeholder="아이디" [(ngModel)]="forms.userId" />
+        </li>
+        <li class="item">
+          <input class="input-style-a radius" type="password" placeholder="비밀번호" [(ngModel)]="forms.userPassword" />
+        </li>
+      </ul>
+    </div>
+    <div class="button-area">
+      <ul class="button-list">
+        <li class="item">
+          <button class="button-style-a radius purple" (click)="events.loginButtonClick($event);">로그인</button>
+        </li>
+        <li class="item" *ngIf="!options.isSignUpButtonHidden">
+          <button class="button-style-a radius sky-blue">회원가입</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login-page',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+  backgroundImageBoxStyle = {
+    'background-image': `url(${environment.image.grid})`,
+  };
 
-  constructor() { }
+  constructor() { 
+
+  }
 
   ngOnInit(): void {
+
   }
 
 }
