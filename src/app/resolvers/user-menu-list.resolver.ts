@@ -1,36 +1,37 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, of, throwError } from 'rxjs';
+import {
+  Router, Resolve,
+  RouterStateSnapshot,
+  ActivatedRouteSnapshot
+} from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { NavMenuItem } from '../interfaces/nav-menu-item';
 import { AjaxService } from '../services/ajax.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JwtCheckGuard implements CanActivate {
+export class UserMenuListResolver implements Resolve<boolean> {
   constructor(
     private http: HttpClient,
     private router: Router,
   ) {
-
+    
   }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const t = this;
-    const jwtCheckObservable = t.http.post<any>(
-      environment.api.user.authCheck, {}, { withCredentials: true })
+    
+    const userMenuListObservable = t.http.post<NavMenuItem[]>(
+      environment.api.menu.getUserMenu, {}, { withCredentials: true })
       .pipe(
         map(e => {
-          if (e) {
-            return true;
-          } else {
-            t.router.navigate(['login']);
-            return false;
-          }
+          const menuList: NavMenuItem[] = (e as any).menuCategoryListReal;
+          // return of(menuList);
+          return menuList;
         }),
         catchError((error: HttpErrorResponse) => {
           const t = this;
@@ -48,11 +49,11 @@ export class JwtCheckGuard implements CanActivate {
       
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
-          t.router.navigate(['login']);
-          return of(error.error);      
+          // return of(error.error);  
+          return error.error;
         }),
       );
 
-    return jwtCheckObservable;
+    return userMenuListObservable;
   }
 }

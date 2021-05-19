@@ -14,10 +14,10 @@
     <div class="input-area">
       <ul class="input-list">
         <li class="item">
-          <input class="input-style-a radius" type="text" placeholder="아이디" [(ngModel)]="forms.userId" />
+          <input class="input-style-a radius" type="text" placeholder="아이디" [(ngModel)]="forms.userId" (keyup)="events.loginFromKeyUp($event);" />
         </li>
         <li class="item">
-          <input class="input-style-a radius" type="password" placeholder="비밀번호" [(ngModel)]="forms.userPassword" />
+          <input class="input-style-a radius" type="password" placeholder="비밀번호" [(ngModel)]="forms.userPassword" (keyup)="events.loginFromKeyUp($event);" />
         </li>
       </ul>
     </div>

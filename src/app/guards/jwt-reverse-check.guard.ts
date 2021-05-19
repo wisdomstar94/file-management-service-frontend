@@ -23,7 +23,7 @@ export class JwtReverseCheckGuard implements CanActivate {
 
     const t = this;
     const jwtCheckObservable = t.http.post<any>(
-      environment.api.user.authCheck, {}, {})
+      environment.api.user.authCheck, {}, { withCredentials: true })
       .pipe(
         map(e => {
           if (e) {

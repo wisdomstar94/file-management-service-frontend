@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { IndexPageRoutingModule } from './index-page-routing.module';
 import { IndexPageComponent } from './index-page.component';
+import { CommonNavModule } from 'src/app/components/common-nav/common-nav.module';
+import { CommonTopHeaderModule } from 'src/app/components/common-top-header/common-top-header.module';
+import { CommonContentModule } from 'src/app/components/common-content/common-content.module';
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { IndexPageComponent } from './index-page.component';
   ],
   imports: [
     CommonModule,
-    IndexPageRoutingModule
+    IndexPageRoutingModule,
+    CommonNavModule,
+    CommonTopHeaderModule,
+    CommonContentModule,
   ]
 })
 export class IndexPageModule { }

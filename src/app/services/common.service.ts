@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from '../components/alert/alert.component';
 import { CommonComponent } from '../interfaces/common-component';
+import { NavMenuItem } from '../interfaces/nav-menu-item';
 import { ResponseData } from '../interfaces/response-data';
 
 @Injectable({
@@ -11,11 +13,11 @@ export class CommonService {
     alert: null,
   };
 
-  constructor() { 
+  constructor(
+    private route: ActivatedRoute,
+  ) { 
 
   }
-
-
 
   alertMessage(res: ResponseData): void {
     const t = this;
@@ -33,9 +35,6 @@ export class CommonService {
       .show();
   }
 
-  
-
-
   setAlertComponent(v: AlertComponent): void {
     const t = this;
     t.components.alert = v;
@@ -46,5 +45,10 @@ export class CommonService {
     return t.components.alert;
   }
 
+  // --- //
 
+  getResolveData(): any {
+    const t = this;
+    return t.route.snapshot.data;
+  }
 }

@@ -30,12 +30,12 @@ export class LoginFormBoxComponent implements OnInit {
   };
 
   events = {
-    loginButtonClick: async(event: MouseEvent) => {
+    loginButtonClick: (event?: MouseEvent) => {
       const t = this;
       // console.log('event', event);
       if (t.isLogging) {
         t.common.getAlertComponent()
-          ?.setDefault()
+          ?.setDefault();
         return;
       }
 
@@ -64,6 +64,13 @@ export class LoginFormBoxComponent implements OnInit {
           t.isLogging = false;
         },
       );
+    },
+    loginFromKeyUp: (event: KeyboardEvent) => {
+      const t = this;
+
+      if (event.key === 'Enter') {
+        t.events.loginButtonClick();
+      }
     },
   };
 

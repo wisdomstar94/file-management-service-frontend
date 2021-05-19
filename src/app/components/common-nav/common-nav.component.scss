@@ -1,0 +1,133 @@
+nav.common-nav {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+
+  .top-area {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color: #54b4f1;
+    justify-content: center;
+    align-items: center;
+
+    .title-area {
+      display: inline-block;
+      font-size: 12pt;
+      line-height: 12pt;
+      color: #fff;
+      letter-spacing: -0.5pt;
+      font-weight: bolder;
+      margin-right: 14px;
+    }
+
+    .toggle-button-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      img.toggle-button-icon {
+        display: inline-block;
+        font-size: 10pt;
+        width: 15px;
+      }
+    }
+  }
+
+  .bottom-area {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    ul.menu-list {
+      display: block;
+      margin: 0;
+      padding: 0;
+      position: relative;
+
+      > li.item {
+        display: block;
+        margin: 0;
+        margin-bottom: 24px;
+        padding: 0;
+        position: relative;
+        list-style-type: none;
+
+        .category-name-row {
+          display: block;
+          margin: 14px;
+          margin-bottom: 8px;
+          padding: 0;
+          position: relative;
+          font-size: 10pt;
+          font-weight: bolder;
+          color: #2b2b2b;
+        }
+
+        ul.category-menu-list {
+          display: block;
+          margin: 0;
+          padding: 0;
+          position: relative;
+
+          > li.item {
+            display: block;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            list-style-type: none;
+
+            .menu-button {
+              display: flex;
+              margin: 0;
+              padding: 14px;
+              position: relative;
+              cursor: pointer;
+              justify-content: center;
+              align-items: center;
+
+              &:hover {
+                background-color: #e8e8e8;
+              }
+
+              .icon-area {
+                width: 30px;
+                margin-right: 10px;
+                display: flex;
+                justify-items: center;
+                align-items: center;
+                position: relative;
+
+                .icons {
+                  width: 100%;
+                  display: flex;
+                  justify-items: center;
+                  align-items: center;
+                  margin: 0;
+                  padding: 0;
+                  position: relative;
+                  fill: #6386c5;
+                }
+              }
+
+              .menu-name-area {
+                width: 100%;
+                display: inline-block;
+                font-size: 12pt;
+                line-height: 12pt;
+                color: #757575;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

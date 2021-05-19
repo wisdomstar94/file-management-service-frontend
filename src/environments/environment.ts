@@ -14,9 +14,18 @@ export const environment = {
       login: baseUrl + '/api/user/login',
       authCheck: baseUrl + '/api/user/authCheck',
     },
+    menu: {
+      getUserMenu: baseUrl + '/api/menu/getUserMenu',
+    },
   },
 
   image:{ 
+    icon: {
+      toggleIcon: baseUrl + '/public/images/icons/toggle-icon.svg',
+      dashboardIcon: baseUrl + '/public/images/icons/dashboard-icon.svg',
+      companyIcon: baseUrl + '/public/images/icons/company-icon.svg',
+    },
+
     cyber: baseUrl + '/public/images/cyber_image.jpg',
     grid: baseUrl + '/public/images/grid.jpg',
   },

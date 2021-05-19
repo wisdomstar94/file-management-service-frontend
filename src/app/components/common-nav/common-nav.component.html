@@ -1,0 +1,35 @@
+<nav class="common-nav" [ngStyle]="navStyle">
+  <div class="top-area" [ngStyle]="navTopAreaStyle">
+    <div class="title-area">
+      File Management Service
+    </div>
+    <div class="toggle-button-area">
+      <img class="toggle-button-icon" [src]="environment.image.icon.toggleIcon" alt="toggle icon" title="toggle icon" />
+    </div>
+  </div>
+  <div class="bottom-area">
+    <ul class="menu-list">
+      <ng-container *ngFor="let item of userMenuList">
+        <li class="item">
+          <div class="category-name-row">
+            {{ item.menuCategoryName }}
+          </div>
+          <ul class="category-menu-list">
+            <ng-container *ngFor="let item2 of item.menuList">
+              <li class="item">
+                <div class="menu-button" (click)="menuButtonClick(item2);">
+                  <div class="icon-area">
+                    <div class="icons" [innerHTML]="transform(item2.menuIconPath)"></div>
+                  </div>
+                  <div class="menu-name-area">
+                    {{ item2.menuName }}
+                  </div>
+                </div>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
