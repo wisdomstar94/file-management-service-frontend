@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertModule } from './components/alert/alert.module';
+import { StoreModule } from '@ngrx/store'
+import { commonNavWidthReducer } from './components/store/common-nav/common-nav.reducer';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,9 @@ import { AlertModule } from './components/alert/alert.module';
     HttpClientXsrfModule.withOptions({
       cookieName: 'csrf-token',
       headerName: 'csrf-token',
+    }),
+    StoreModule.forRoot({ 
+      navWidth: commonNavWidthReducer, 
     }),
   ],
   providers: [],
