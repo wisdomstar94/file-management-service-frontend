@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { NavMenuInMenuItem } from 'src/app/interfaces/nav-menu-in-menu-item';
 import { NavMenuItem } from 'src/app/interfaces/nav-menu-item';
 import { environment } from 'src/environments/environment';
-import { changeNavWidth } from '../store/common-nav/common-nav.action';
+import { changeNavWidth } from 'src/app/store/common-nav/common-nav.action';
 
 @Component({
   selector: 'app-common-nav',

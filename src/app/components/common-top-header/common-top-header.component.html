@@ -1,3 +1,17 @@
 <section class="common-top-header" [ngStyle]="topHeaderStyle">
+  <div class="left-area">
+    <ul class="destination-box">
+      <ng-container *ngFor="let item of destination$ | async; let i = index">
+        <li class="item">
+          {{ item }}
+        </li>
+        <li class="item arrow">
+          >
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="right-area">
 
+  </div>
 </section>

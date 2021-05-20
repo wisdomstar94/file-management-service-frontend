@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-common-top-header',
@@ -13,8 +15,17 @@ export class CommonTopHeaderComponent implements OnInit {
     'right': '0',
   };
 
-  constructor() { 
+  destination$: Observable<string[]>;
 
+  constructor(
+    private store: Store<{ destination: string[] }>,
+  ) { 
+    this.destination$ = this.store.select('destination');
+    this.destination$.subscribe(
+      data => {
+        console.log(data);
+      },
+    );
   }
 
   ngOnInit(): void {

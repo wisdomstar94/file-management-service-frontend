@@ -7,7 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertModule } from './components/alert/alert.module';
 import { StoreModule } from '@ngrx/store'
-import { commonNavWidthReducer } from './components/store/common-nav/common-nav.reducer';
+import { commonNavWidthReducer } from './store/common-nav/common-nav.reducer';
+import { destinationReducer } from './store/destination/destination.reducer';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { commonNavWidthReducer } from './components/store/common-nav/common-nav.
     }),
     StoreModule.forRoot({ 
       navWidth: commonNavWidthReducer, 
+      destination: destinationReducer,
     }),
   ],
   providers: [],
