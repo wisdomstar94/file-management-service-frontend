@@ -9,10 +9,14 @@ export const environment = {
 
   baseUrl,
 
+  mobileBaseWidth: 650,
+
   api: {
     user: {
       login: baseUrl + '/api/user/login',
+      logout: baseUrl + '/api/user/logout',
       authCheck: baseUrl + '/api/user/authCheck',
+      getLoginInfo: baseUrl + '/api/user/getLoginInfo',
     },
     menu: {
       getUserMenu: baseUrl + '/api/menu/getUserMenu',

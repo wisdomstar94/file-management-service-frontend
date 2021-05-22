@@ -2,6 +2,10 @@
   display: block;
   position: fixed;
   background-color: #54b4f1;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s all;
+  transition-timing-function: ease-in-out;
 
   .left-area {
     display: flex;
@@ -39,13 +43,52 @@
         }
       } 
     }
+
+    .mobile-nav-toggle-button {
+      cursor: pointer;
+      width: 20px;
+      display: flex;
+      fill: #fff;
+      padding: 14px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .app-title-area {
+    display: block;
+    font-size: 12pt;
+    color: #fff;
+    font-weight: bolder;
+    letter-spacing: -0.5pt;
   }
 
   .right-area {
-    display: block;
+    display: flex;
     height: 100%;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 14px;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+
+    .user-name-area {
+      font-size: 10pt;
+      line-height: 10pt;
+      color: #fff;
+      margin-right: 10px;
+    }
+
+    .logout-button-area {
+      display: flex;
+      width: 18px;
+      fill: #fff;
+      cursor: pointer;
+
+      &:hover {
+        fill: #f1e854;
+      }
+    }
   }
 }

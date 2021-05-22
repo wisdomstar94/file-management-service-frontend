@@ -7,8 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertModule } from './components/alert/alert.module';
 import { StoreModule } from '@ngrx/store'
-import { commonNavWidthReducer } from './store/common-nav/common-nav.reducer';
 import { destinationReducer } from './store/destination/destination.reducer';
+import { deviceModeReducer } from './store/device-mode/device-mode.reducer';
+import { commonNavisNavOpenedReducer } from './store/common-nav/common-nav-opend.reducer';
+import { appTitleReducer } from './store/app-title/app-title.reducer';
+import { commonNavModeReducer } from './store/common-nav/common-nav-mode.reducer';
+import { commonNavWidthReducer } from './store/common-nav/common-nav-width.reducer';
 
 @NgModule({
   declarations: [
@@ -25,8 +29,12 @@ import { destinationReducer } from './store/destination/destination.reducer';
       headerName: 'csrf-token',
     }),
     StoreModule.forRoot({ 
-      navWidth: commonNavWidthReducer, 
+      navOpend: commonNavisNavOpenedReducer, 
+      navMode: commonNavModeReducer,
+      navWidth: commonNavWidthReducer,
+      deviceMode: deviceModeReducer,
       destination: destinationReducer,
+      appTitle: appTitleReducer,
     }),
   ],
   providers: [],

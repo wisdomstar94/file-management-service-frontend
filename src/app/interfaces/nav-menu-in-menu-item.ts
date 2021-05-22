@@ -4,4 +4,5 @@ export interface NavMenuInMenuItem {
   menuName: string;
   menuIconPath: string;
   menuLink: string;
+  menuHover?: boolean;
 }

@@ -1,9 +1,13 @@
-<nav class="common-nav" [ngStyle]="navStyle">
+<nav class="common-nav" 
+  [ngStyle]="navStyle" 
+  *ngIf="deviceMode === 'pc' || (navOpend$ | async)" 
+  [@navAnimation]="deviceMode === 'pc' || (navOpend$ | async)"
+  [@.disabled]="navAnimationDisabled">
   <div class="top-area" [ngStyle]="navTopAreaStyle">
-    <div class="title-area">
-      File Management Service
+    <div class="title-area" [ngClass]="navAppTitleClass">
+      {{ appTitle$ | async }}
     </div>
-    <div class="toggle-button-area">
+    <div class="toggle-button-area" [ngClass]="navToggleButtonAreaClass" *ngIf="(deviceMode$ | async) === 'pc'" (click)="pcNavToggleButtonClick();">
       <img class="toggle-button-icon" [src]="environment.image.icon.toggleIcon" alt="toggle icon" title="toggle icon" />
     </div>
   </div>
@@ -11,17 +15,20 @@
     <ul class="menu-list">
       <ng-container *ngFor="let item of userMenuList">
         <li class="item">
-          <div class="category-name-row">
+          <div class="category-name-row" [ngClass]="categoryNameRowClass">
             {{ item.menuCategoryName }}
           </div>
           <ul class="category-menu-list">
             <ng-container *ngFor="let item2 of item.menuList">
               <li class="item">
-                <div class="menu-button" (click)="menuButtonClick(item2);">
-                  <div class="icon-area">
+                <div class="menu-button" (click)="menuButtonClick(item2);" (mouseenter)="item2.menuHover = true" (mouseleave)="item2.menuHover = false">
+                  <div class="icon-area" [ngClass]="menuIconAreaClass">
                     <div class="icons" [innerHTML]="transform(item2.menuIconPath)"></div>
                   </div>
-                  <div class="menu-name-area">
+                  <div class="minimal-menu-name-area" *ngIf="(navMode$ | async) === 'minimal' && (deviceMode$ | async) === 'pc' && item2.menuHover === true">
+                    {{ item2.menuName }}
+                  </div>
+                  <div class="menu-name-area" *ngIf="(navMode$ | async) === 'basic' || (deviceMode$ | async) === 'mobile'">
                     {{ item2.menuName }}
                   </div>
                 </div>
@@ -33,3 +40,11 @@
     </ul>
   </div>
 </nav>
+
+<div class="nav-background" 
+  (click)="navBackgroundClick();"
+  *ngIf="(navOpend$ | async) && deviceMode === 'mobile'" 
+  [@navBackgroundAnim]="(navOpend$ | async) && deviceMode === 'mobile'"
+  [@.disabled]="navAnimationDisabled">
+
+</div>

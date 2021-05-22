@@ -3,4 +3,11 @@
   margin: 0;
   padding: 0;
   position: fixed;
+  transition: 0.3s all;
+  transition-timing-function: ease-in-out;
+  overflow-y: scroll;
+
+  &.mobile {
+    transition: none;
+  }
 }

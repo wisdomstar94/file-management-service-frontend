@@ -32,7 +32,6 @@ export class LoginFormBoxComponent implements OnInit {
   events = {
     loginButtonClick: (event?: MouseEvent) => {
       const t = this;
-      // console.log('event', event);
       if (t.isLogging) {
         t.common.getAlertComponent()
           ?.setDefault();

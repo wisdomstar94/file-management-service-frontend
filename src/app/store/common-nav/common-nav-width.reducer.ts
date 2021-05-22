@@ -6,7 +6,7 @@ export const initialState = '240px';
 const _commonNavWidthReducer = createReducer(
   initialState,
   on(changeNavWidth, (state, action) => { 
-    return action.navWidth; 
+    return action.navWidth;
   }),
 );
  

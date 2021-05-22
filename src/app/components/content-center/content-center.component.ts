@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { DeviceMode } from 'src/app/types/device-mode';
 
 @Component({
   selector: 'app-content-center',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentCenterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    
+  ) { 
+    
+  }
 
   ngOnInit(): void {
+
   }
 
 }

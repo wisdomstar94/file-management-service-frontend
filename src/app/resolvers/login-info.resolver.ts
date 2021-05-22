@@ -8,31 +8,30 @@ import {
 import { Observable, of } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { NavMenuItem } from '../interfaces/nav-menu-item';
-import { AjaxService } from '../services/ajax.service';
+import { LoginInfo } from '../interfaces/login-info';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserMenuListResolver implements Resolve<boolean> {
+export class LoginInfoResolver implements Resolve<boolean> {
   constructor(
     private http: HttpClient,
     private router: Router,
   ) {
-    
+
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const t = this;
-    
-    const userMenuListObservable = t.http.post<NavMenuItem[]>(
-      environment.api.menu.getUserMenu, {}, { withCredentials: true })
+
+    const myObservable = t.http.post<LoginInfo>(
+      environment.api.user.getLoginInfo, {}, { withCredentials: true })
       .pipe(
         retry(1),
         map(e => {
-          const menuList: NavMenuItem[] = (e as any).menuCategoryListReal;
-          // return of(menuList);
-          return menuList;
+          const result: LoginInfo = (e as any).loginInfo;
+          // return of(result);
+          return result;
         }),
         catchError((error: HttpErrorResponse) => {
           const t = this;
@@ -55,6 +54,6 @@ export class UserMenuListResolver implements Resolve<boolean> {
         }),
       );
 
-    return userMenuListObservable;
+    return myObservable;
   }
 }
