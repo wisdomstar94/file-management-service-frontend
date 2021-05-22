@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardPageRoutingModule } from './dashboard-page-routing.module';
 import { DashboardPageComponent } from './dashboard-page.component';
+import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title-box.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { DashboardPageComponent } from './dashboard-page.component';
   ],
   imports: [
     CommonModule,
-    DashboardPageRoutingModule
+    DashboardPageRoutingModule,
+    PageTitleBoxModule,
   ]
 })
 export class DashboardPageModule { }

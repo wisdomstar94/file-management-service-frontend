@@ -1,7 +1,8 @@
 .common-content {
   display: block;
   margin: 0;
-  padding: 0;
+  padding: 20px;
+  box-sizing: border-box;
   position: fixed;
   transition: 0.3s all;
   transition-timing-function: ease-in-out;

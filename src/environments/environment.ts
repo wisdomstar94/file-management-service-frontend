@@ -12,6 +12,13 @@ export const environment = {
   mobileBaseWidth: 650,
 
   api: {
+    dashboard: {
+      getDownloadedCount: baseUrl + '/api/dashboard/getDownloadedCount',
+      getUploadedFileCount: baseUrl + '/api/dashboard/getUploadedFileCount',
+      getDownloadedSize: baseUrl + '/api/dashboard/getDownloadedSize',
+      getFileDownloadUrlAccessCount: baseUrl + '/api/dashboard/getFileDownloadUrlAccessCount',
+      getFileDownloadCountWithDately: baseUrl + '/api/dashboard/getFileDownloadCountWithDately',
+    },
     user: {
       login: baseUrl + '/api/user/login',
       logout: baseUrl + '/api/user/logout',

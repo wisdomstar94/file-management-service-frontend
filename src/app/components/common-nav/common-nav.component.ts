@@ -219,18 +219,6 @@ export class CommonNavComponent implements OnInit {
       return;
     }
 
-    for (const item3 of t.userMenuList) {
-      const menuList = item3.menuList;
-
-      for (const item2 of menuList) {
-        if (item2 === item) {
-          item2.menuActive = true;
-        } else {
-          item2.menuActive = false;
-        }
-      }
-    }
-
     t.store.dispatch(navClose());
 
     t.router.navigate([item.menuLink]);

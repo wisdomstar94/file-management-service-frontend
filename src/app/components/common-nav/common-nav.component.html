@@ -1,5 +1,8 @@
 <nav class="common-nav" 
   [ngStyle]="navStyle" 
+  [ngClass]="{
+    'mobile': (deviceMode$ | async) === 'mobile'
+  }"
   *ngIf="deviceMode === 'pc' || (navOpend$ | async)" 
   [@navAnimation]="deviceMode === 'pc' || (navOpend$ | async)"
   [@.disabled]="navAnimationDisabled">

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from '../components/alert/alert.component';
 import { CommonComponent } from '../interfaces/common-component';
@@ -15,6 +16,7 @@ export class CommonService {
 
   constructor(
     private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
   ) { 
 
   }
@@ -50,5 +52,29 @@ export class CommonService {
   getResolveData(): any {
     const t = this;
     return t.route.snapshot.data;
+  }
+
+  transform(html: string) {
+    if (typeof html !== 'string') {
+      return '';
+    }
+
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  checkFileSize(fileSize: number) {
+    const t = this;
+
+    if (fileSize < 1.0486e+9) {
+      return {
+        division: 1048576,
+        unit: 'MB',
+      };
+    } else {
+      return {
+        division: 1.0486e+9,
+        unit: 'GB',
+      };
+    }
   }
 }

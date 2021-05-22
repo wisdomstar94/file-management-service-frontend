@@ -9,7 +9,10 @@ nav.common-nav {
   z-index: 2;
   transition: all 0.3s;
   transition-timing-function: ease-in-out;
-  overflow-y: scroll;
+
+  &.mobile {
+    overflow-y: scroll;
+  }
 
   &::-webkit-scrollbar {
 		width: 0;
