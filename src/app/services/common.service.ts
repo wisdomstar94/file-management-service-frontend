@@ -28,7 +28,8 @@ export class CommonService {
     msg += `- 응답메시지 : ${res.msg}`;
 
     t.getAlertComponent()
-      ?.setTitle('안내')
+      ?.setDefault()
+      .setTitle('안내')
       .setMessage(msg)
       .setCancelButton(false)
       .clearCancelCallback()

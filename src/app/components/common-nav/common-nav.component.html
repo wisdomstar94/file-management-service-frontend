@@ -28,7 +28,7 @@
                   [ngClass]="{
                     'active': item2.menuActive === true
                   }"
-                  (click)="menuButtonClick(item2);" (mouseenter)="item2.menuHover = true" (mouseleave)="item2.menuHover = false">
+                  (click)="menuButtonClick(item2);" (mouseenter)="menuButtonMouseEnter(item2);" (mouseleave)="menuButtonMouseLeave(item2);">
                   <div class="icon-area" [ngClass]="menuIconAreaClass">
                     <div class="icons" [innerHTML]="transform(item2.menuIconPath)"></div>
                   </div>

@@ -79,6 +79,7 @@
   
         .icon-area {
           width: 40px;
+          min-height: 42px;
           fill: #fff;
         }
   
@@ -131,7 +132,42 @@
         background-color: rgba(0, 0, 0, 0.3);
       }
     }
+  }
+}
 
-    
+
+@media all and (max-width: 1260px) {
+  .info-box {
+    ul.info-card-list {
+      flex-wrap: wrap;
+
+      > li.item {
+        width: calc((100% - 14px) / 2);
+        margin-right: 0;
+        margin-bottom: 14px;
+
+        &:nth-child(2n - 1) {
+          margin-right: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 790px) {
+  .info-box {
+    ul.info-card-list {
+      flex-wrap: wrap;
+
+      > li.item {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 14px;
+
+        &:nth-child(2n - 1) {
+          margin-right: 0;
+        }
+      }
+    }
   }
 }

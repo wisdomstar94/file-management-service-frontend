@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { CardInfo } from 'src/app/interfaces/card-info.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
@@ -36,14 +36,14 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             retry(1),
             catchError((error: HttpErrorResponse) => {
               const t = this;
-          
+
               if (error.error instanceof ErrorEvent) {
                 
               } else {
                 
               }
 
-              return error.error;      
+              return throwError(error.error);  
             }),
           );
 
@@ -58,7 +58,6 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           },
           error => {
             this.common.alertMessage(error);
-            
           },
           () => {
             const item = this.getCardInfoItem('totalDownloadedCount');
@@ -95,7 +94,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
                 
               }
 
-              return error.error;      
+              return throwError(error.error);  
             }),
           );
 
@@ -146,7 +145,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
                 
               }
 
-              return error.error;      
+              return throwError(error.error);  
             }),
           );
 
@@ -184,7 +183,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
       id: 'totalFileDownloadTryCount',
       bgColor: 'blue',
       mainTitle: '총 파일 다운로드 시도 횟수',
-      mainIconSvg: ``,
+      mainIconSvg: `<svg id="bb15047d-8acc-441d-916d-3e56872d97c4" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98.61 72.31"><path d="M95,54.18a19.45,19.45,0,0,0-11-7A13.1,13.1,0,0,0,82.3,30.84,12.67,12.67,0,0,0,73,27a12.52,12.52,0,0,0-8.53,3.19A26.32,26.32,0,0,0,40.14,13.84a25.31,25.31,0,0,0-18.59,7.71,25.31,25.31,0,0,0-7.71,18.59c0,.44,0,1.18.11,2.21A22.94,22.94,0,0,0,.7,63.15,22.16,22.16,0,0,0,7.45,79.4,22.13,22.13,0,0,0,23.7,86.16H79.58A19.72,19.72,0,0,0,99.3,66.43,19.1,19.1,0,0,0,95,54.18ZM66,52.8a1.63,1.63,0,0,1-1.16.49H53.29V71.36a1.61,1.61,0,0,1-.49,1.16,1.57,1.57,0,0,1-1.16.49H41.78a1.55,1.55,0,0,1-1.15-.49,1.57,1.57,0,0,1-.49-1.16V53.29H28.63a1.6,1.6,0,0,1-1.18-.47A1.57,1.57,0,0,1,27,51.64a1.93,1.93,0,0,1,.51-1.23l18-18a1.63,1.63,0,0,1,1.18-.46,1.61,1.61,0,0,1,1.18.46L66,50.46a1.69,1.69,0,0,1,0,2.34Z" transform="translate(-0.7 -13.84)"/></svg>`,
       mainResult: 0,
       resultUnit: '회',
       subTitle: '오늘 파일 다운로드 시도 횟수',
@@ -205,7 +204,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
                 
               }
 
-              return error.error;      
+              return throwError(error.error);  
             }),
           );
 

@@ -255,4 +255,23 @@ export class CommonNavComponent implements OnInit {
       t.store.dispatch(navModeBasic());
     }
   }
+
+  menuButtonMouseEnter(item: NavMenuInMenuItem): void {
+    const t = this;
+    for (const item2 of t.userMenuList) {
+      const item3 = item2.menuList;
+      for (const item4 of item3) {
+        if (item4 === item) {
+          item4.menuHover = true;
+        } else {
+          item4.menuHover = false;
+        }
+      }
+    }
+  }
+
+  menuButtonMouseLeave(item: NavMenuInMenuItem): void {
+    const t = this;
+    item.menuHover = false;
+  }
 }
