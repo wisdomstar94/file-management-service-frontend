@@ -13,6 +13,7 @@ import { commonNavisNavOpenedReducer } from './store/common-nav/common-nav-opend
 import { appTitleReducer } from './store/app-title/app-title.reducer';
 import { commonNavModeReducer } from './store/common-nav/common-nav-mode.reducer';
 import { commonNavWidthReducer } from './store/common-nav/common-nav-width.reducer';
+import { menuActiveReducer } from './store/menu/menu-active.reducer';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { commonNavWidthReducer } from './store/common-nav/common-nav-width.reduc
       deviceMode: deviceModeReducer,
       destination: destinationReducer,
       appTitle: appTitleReducer,
+      activeMenuKey: menuActiveReducer,
     }),
   ],
   providers: [],

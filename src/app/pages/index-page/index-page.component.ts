@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { NavMenuItem } from 'src/app/interfaces/nav-menu-item';
 import { CommonService } from 'src/app/services/common.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
+import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
 
 @Component({
   selector: 'app-index-page',
@@ -13,7 +14,7 @@ import { changeDestination } from 'src/app/store/destination/destination.action'
 export class IndexPageComponent implements OnInit, DoCheck {
 
   constructor(
-    private store: Store<{ destination: string[] }>,
+    private store: Store<{ destination: string[], activeMenuKey: string }>,
     private common: CommonService,
     private router: Router,
     private route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     const t = this;
     t.store.dispatch(changeDestination({ destination: ['홈'] }));
+    t.store.dispatch(setActiveMenuKey({ menuKey: '' }));
   }
 
   testButton(): void {

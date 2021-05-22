@@ -73,6 +73,8 @@ export class CommonNavComponent implements OnInit {
   navWidth$: Observable<string>;
   navWidth = '';
 
+  activeMenuKey$: Observable<string>;
+
   navAppTitleClass = {
     'minimal': false,
   };
@@ -90,7 +92,7 @@ export class CommonNavComponent implements OnInit {
   };
 
   constructor(
-    private store: Store<{ deviceMode: DeviceMode, navOpend: boolean, appTitle: string, navMode: NavMode, navWidth: string }>,
+    private store: Store<{ deviceMode: DeviceMode, navOpend: boolean, appTitle: string, navMode: NavMode, navWidth: string, activeMenuKey: string }>,
     private route: ActivatedRoute,
     private router: Router,
     private sanitizer: DomSanitizer,
@@ -142,6 +144,13 @@ export class CommonNavComponent implements OnInit {
       data => {
         t.navWidth = data;
         t.navStyle['width'] = data;
+      }
+    );
+
+    this.activeMenuKey$ = this.store.select('activeMenuKey');
+    this.activeMenuKey$.subscribe(
+      data => {
+        t.activeMenu(data);
       }
     );
   }
@@ -210,8 +219,38 @@ export class CommonNavComponent implements OnInit {
       return;
     }
 
+    for (const item3 of t.userMenuList) {
+      const menuList = item3.menuList;
+
+      for (const item2 of menuList) {
+        if (item2 === item) {
+          item2.menuActive = true;
+        } else {
+          item2.menuActive = false;
+        }
+      }
+    }
+
+    t.store.dispatch(navClose());
+
     t.router.navigate([item.menuLink]);
     return;
+  }
+
+  activeMenu(menuKey: string): void {
+    const t = this;
+
+    for (const item3 of t.userMenuList) {
+      const menuList = item3.menuList;
+
+      for (const item2 of menuList) {
+        if (item2.menuKey === menuKey) {
+          item2.menuActive = true;
+        } else {
+          item2.menuActive = false;
+        }
+      }
+    }
   }
 
   navBackgroundClick(): void {

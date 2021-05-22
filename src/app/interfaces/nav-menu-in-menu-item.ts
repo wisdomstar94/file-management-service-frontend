@@ -5,4 +5,5 @@ export interface NavMenuInMenuItem {
   menuIconPath: string;
   menuLink: string;
   menuHover?: boolean;
+  menuActive?: boolean;
 }

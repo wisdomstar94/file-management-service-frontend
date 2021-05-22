@@ -21,7 +21,11 @@
           <ul class="category-menu-list">
             <ng-container *ngFor="let item2 of item.menuList">
               <li class="item">
-                <div class="menu-button" (click)="menuButtonClick(item2);" (mouseenter)="item2.menuHover = true" (mouseleave)="item2.menuHover = false">
+                <div class="menu-button" 
+                  [ngClass]="{
+                    'active': item2.menuActive === true
+                  }"
+                  (click)="menuButtonClick(item2);" (mouseenter)="item2.menuHover = true" (mouseleave)="item2.menuHover = false">
                   <div class="icon-area" [ngClass]="menuIconAreaClass">
                     <div class="icons" [innerHTML]="transform(item2.menuIconPath)"></div>
                   </div>

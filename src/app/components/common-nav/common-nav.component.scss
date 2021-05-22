@@ -9,6 +9,19 @@ nav.common-nav {
   z-index: 2;
   transition: all 0.3s;
   transition-timing-function: ease-in-out;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+		width: 0;
+		background: none;
+	}
+	&::-webkit-scrollbar-thumb {
+    background: #f8f7fb;
+    opacity: .4;
+	}
+	&::-webkit-scrollbar-track {
+    background: none;
+	}
 
   .top-area {
     display: flex;
@@ -117,6 +130,10 @@ nav.common-nav {
               align-items: center;
 
               &:hover {
+                background-color: #e8e8e8;
+              }
+
+              &.active {
                 background-color: #e8e8e8;
               }
 
