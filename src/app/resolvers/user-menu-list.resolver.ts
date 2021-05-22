@@ -8,7 +8,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { NavMenuItem } from '../interfaces/nav-menu-item';
+import { NavMenuItem } from '../interfaces/nav-menu-item.interface';
 import { AjaxService } from '../services/ajax.service';
 
 @Injectable({

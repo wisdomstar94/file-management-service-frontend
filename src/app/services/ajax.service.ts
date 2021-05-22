@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { HttpOptions } from '../interfaces/http-options';
+import { HttpOptions } from '../interfaces/http-options.interface';
 
 @Injectable({
   providedIn: 'root'

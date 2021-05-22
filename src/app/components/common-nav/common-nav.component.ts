@@ -3,13 +3,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { NavMenuInMenuItem } from 'src/app/interfaces/nav-menu-in-menu-item';
-import { NavMenuItem } from 'src/app/interfaces/nav-menu-item';
+import { NavMenuInMenuItem } from 'src/app/interfaces/nav-menu-in-menu-item.interface';
+import { NavMenuItem } from 'src/app/interfaces/nav-menu-item.interface';
 import { environment } from 'src/environments/environment';
 import { navOpen, navClose, navModeBasic, navModeMinimal, changeNavWidth } from 'src/app/store/common-nav/common-nav.action';
-import { DeviceMode } from 'src/app/types/device-mode';
+import { DeviceMode } from 'src/app/types/device-mode.type';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { NavMode } from 'src/app/types/nav-mode';
+import { NavMode } from 'src/app/types/nav-mode.type';
 
 const navAnimation = trigger('navAnimation', [
   transition(':enter', [

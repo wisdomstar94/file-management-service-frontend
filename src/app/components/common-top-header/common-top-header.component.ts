@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { LoginInfo } from 'src/app/interfaces/login-info';
+import { LoginInfo } from 'src/app/interfaces/login-info.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { navOpen } from 'src/app/store/common-nav/common-nav.action';
-import { DeviceMode } from 'src/app/types/device-mode';
+import { DeviceMode } from 'src/app/types/device-mode.type';
 import { environment } from 'src/environments/environment';
 
 @Component({

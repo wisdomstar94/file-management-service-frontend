@@ -8,7 +8,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { LoginInfo } from '../interfaces/login-info';
+import { LoginInfo } from '../interfaces/login-info.interface';
 
 @Injectable({
   providedIn: 'root'

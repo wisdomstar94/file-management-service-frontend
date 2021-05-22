@@ -1,4 +1,4 @@
-import { NavMenuInMenuItem } from "./nav-menu-in-menu-item";
+import { NavMenuInMenuItem } from "./nav-menu-in-menu-item.interface";
 
 export interface NavMenuItem {
   menuCategoryKey: string;

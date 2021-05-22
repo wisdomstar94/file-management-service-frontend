@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { DeviceMode } from 'src/app/types/device-mode';
-import { NavMode } from 'src/app/types/nav-mode';
+import { DeviceMode } from 'src/app/types/device-mode.type';
+import { NavMode } from 'src/app/types/nav-mode.type';
 
 @Component({
   selector: 'app-common-content',

@@ -6,6 +6,7 @@ import { CompanyPageComponent } from './company-page.component';
 import { ArticleModule } from 'src/app/components/article/article.module';
 import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title-box.module';
 import { ArticleTitleModule } from 'src/app/components/article-title/article-title.module';
+import { SearchBoxModule } from 'src/app/components/search-box/search-box.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ArticleTitleModule } from 'src/app/components/article-title/article-tit
     PageTitleBoxModule,
     ArticleModule,
     ArticleTitleModule,
+    SearchBoxModule,
   ]
 })
 export class CompanyPageModule { }

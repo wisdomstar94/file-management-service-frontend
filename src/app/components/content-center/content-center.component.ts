@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { DeviceMode } from 'src/app/types/device-mode';
+import { DeviceMode } from 'src/app/types/device-mode.type';
 
 @Component({
   selector: 'app-content-center',

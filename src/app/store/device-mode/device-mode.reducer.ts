@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { DeviceMode } from 'src/app/types/device-mode';
+import { DeviceMode } from 'src/app/types/device-mode.type';
 import { setMobile, setPC } from './device-mode.action';
  
 export const initialState = 'pc'; 

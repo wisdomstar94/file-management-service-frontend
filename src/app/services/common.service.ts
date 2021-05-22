@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from '../components/alert/alert.component';
-import { CommonComponent } from '../interfaces/common-component';
-import { NavMenuItem } from '../interfaces/nav-menu-item';
-import { ResponseData } from '../interfaces/response-data';
+import { CommonComponent } from '../interfaces/common-componen.interfacet';
+import { NavMenuItem } from '../interfaces/nav-menu-item.interface';
+import { ResponseData } from '../interfaces/response-data.interface';
 
 @Injectable({
   providedIn: 'root'

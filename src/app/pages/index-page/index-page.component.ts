@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { NavMenuItem } from 'src/app/interfaces/nav-menu-item';
+import { NavMenuItem } from 'src/app/interfaces/nav-menu-item.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';

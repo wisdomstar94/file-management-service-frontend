@@ -1,0 +1,19 @@
+<section class="search-box">
+  <ul class="search-item-list">
+    <ng-container *ngFor="let item of searchItemList">
+      <li class="item">
+        <div class="title-area">{{ item.itemTitle }}</div>
+        <div class="content-area">
+          <ng-container *ngIf="item.searchType === 'text'">
+            <input class="input-text" type="text" [(ngModel)]="item.currentValue" />
+          </ng-container>
+          <ng-container *ngIf="item.searchType === 'datetime'">
+            <input class="input-text datetime" type="text" [(ngModel)]="item.startDatetime" />
+            <span class="datetime-center-char">~</span>
+            <input class="input-text datetime" type="text" [(ngModel)]="item.endDatetime" />
+          </ng-container>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+</section>
