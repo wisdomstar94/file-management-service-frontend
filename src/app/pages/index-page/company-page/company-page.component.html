@@ -1,5 +1,19 @@
 <app-page-title-box>회사관리</app-page-title-box>
 <app-article>
   <app-article-title>조회조건</app-article-title>
-  <app-search-box [searchItemList]="searchItemList"></app-search-box>
+  <app-search-box [searchItemList]="searchItemList" #companySearchBox>
+    <div leftButton>
+      <app-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-button>
+      <app-button [color]="'sky-blue'" (onClick)="getList(1);">
+        검색
+      </app-button>
+    </div>
+    <div rightButton>
+      <app-button [color]="'red'" (onClick)="''">
+        회사 등록
+      </app-button>
+    </div>
+  </app-search-box>
 </app-article>

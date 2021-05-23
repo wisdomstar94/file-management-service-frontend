@@ -1,0 +1,1 @@
+export type ButtonColor = 'basic' | 'red' | 'blue' | 'sky-blue' | 'green' | 'gray' | 'black';

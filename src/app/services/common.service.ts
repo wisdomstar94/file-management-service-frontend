@@ -5,6 +5,7 @@ import { AlertComponent } from '../components/alert/alert.component';
 import { CommonComponent } from '../interfaces/common-componen.interfacet';
 import { NavMenuItem } from '../interfaces/nav-menu-item.interface';
 import { ResponseData } from '../interfaces/response-data.interface';
+import { SearchItem } from '../interfaces/search-item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -77,5 +78,23 @@ export class CommonService {
         unit: 'GB',
       };
     }
+  }
+
+  getSearchItem(searchItemList: SearchItem[], searchItemUniqueID: string): SearchItem {
+    const t = this;
+    let targetItem: SearchItem | undefined;
+    for (const item of searchItemList) {
+      if (item.uniqueID === searchItemUniqueID) {
+        targetItem = item;
+        break;
+      }
+    }
+
+    if (targetItem === undefined) {
+      console.error('not find id');
+      throw new Error('not find id');
+    }
+
+    return targetItem;
   }
 }

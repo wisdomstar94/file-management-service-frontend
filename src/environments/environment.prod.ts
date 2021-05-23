@@ -8,6 +8,9 @@ export const environment = {
   mobileBaseWidth: 650,
 
   api: {
+    code: {
+      getCode: baseUrl + '/api/code/getCode',
+    },
     dashboard: {
       getDownloadedCount: baseUrl + '/api/dashboard/getDownloadedCount',
       getUploadedFileCount: baseUrl + '/api/dashboard/getUploadedFileCount',

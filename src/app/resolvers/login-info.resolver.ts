@@ -50,7 +50,7 @@ export class LoginInfoResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return error.error;
+          return of(error.error);
         }),
       );
 

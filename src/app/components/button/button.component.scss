@@ -1,0 +1,42 @@
+button {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  border: 0;
+  padding: 7px 14px;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &.gray {
+    background-color: #7f7f7f;
+    color: #fff;
+    font-size: 10pt;
+
+    &:hover {
+      background-color: #5a5a5a;
+    }
+  }
+
+  &.sky-blue {
+    background-color: #54b4f1;
+    color: #fff;
+    font-size: 10pt;
+
+    &:hover {
+      background-color: #369cdb;
+    }
+  }
+
+  &.red {
+    background-color: #f15454;
+    color: #fff;
+    font-size: 10pt;
+
+    &:hover {
+      background-color: #d83333;
+    }
+  }
+}
+
+
