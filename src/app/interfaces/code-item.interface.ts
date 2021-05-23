@@ -1,9 +1,9 @@
 export interface CodeItem {
-  codeGroup: string;
+  codeGroup?: string;
   code: string;
   codeName: string;
-  codeDescription: string;
-  codeValue1: string;
-  codeValue2: string;
-  sortNo: number;
+  codeDescription?: string;
+  codeValue1?: string;
+  codeValue2?: string;
+  sortNo?: number;
 }

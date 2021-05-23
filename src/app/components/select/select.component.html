@@ -1,0 +1,5 @@
+<select [(ngModel)]="selectedInfo.selectedValue">
+  <ng-container *ngFor="let item of selectItemList">
+    <option [value]="item.optionValue">{{ item.optionDisplayText }}</option>
+  </ng-container>
+</select>

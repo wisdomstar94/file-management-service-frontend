@@ -1,0 +1,1 @@
+export type TableViewType = 'row' | 'card';

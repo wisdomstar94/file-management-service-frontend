@@ -1,0 +1,122 @@
+.list-table-box {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  .top-area {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    margin: 0;
+    margin-bottom: 6px;
+    padding: 0;
+
+    .left-area {
+      display: flex;
+      width: 50%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      justify-content: flex-start;
+
+      .total-info-box {
+        font-size: 10pt;
+        color: #555;
+      }
+    }
+
+    .right-area {
+      display: flex;
+      width: 50%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      justify-content: flex-end;
+
+      ul.view-type-list {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        position: relative;
+
+        > li.item {
+          list-style-type: none;
+          display: flex;
+          margin: 0;
+          padding: 8px;
+          position: relative;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #eee;
+          }
+
+          &.active {
+            background-color: #ddd;
+          }
+
+          .icon-area {
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            fill: #333;
+          }
+        }
+      }
+
+      .view-count-control-box {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        position: relative;
+      }
+    }
+  }
+
+  .middle-area {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    table.list-table {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      box-sizing: border-box;
+
+      thead {
+        tr {
+          th {
+            color: #333;
+            background-color: #eee;
+            font-size: 10pt;
+            padding: 4px 10px;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            font-size: 10pt;
+            color: #333;
+            text-align: center;
+            padding: 2px 4px;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+          }
+        }
+      }
+    }
+  }
+}

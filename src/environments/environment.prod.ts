@@ -24,6 +24,9 @@ export const environment = {
       authCheck: baseUrl + '/api/user/authCheck',
       getLoginInfo: baseUrl + '/api/user/getLoginInfo',
     },
+    company: {
+      getCompany: baseUrl + '/api/company/getCompany',
+    },
     menu: {
       getUserMenu: baseUrl + '/api/menu/getUserMenu',
     },
