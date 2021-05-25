@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListTableComponent } from './list-table.component';
+import { TableTopBoxComponent } from './table-top-box.component';
 import { SelectModule } from '../select/select.module';
 
 
 
 @NgModule({
   declarations: [
-    ListTableComponent
+    TableTopBoxComponent
   ],
   imports: [
     CommonModule,
     SelectModule,
   ],
   exports: [
-    ListTableComponent
-  ]
+    TableTopBoxComponent
+  ],
 })
-export class ListTableModule { }
+export class TableTopBoxModule { }

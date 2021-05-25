@@ -28,6 +28,16 @@ button {
     }
   }
 
+  &.dark-blue {
+    background-color: #12b7cc;
+    color: #fff;
+    font-size: 10pt;
+
+    &:hover {
+      background-color: #09a2b6;
+    }
+  }
+
   &.red {
     background-color: #f15454;
     color: #fff;

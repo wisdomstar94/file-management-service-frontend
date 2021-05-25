@@ -1,11 +1,10 @@
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ListTableComponent } from 'src/app/components/list-table/list-table.component';
+import { Observable, of } from 'rxjs';
 import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component';
+import { TableTopBoxComponent } from 'src/app/components/table-top-box/table-top-box.component';
 import { CodeItem } from 'src/app/interfaces/code-item.interface';
-import { ColumnDataItem } from 'src/app/interfaces/column-data-item.interface';
-import { ColumnItem } from 'src/app/interfaces/column-item.interface';
 import { CompanyItem } from 'src/app/interfaces/company-item.interface';
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
@@ -21,7 +20,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CompanyPageComponent implements OnInit, DoCheck {
   @ViewChild('companySearchBox') companySearchBox: SearchBoxComponent | undefined;
-  @ViewChild('companyListTable') companyListTable: ListTableComponent | undefined;
+  @ViewChild('companyTableTopBox') companyTableTopBox: TableTopBoxComponent | undefined;
 
   searchItemList: SearchItem[] = [
     {
@@ -75,28 +74,8 @@ export class CompanyPageComponent implements OnInit, DoCheck {
     },
   ];
 
-  companyColumnList: ColumnItem[] = [
-    { columnVariable: 'seq', columnName: 'No.' },
-    { columnVariable: 'companyName', columnName: '회사명' },
-    { columnVariable: 'companyBusinessNumber', columnName: '사업자번호' },
-    { columnVariable: 'companyAddress', columnName: '사업장주소' },
-    { columnVariable: 'companyCEOName', columnName: '대표자명' },
-    { columnVariable: 'companyCEOTel', columnName: '대표자 연락처' },
-    { columnVariable: 'companyTel', columnName: '회사 전화번호' },
-    { columnVariable: 'createdAt', columnName: '등록일' },
-    { columnVariable: 'FmsCompanyStatusCodes', columnName: '상태' },
-    { columnVariable: 'detailViewButton', columnName: '' },
-  ];
-
-  companyList: ColumnDataItem[][] = [
-    // [
-    //   {
-    //     columnVariable: 'seq',
-    //     columnValue: 1,
-    //   },
-    //   ...
-    // ]
-  ];
+  isCompanyListAllCheck: boolean;
+  companyList: CompanyItem[] = [];
 
   isCompanyListGetting = false;
 
@@ -119,6 +98,7 @@ export class CompanyPageComponent implements OnInit, DoCheck {
       });
     }
     
+    this.isCompanyListAllCheck = false;
   }
 
   ngOnInit(): void {
@@ -134,6 +114,22 @@ export class CompanyPageComponent implements OnInit, DoCheck {
   clearSearchItem(): void {
     const t = this;
     t.companySearchBox?.clearSearchItem();
+  }
+
+  companyListAllCheckChanged(): void {
+    const t = this;
+
+    // console.log('this.isCompanyListAllCheck', this.isCompanyListAllCheck);
+
+    if (this.isCompanyListAllCheck === true) {
+      for (const item of t.companyList) {
+        item.isChecked = true;
+      }
+    } else {
+      for (const item of t.companyList) {
+        item.isChecked = false;
+      }
+    }
   }
 
   getList(page: number): void {
@@ -175,7 +171,7 @@ export class CompanyPageComponent implements OnInit, DoCheck {
 
       page: page,
       pageViewCount: 10,
-      viewCount: t.companyListTable?.getViewCount(),
+      viewCount: t.companyTableTopBox?.getViewCount(),
     };
 
     // console.log('data', data);
@@ -191,18 +187,7 @@ export class CompanyPageComponent implements OnInit, DoCheck {
       data => {
         t.isCompanyListGetting = false;
         const list: CompanyItem[] = data.list;
-        t.companyList = list.map((x) => {
-          const array: ColumnDataItem[] = [];
-          const entries = Object.entries(x);
-          for (const item of entries) {
-            array.push({
-              columnVariable: item[0],
-              columnValue: item[1],
-            });
-          }
-          return array;
-        });
-        // console.log(t.companyList);
+        t.companyList = list;
       },
       error => {
         t.isCompanyListGetting = false;

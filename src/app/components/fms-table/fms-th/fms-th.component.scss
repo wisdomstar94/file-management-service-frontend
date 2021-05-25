@@ -1,0 +1,14 @@
+:host-context {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  // text-align: -internal-center;
+
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  background-color: #eee;
+  padding: 5px;
+  font-size: 10pt;
+  color: #333;
+}

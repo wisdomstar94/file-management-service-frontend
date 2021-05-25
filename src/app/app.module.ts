@@ -17,7 +17,7 @@ import { menuActiveReducer } from './store/menu/menu-active.reducer';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

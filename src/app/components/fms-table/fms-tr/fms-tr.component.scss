@@ -1,0 +1,10 @@
+:host-context {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+  background-color: #fff;
+
+  &:hover {
+    background-color: #eee;
+  }
+}

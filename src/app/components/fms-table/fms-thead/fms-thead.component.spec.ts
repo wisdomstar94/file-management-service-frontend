@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListTableComponent } from './list-table.component';
+import { FmsTheadComponent } from './fms-thead.component';
 
-describe('ListTableComponent', () => {
-  let component: ListTableComponent;
-  let fixture: ComponentFixture<ListTableComponent>;
+describe('FmsTheadComponent', () => {
+  let component: FmsTheadComponent;
+  let fixture: ComponentFixture<FmsTheadComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListTableComponent ]
+      declarations: [ FmsTheadComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListTableComponent);
+    fixture = TestBed.createComponent(FmsTheadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

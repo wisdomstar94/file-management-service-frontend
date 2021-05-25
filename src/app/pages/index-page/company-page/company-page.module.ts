@@ -8,7 +8,9 @@ import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title
 import { ArticleTitleModule } from 'src/app/components/article-title/article-title.module';
 import { SearchBoxModule } from 'src/app/components/search-box/search-box.module';
 import { ButtonModule } from 'src/app/components/button/button.module';
-import { ListTableModule } from 'src/app/components/list-table/list-table.module';
+import { TableTopBoxModule } from 'src/app/components/table-top-box/table-top-box.module';
+import { FmsTableModule } from 'src/app/components/fms-table/fms-table.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,13 +19,15 @@ import { ListTableModule } from 'src/app/components/list-table/list-table.module
   ],
   imports: [
     CommonModule,
+    FormsModule,
     CompanyPageRoutingModule,
     PageTitleBoxModule,
     ArticleModule,
     ArticleTitleModule,
     SearchBoxModule,
     ButtonModule,
-    ListTableModule,
+    TableTopBoxModule,
+    FmsTableModule,
   ]
 })
 export class CompanyPageModule { }

@@ -2,6 +2,7 @@ import { CodeItem } from "./code-item.interface";
 
 export interface CompanyItem {
   seq?: number;
+  companyKey?: string;
   companyName?: string;
   companyBusinessNumber?: string;
   companyAddress?: string;
@@ -11,4 +12,5 @@ export interface CompanyItem {
   createdAt?: string;
   memo?: string;
   companyStatus?: CodeItem;
+  isChecked?: boolean;
 }

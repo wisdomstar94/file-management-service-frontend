@@ -1,16 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ColumnDataItem } from 'src/app/interfaces/column-data-item.interface';
-import { ColumnItem } from 'src/app/interfaces/column-item.interface';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
 import { SelectedInfo } from 'src/app/interfaces/selected-info.interface';
 import { TableViewType } from 'src/app/types/table-view-type.type';
 
 @Component({
-  selector: 'app-list-table',
-  templateUrl: './list-table.component.html',
-  styleUrls: ['./list-table.component.scss']
+  selector: 'app-table-top-box',
+  templateUrl: './table-top-box.component.html',
+  styleUrls: ['./table-top-box.component.scss']
 })
-export class ListTableComponent implements OnInit {
+export class TableTopBoxComponent implements OnInit {
   total: number;
 
   @Input() tableViewType: TableViewType = 'row';
@@ -52,48 +50,16 @@ export class ListTableComponent implements OnInit {
     selectedValue: '10',
   };
 
-  @Input() columnList: ColumnItem[] = [];
-  @Input() columnValueList: ColumnDataItem[][] = [];
-
   constructor() { 
     this.total = 0;
   }
 
   ngOnInit(): void {
-
+    
   }
 
   getViewCount(): number {
     const t = this;
     return Number(t.viewCountInfo.selectedValue);
-  }
-
-  getColumnValue(columnIndex: number, columnValues: ColumnDataItem[]): any {
-    const t = this;
-
-    // console.log('columnValues', columnValues);
-
-    // console.log('columnValueList', t.columnValueList);
-
-    const columnVariable = t.columnList[columnIndex].columnVariable;
-
-    const target: ColumnDataItem = columnValues.filter((x) => {
-      if (x.columnVariable === columnVariable) {
-        return x;
-      } else {
-        return;
-      }
-    })[0];
-
-    if (target === undefined) {
-      return '';
-    }
-
-    // console.log('target', target);
-    if (typeof target.columnValue === 'object') {
-      return target.columnValue.codeName;
-    }
-
-    return target.columnValue;
   }
 }

@@ -1,0 +1,28 @@
+<div class="top-area">
+  <div class="left-area">
+    <div class="total-info-box">
+      Total : {{ total }}
+    </div>
+  </div>
+  <div class="right-area">
+    <ul class="view-type-list">
+      <li class="item" [ngClass]="{
+        'active': tableViewType === 'row'
+      }" (click)="tableViewType = 'row';">
+        <div class="icon-area">
+          <svg id="e8c1f8c2-0f8f-41a2-a8cf-241734029a96" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.73 87.92" style="width: 100%;"><defs><style></style></defs><rect class="e9e48daa-2f2c-42f0-96f9-39f8b9e1c83a" y="74.96" width="89.73" height="12.96"/><rect class="e9e48daa-2f2c-42f0-96f9-39f8b9e1c83a" width="89.73" height="12.96"/><rect class="e9e48daa-2f2c-42f0-96f9-39f8b9e1c83a" y="24.99" width="89.73" height="12.96"/><rect class="e9e48daa-2f2c-42f0-96f9-39f8b9e1c83a" y="49.97" width="89.73" height="12.96"/></svg>
+        </div>
+      </li>
+      <li class="item" [ngClass]="{
+        'active': tableViewType === 'card'
+      }" (click)="tableViewType = 'card';">
+        <div class="icon-area">
+          <svg id="b17bed4e-d2bf-4d34-87c2-3da6d1a142d0" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.73 87.92" style="width: 100%;"><defs><style></style></defs><rect class="b4d27adb-4598-473a-8538-f9fab578c6d0" width="38.9" height="37.95"/><rect class="b4d27adb-4598-473a-8538-f9fab578c6d0" x="50.83" width="38.9" height="37.95"/><rect class="b4d27adb-4598-473a-8538-f9fab578c6d0" y="49.97" width="38.9" height="37.95"/><rect class="b4d27adb-4598-473a-8538-f9fab578c6d0" x="50.83" y="49.97" width="38.9" height="37.95"/></svg>
+        </div>
+      </li>
+    </ul>
+    <div class="view-count-control-box">
+      <app-select [selectItemList]="viewCountSelectList" [selectedInfo]="viewCountInfo"></app-select>
+    </div>
+  </div>
+</div>
