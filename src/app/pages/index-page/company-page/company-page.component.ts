@@ -2,6 +2,7 @@ import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
+import { PaginationBoxComponent } from 'src/app/components/pagination-box/pagination-box.component';
 import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component';
 import { TableTopBoxComponent } from 'src/app/components/table-top-box/table-top-box.component';
 import { CodeItem } from 'src/app/interfaces/code-item.interface';
@@ -11,6 +12,7 @@ import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
+import { TableViewType } from 'src/app/types/table-view-type.type';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,52 +21,53 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./company-page.component.scss']
 })
 export class CompanyPageComponent implements OnInit, DoCheck {
-  @ViewChild('companySearchBox') companySearchBox: SearchBoxComponent | undefined;
-  @ViewChild('companyTableTopBox') companyTableTopBox: TableTopBoxComponent | undefined;
+  @ViewChild('companySearchBox') companySearchBox!: SearchBoxComponent;
+  @ViewChild('companyTableTopBox') companyTableTopBox!: TableTopBoxComponent;
+  @ViewChild('companyListPaginationBox') companyListPaginationBox!: PaginationBoxComponent;
 
   searchItemList: SearchItem[] = [
     {
       uniqueID: 'companyName',
       searchType: 'text',
       itemTitle: '회사명',
-      currentValue: '1',
+      currentValue: '',
     },
     {
       searchType: 'text',
       uniqueID: 'businessNumber',
       itemTitle: '사업자번호',
-      currentValue: '2',
+      currentValue: '',
     },
     {
       uniqueID: 'companyAddress',
       searchType: 'text',
       itemTitle: '사업장주소',
-      currentValue: '3',
+      currentValue: '',
     },
     {
       uniqueID: 'leaderName',
       searchType: 'text',
       itemTitle: '대표자명',
-      currentValue: '4',
+      currentValue: '',
     },
     {
       uniqueID: 'leaderTel',
       searchType: 'text',
       itemTitle: '대표자 연락처',
-      currentValue: '5',
+      currentValue: '',
     },
     {
       uniqueID: 'companyTel',
       searchType: 'text',
       itemTitle: '회사 전화번호',
-      currentValue: '6',
+      currentValue: '',
     },
     {
       uniqueID: 'companyCreateDatetime',
       searchType: 'datetime',
       itemTitle: '등록일',
-      startDatetime: '2021-05-01',
-      endDatetime: '2021-05-22',
+      startDatetime: '',
+      endDatetime: '',
     },
     {
       uniqueID: 'companyStatus',
@@ -75,6 +78,7 @@ export class CompanyPageComponent implements OnInit, DoCheck {
   ];
 
   isCompanyListAllCheck: boolean;
+  companyTableViewType: TableViewType;
   companyList: CompanyItem[] = [];
 
   isCompanyListGetting = false;
@@ -99,10 +103,11 @@ export class CompanyPageComponent implements OnInit, DoCheck {
     }
     
     this.isCompanyListAllCheck = false;
+    this.companyTableViewType = 'row';
   }
 
   ngOnInit(): void {
-
+    this.getList(1);
   }
 
   ngDoCheck(): void {
@@ -170,7 +175,7 @@ export class CompanyPageComponent implements OnInit, DoCheck {
       companyStatus: forms.companyStatus,
 
       page: page,
-      pageViewCount: 10,
+      pageViewCount: 5,
       viewCount: t.companyTableTopBox?.getViewCount(),
     };
 
@@ -188,6 +193,8 @@ export class CompanyPageComponent implements OnInit, DoCheck {
         t.isCompanyListGetting = false;
         const list: CompanyItem[] = data.list;
         t.companyList = list;
+        t.companyTableTopBox.setTotalCount(data.totalCount);
+        t.companyListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
       },
       error => {
         t.isCompanyListGetting = false;

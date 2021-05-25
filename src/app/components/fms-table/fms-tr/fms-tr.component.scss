@@ -7,4 +7,63 @@
   &:hover {
     background-color: #eee;
   }
+
+  &.card {
+    // display: inline-block;
+    display: table;
+    height: auto;
+    margin: 0;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+    position: relative;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media all and (min-width: 1450px) {
+  :host-context {
+    &.card {
+      width: calc((100% - 80px) / 5);
+
+      &:nth-child(5n) {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1391px) and (max-width: 1449px) {
+  :host-context {
+    &.card {
+      width: calc((100% - 40px) / 3);
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 881px) and (max-width: 1390px) {
+  :host-context {
+    &.card {
+      width: calc((100% - 20px) / 2);
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 880px) {
+  :host-context {
+    &.card {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
 }

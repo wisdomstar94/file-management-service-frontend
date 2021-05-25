@@ -1,1 +1,2 @@
-<ng-content></ng-content>
+<div class="title" *ngIf="tableViewType === 'card'">{{ columnName }}</div>
+<div class="content" [ngClass]="[tableViewType]"><ng-content></ng-content></div>

@@ -11,6 +11,6 @@ export interface CompanyItem {
   companyTel?: string;
   createdAt?: string;
   memo?: string;
-  companyStatus?: CodeItem;
+  FmsCompanyStatusCodes?: CodeItem;
   isChecked?: boolean;
 }

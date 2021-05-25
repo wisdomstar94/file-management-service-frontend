@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { AlertComponent } from './components/alert/alert.component';
 import { CommonService } from './services/common.service';
 import { setMobile, setPC } from './store/device-mode/device-mode.action';
+import { DeviceMode } from './types/device-mode.type';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private common: CommonService,
-    private store: Store<{ mobileMode: boolean }>,
+    private store: Store<{ deviceMode: DeviceMode }>,
   ) {
 
   }

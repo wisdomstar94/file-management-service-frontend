@@ -8,4 +8,13 @@
   width: 100%;
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
+
+  &.card {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    border-top: 0;
+    border-left: 0;
+  }
 }

@@ -8,4 +8,40 @@
   padding: 5px;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  position: relative;
+
+  &.card {
+    // display: flex;
+    display: table-row;
+    border-right: 0;
+    border-bottom: 0;
+  }
+}
+
+.title {
+  width: 110px;
+  font-size: 10pt;
+  display: table-cell;
+  background-color: #ddd;
+  padding: 5px;
+  box-sizing: border-box;
+  // display: table-cell;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.content {
+  font-size: 10pt;
+  display: inline-block;
+  white-space: pre-line;
+  vertical-align: middle;
+  padding: 5px;
+  // border-right: 1px solid #ccc;
+
+  &.card {
+    display: table-cell;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
 }

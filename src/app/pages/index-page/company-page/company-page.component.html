@@ -18,39 +18,42 @@
   </app-search-box>
 </app-article>
 <app-article>
-  <app-table-top-box #companyTableTopBox></app-table-top-box>
-  <app-fms-table>
-    <app-fms-thead>
-      <app-fms-tr>
-        <app-fms-th><input type="checkbox" (change)="companyListAllCheckChanged();" [(ngModel)]="isCompanyListAllCheck" /></app-fms-th>
-        <app-fms-th>No.</app-fms-th>
-        <app-fms-th>회사명</app-fms-th>
-        <app-fms-th>사업자번호</app-fms-th>
-        <app-fms-th>사업장주소</app-fms-th>
-        <app-fms-th>대표자명</app-fms-th>
-        <app-fms-th>대표자 연락처</app-fms-th>
-        <app-fms-th>회사 전화번호</app-fms-th>
-        <app-fms-th>등록일</app-fms-th>
-        <app-fms-th>상태</app-fms-th>
-        <app-fms-th>&nbsp;</app-fms-th>
+  <app-table-top-box (tableViewTypeChanged)="companyTableViewType = $event;" #companyTableTopBox></app-table-top-box>
+  <app-fms-table [ngClass]="[companyTableViewType]">
+    <app-fms-thead [ngClass]="[companyTableViewType]">
+      <app-fms-tr [ngClass]="[companyTableViewType]">
+        <app-fms-th [ngClass]="[companyTableViewType]"><input type="checkbox" (change)="companyListAllCheckChanged();" [(ngModel)]="isCompanyListAllCheck" /></app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">No.</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">회사명</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">사업자번호</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">사업장주소</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">대표자명</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">대표자 연락처</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">회사 전화번호</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">등록일</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">메모</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">상태</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">&nbsp;</app-fms-th>
       </app-fms-tr>
     </app-fms-thead>
-    <app-fms-tbody>
+    <app-fms-tbody [ngClass]="[companyTableViewType]">
       <ng-container *ngFor="let item of companyList">
-        <app-fms-tr>
-          <app-fms-td><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
-          <app-fms-td>{{ item.seq }}</app-fms-td>
-          <app-fms-td>{{ item.companyName }}</app-fms-td>
-          <app-fms-td>{{ item.companyBusinessNumber }}</app-fms-td>
-          <app-fms-td>{{ item.companyAddress }}</app-fms-td>
-          <app-fms-td>{{ item.companyCEOName }}</app-fms-td>
-          <app-fms-td>{{ item.companyCEOTel }}</app-fms-td>
-          <app-fms-td>{{ item.companyTel }}</app-fms-td>
-          <app-fms-td>{{ item.createdAt }}</app-fms-td>
-          <app-fms-td>{{ item.companyStatus?.codeName }}</app-fms-td>
-          <app-fms-td><app-button [color]="'dark-blue'">상세정보</app-button></app-fms-td>
+        <app-fms-tr [ngClass]="[companyTableViewType]">
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'No.'">{{ item.seq }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'회사명'">{{ item.companyName }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'사업자번호'">{{ item.companyBusinessNumber }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'사업장주소'">{{ item.companyAddress }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'대표자명'">{{ item.companyCEOName }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'대표자 연락처'">{{ item.companyCEOTel }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'회사 전화번호'">{{ item.companyTel }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'등록일'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'메모'">{{ item.memo }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'상태'">{{ item.FmsCompanyStatusCodes?.codeName }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType"><app-button [color]="'dark-blue'">상세정보</app-button></app-fms-td>
         </app-fms-tr>
       </ng-container>
     </app-fms-tbody>
   </app-fms-table>
+  <app-pagination-box #companyListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
 </app-article>

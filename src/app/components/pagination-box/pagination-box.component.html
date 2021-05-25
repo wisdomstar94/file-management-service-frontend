@@ -1,0 +1,33 @@
+<div class="box">
+  <div class="pagination-box">
+    <ul class="pagination-list">
+      <li class="item" *ngIf="boardCountInfo?.isPrevExist === true" (click)="paginationItemClick(1);">
+        <div class="icon-area">
+          <svg id="bcfb797b-42bc-46f0-b0a8-9300f9c5daaf" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.14 192.7" style="height: 100%;"><g id="b7391208-185b-41b0-8644-8f7fb06e8043" data-name="Double Chevron Left"><path d="M29.64,96.35l74.54-75.61a12.21,12.21,0,0,0,0-17.18,12,12,0,0,0-17,0l-83,84.2a12.59,12.59,0,0,0,0,17.19l83,84.2a12,12,0,0,0,17,0,12.21,12.21,0,0,0,0-17.18Z" transform="translate(-0.78 0)"/><path d="M113.85,96.35l74.54-75.61a12.21,12.21,0,0,0,0-17.18,12,12,0,0,0-17,0l-83,84.2a12.57,12.57,0,0,0,0,17.19l83,84.2a12,12,0,0,0,17,0,12.21,12.21,0,0,0,0-17.18Z" transform="translate(-0.78 0)"/></g></svg>
+        </div>
+      </li>
+      <li class="item" *ngIf="boardCountInfo?.isPrevExist === true" (click)="paginationItemClick(boardCountInfo.prevPage);">
+        <div class="icon-area">
+          <svg id="b0715489-e967-435a-ae99-4f1274c8ceed" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.44 99.89" style="height: 100%;"><g id="b963e819-e0b3-452d-9f6b-e33b9642f729" data-name="b7391208-185b-41b0-8644-8f7fb06e8043"><path d="M75.89,10.88a6.34,6.34,0,0,0,0-8.91h0a6.22,6.22,0,0,0-8.8,0L24,45.63a6.51,6.51,0,0,0,0,8.91l43,43.66h0a6.22,6.22,0,0,0,8.8,0,6.34,6.34,0,0,0,0-8.91L37.24,50.09Z" transform="translate(-22.28 -0.14)"/></g></svg>
+        </div>
+      </li>
+      <ng-container *ngFor="let item of boardCountInfo?.showPages">
+        <li class="item" [ngClass]="{
+          'active': item.isActive === true
+        }" (click)="paginationItemClick(item.page);">
+          {{ item.page }}
+        </li>
+      </ng-container>
+      <li class="item" *ngIf="boardCountInfo?.isNextExist === true" (click)="paginationItemClick(boardCountInfo.nextPage);">
+        <div class="icon-area">
+          <svg id="a92ddafc-1e7f-4d0f-9880-60d6e69d1155" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.44 99.89" style="height: 100%;"><g id="bd216f9b-ab47-4352-9292-4a4ecc7cea6f" data-name="b7391208-185b-41b0-8644-8f7fb06e8043"><path d="M62.76,50.09,24.11,89.29a6.34,6.34,0,0,0,0,8.91,6.22,6.22,0,0,0,8.8,0h0L76,54.54a6.51,6.51,0,0,0,0-8.91L32.93,2a6.22,6.22,0,0,0-8.8,0h0a6.34,6.34,0,0,0,0,8.91Z" transform="translate(-22.28 -0.14)"/></g></svg>
+        </div>
+      </li>
+      <li class="item" *ngIf="boardCountInfo?.isNextExist === true" (click)="paginationItemClick(boardCountInfo.lastPageNum);">
+        <div class="icon-area">
+          <svg id="a9da8075-60da-4007-9f09-c67c3e58d45b" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.1 99.89" style="height: 100%;"><g id="a14972bf-f72b-4696-83c2-ea1346ba6e86" data-name="b7391208-185b-41b0-8644-8f7fb06e8043"><path d="M84.34,50.09,45.69,89.29a6.34,6.34,0,0,0,0,8.91,6.22,6.22,0,0,0,8.8,0h0l43-43.66a6.53,6.53,0,0,0,0-8.91L54.51,2a6.22,6.22,0,0,0-8.8,0h0a6.34,6.34,0,0,0,0,8.91Z" transform="translate(-0.2 -0.14)"/><path d="M40.68,50.09,2,89.29A6.34,6.34,0,0,0,2,98.2a6.22,6.22,0,0,0,8.8,0h0l43-43.66a6.51,6.51,0,0,0,0-8.91L10.84,2A6.22,6.22,0,0,0,2,2H2a6.34,6.34,0,0,0,0,8.91Z" transform="translate(-0.2 -0.14)"/></g></svg>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
 import { SelectedInfo } from 'src/app/interfaces/selected-info.interface';
+import { DeviceMode } from 'src/app/types/device-mode.type';
 import { TableViewType } from 'src/app/types/table-view-type.type';
 
 @Component({
@@ -12,6 +15,7 @@ export class TableTopBoxComponent implements OnInit {
   total: number;
 
   @Input() tableViewType: TableViewType = 'row';
+  @Output() tableViewTypeChanged = new EventEmitter();
 
   viewCountSelectList: SelectItem[] = [
     {
@@ -50,12 +54,32 @@ export class TableTopBoxComponent implements OnInit {
     selectedValue: '10',
   };
 
-  constructor() { 
+  deviceMode$: Observable<DeviceMode>;
+
+  constructor(
+    private store: Store<{ deviceMode: DeviceMode }>,
+  ) { 
     this.total = 0;
+    this.deviceMode$ = this.store.select('deviceMode');
   }
 
   ngOnInit(): void {
-    
+    this.deviceMode$.subscribe(
+      data => {
+        if (data === 'mobile') {
+          // mobile
+          this.tableViewType = 'card';
+        } else {
+          // pc 
+          this.tableViewType = 'row';
+        }
+        this.tableViewTypeChanged.emit(this.tableViewType);
+      }
+    );
+  }
+
+  setTotalCount(totalCount: number): void {
+    this.total = totalCount;
   }
 
   getViewCount(): number {

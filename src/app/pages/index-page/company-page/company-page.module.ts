@@ -11,6 +11,7 @@ import { ButtonModule } from 'src/app/components/button/button.module';
 import { TableTopBoxModule } from 'src/app/components/table-top-box/table-top-box.module';
 import { FmsTableModule } from 'src/app/components/fms-table/fms-table.module';
 import { FormsModule } from '@angular/forms';
+import { PaginationBoxModule } from 'src/app/components/pagination-box/pagination-box.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     TableTopBoxModule,
     FmsTableModule,
+    PaginationBoxModule,
   ]
 })
 export class CompanyPageModule { }

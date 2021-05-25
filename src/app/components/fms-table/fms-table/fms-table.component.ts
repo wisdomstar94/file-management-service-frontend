@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { TableViewType } from 'src/app/types/table-view-type.type';
 
 @Component({
   selector: 'app-fms-table',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fms-table.component.scss']
 })
 export class FmsTableComponent implements OnInit {
+  @Input() tableViewType: TableViewType;
 
-  constructor() { }
+  constructor() { 
+    this.tableViewType = 'row';
+  }
 
   ngOnInit(): void {
+    
   }
 
 }
