@@ -6,12 +6,12 @@
           <div class="title-area">{{ item.itemTitle }}</div>
           <div class="content-area">
             <ng-container *ngIf="item.searchType === 'text'">
-              <input class="input-text" type="text" [(ngModel)]="item.currentValue" />
+              <input class="input-text" type="text" [(ngModel)]="item.currentValue" (keypress)="searchFormKeyPress($event);" />
             </ng-container>
             <ng-container *ngIf="item.searchType === 'datetime'">
-              <input class="input-text datetime" type="date" [(ngModel)]="item.startDatetime" />
+              <input class="input-text datetime" type="date" [(ngModel)]="item.startDatetime" (keypress)="searchFormKeyPress($event);" />
               <span class="datetime-center-char">~</span>
-              <input class="input-text datetime" type="date" [(ngModel)]="item.endDatetime" />
+              <input class="input-text datetime" type="date" [(ngModel)]="item.endDatetime" (keypress)="searchFormKeyPress($event);" />
             </ng-container>
             <ng-container *ngIf="item.searchType === 'checkbox'">
               <ul class="checkbox-item-list">

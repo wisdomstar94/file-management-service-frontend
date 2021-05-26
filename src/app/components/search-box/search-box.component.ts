@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
 
 @Component({
@@ -7,6 +7,8 @@ import { SearchItem } from 'src/app/interfaces/search-item.interface';
   styleUrls: ['./search-box.component.scss']
 })
 export class SearchBoxComponent implements OnInit {
+  @Output() onEnter = new EventEmitter();
+
   @Input() searchItemList: SearchItem[] = [];
 
   constructor() { 
@@ -61,6 +63,13 @@ export class SearchBoxComponent implements OnInit {
         case 'datetime': item.startDatetime = ''; item.endDatetime = ''; break;
         case 'checkbox': item.checkboxItemList?.filter((x) => { x.checked = false; return; }); break;
       }
+    }
+  }
+
+  searchFormKeyPress(event: KeyboardEvent): void {
+    // console.log('event', event);
+    if (event.key === 'Enter') {
+      this.onEnter.emit();
     }
   }
 }

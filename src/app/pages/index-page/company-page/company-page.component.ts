@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { PaginationBoxComponent } from 'src/app/components/pagination-box/pagination-box.component';
@@ -86,6 +86,7 @@ export class CompanyPageComponent implements OnInit, DoCheck {
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
+    private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
   ) { 
@@ -156,8 +157,8 @@ export class CompanyPageComponent implements OnInit, DoCheck {
       leaderName: t.searchItemList.filter((x) => { if (x.uniqueID === 'leaderName') { return x; } else { return; } })[0].currentValue,
       leaderTel: t.searchItemList.filter((x) => { if (x.uniqueID === 'leaderTel') { return x; } else { return; } })[0].currentValue,
       companyTel: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyTel') { return x; } else { return; } })[0].currentValue,
-      createdAtStart: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyCreateDatetime') { return x; } else { return; } })[0].startDatetime,
-      createdAtEnd: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyCreateDatetime') { return x; } else { return; } })[0].endDatetime,
+      createdAtStart: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyCreateDatetime') { return x; } else { return; } })[0].startDatetime + ' 00:00:00',
+      createdAtEnd: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyCreateDatetime') { return x; } else { return; } })[0].endDatetime + ' 23:59:59',
       companyStatus: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyStatus') { return x; } else { return; } })[0].checkboxItemList?.filter((x) => { if (x.checked === true) { return x.checkboxValue; } else { return; } }).map((x) => { return x.checkboxValue; }),
     };
 
@@ -191,15 +192,36 @@ export class CompanyPageComponent implements OnInit, DoCheck {
     observable.subscribe(
       data => {
         t.isCompanyListGetting = false;
-        const list: CompanyItem[] = data.list;
-        t.companyList = list;
-        t.companyTableTopBox.setTotalCount(data.totalCount);
-        t.companyListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+
+        if (data.result === 'success') {
+          const list: CompanyItem[] = data.list;
+          t.companyList = list;
+          t.companyTableTopBox.setTotalCount(data.totalCount);
+          t.companyListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+        } else {
+          this.common.alertMessage(data);
+        }
       },
       error => {
         t.isCompanyListGetting = false;
-
+        this.common.alertMessage(error);
       }
     );
+  }
+
+  companyDetailInfoButtonClick(item: CompanyItem): void {
+    console.log('item', item);
+
+    if (typeof item.companyKey !== 'string' || item.companyKey === '') {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('상세정보를 볼 권한이 없습니다.')
+        .show();
+      return;
+    }
+
+    this.router.navigate(['company/info/' + item.companyKey]);
+    return;
   }
 }
