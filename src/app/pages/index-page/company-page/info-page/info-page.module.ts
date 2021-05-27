@@ -7,6 +7,8 @@ import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title
 import { ArticleModule } from 'src/app/components/article/article.module';
 import { ArticleTitleModule } from 'src/app/components/article-title/article-title.module';
 import { FmsInfoModule } from 'src/app/components/fms-info/fms-info.module';
+import { FormsModule } from '@angular/forms';
+import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
 
 
 @NgModule({
@@ -15,11 +17,13 @@ import { FmsInfoModule } from 'src/app/components/fms-info/fms-info.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     InfoPageRoutingModule,
     PageTitleBoxModule,
     ArticleModule,
     ArticleTitleModule,
     FmsInfoModule,
-  ]
+    FmsInputModule,
+  ],
 })
 export class InfoPageModule { }
