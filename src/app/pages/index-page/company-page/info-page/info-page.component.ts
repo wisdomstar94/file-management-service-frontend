@@ -1,6 +1,7 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { CompanyFormBoxComponent } from 'src/app/components/company-form-box/company-form-box.component';
 import { CodeItem } from 'src/app/interfaces/code-item.interface';
 import { CompanyInfo } from 'src/app/interfaces/company-info.interface';
 import { ModifyCompanyInfoData } from 'src/app/interfaces/modify-company-info-data.interface';
@@ -17,6 +18,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./info-page.component.scss']
 })
 export class InfoPageComponent implements OnInit, DoCheck {
+  @ViewChild('companyFormBox') companyFormBox!: CompanyFormBoxComponent;
+
   fixedCompanyName?: string;
   cleanCompanyInfo!: CompanyInfo;
   companyInfo!: CompanyInfo;
@@ -31,20 +34,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
     private ajax: AjaxService,
   ) { 
     const companyInfo: CompanyInfo = this.route.snapshot.data.companyInfo;
-    // console.log('companyInfo', companyInfo);
     this.fixedCompanyName = companyInfo.companyName;
-    this.cleanCompanyInfo = { ...companyInfo };
-    this.companyInfo = companyInfo;
-
-    this.companyStatusCodeList = this.route.snapshot.data.CompanyStatusCode;
-    this.companyStatusSelectItems = this.companyStatusCodeList.map((x) => {
-      return {
-        optionUniqueID: x.code,
-        optionValue: x.code,
-        optionDisplayText: x.codeName,
-        selected: false,
-      };
-    });
   }
 
   ngOnInit(): void {
@@ -59,167 +49,55 @@ export class InfoPageComponent implements OnInit, DoCheck {
     t.store.dispatch(setActiveMenuKey({ menuKey: 'kmRQ1617524080387RwV' }));
   }
 
-  companyInfoValidationCheck(): boolean {
-    this.common.getAlertComponent()?.setDefault();
-
-    if (this.companyInfo === undefined) {
-      this.common.getAlertComponent()?.setMessage('회사 정보가 없습니다.').show();
-      return false;
-    }
-
-    // companyName 체크
-    if (typeof this.companyInfo.companyName !== 'string') {
-      this.common.getAlertComponent()?.setMessage('회사명 정보가 없습니다.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyName.trim() === '') {
-      this.common.getAlertComponent()?.setMessage('회사명을 입력해주세요.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyName.length > environment.stringLengthLimit.companyNameMaxLength) {
-      this.common.getAlertComponent()?.setMessage('회사명은 ' + environment.stringLengthLimit.companyNameMaxLength + '자를 넘을 수 없습니다.').show();
-      return false; 
-    }
-
-    // companyBusinessNumber 체크
-    if (typeof this.companyInfo.companyBusinessNumber !== 'string') {
-      this.common.getAlertComponent()?.setMessage('사업자번호 정보가 없습니다.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyBusinessNumber.trim() === '') {
-      this.common.getAlertComponent()?.setMessage('사업자번호를 입력해주세요.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyBusinessNumber.length > environment.stringLengthLimit.companyBusinessNumberMaxLength) {
-      this.common.getAlertComponent()?.setMessage('사업자번호는 ' + environment.stringLengthLimit.companyBusinessNumberMaxLength + '자를 넘을 수 없습니다.').show();
-      return false; 
-    }
-
-    // companyAddress 체크
-    if (typeof this.companyInfo.companyAddress !== 'string') {
-      this.common.getAlertComponent()?.setMessage('사업장주소 정보가 없습니다.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyAddress.trim() === '') {
-      this.common.getAlertComponent()?.setMessage('사업장주소를 입력해주세요.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyAddress.length > environment.stringLengthLimit.companyAddressMaxLength) {
-      this.common.getAlertComponent()?.setMessage('사업장주소는 ' + environment.stringLengthLimit.companyAddressMaxLength + '자를 넘을 수 없습니다.').show();
-      return false; 
-    }
-
-    // companyCEOName 체크
-    if (typeof this.companyInfo.companyCEOName !== 'string') {
-      this.common.getAlertComponent()?.setMessage('대표자명 정보가 없습니다.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyCEOName.trim() === '') {
-      this.common.getAlertComponent()?.setMessage('대표자명을 입력해주세요.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyCEOName.length > environment.stringLengthLimit.companyCEONameMaxLength) {
-      this.common.getAlertComponent()?.setMessage('대표자명은 ' + environment.stringLengthLimit.companyCEONameMaxLength + '자를 넘을 수 없습니다.').show();
-      return false; 
-    }
-
-    // companyCEOTel 체크
-    if (typeof this.companyInfo.companyCEOTel !== 'string') {
-      this.common.getAlertComponent()?.setMessage('대표자 연락처 정보가 없습니다.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyCEOTel.trim() === '') {
-      this.common.getAlertComponent()?.setMessage('대표자 연락처를 입력해주세요.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyCEOTel.length > environment.stringLengthLimit.companyCEOTelMaxLength) {
-      this.common.getAlertComponent()?.setMessage('대표자 연락처는 ' + environment.stringLengthLimit.companyCEOTelMaxLength + '자를 넘을 수 없습니다.').show();
-      return false; 
-    }
-
-    // companyTel 체크
-    if (typeof this.companyInfo.companyTel !== 'string') {
-      this.common.getAlertComponent()?.setMessage('회사 전화번호 정보가 없습니다.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyTel.trim() === '') {
-      this.common.getAlertComponent()?.setMessage('회사 전화번호를 입력해주세요.').show();
-      return false;
-    }
-
-    if (this.companyInfo.companyTel.length > environment.stringLengthLimit.companyTelMaxLength) {
-      this.common.getAlertComponent()?.setMessage('회사 전화번호는 ' + environment.stringLengthLimit.companyTelMaxLength + '자를 넘을 수 없습니다.').show();
-      return false; 
-    }
-
-    // FmsCompanyStatusCodes.code 체크
-    if (typeof this.companyInfo.FmsCompanyStatusCodes?.code !== 'string') {
-      this.common.getAlertComponent()?.setMessage('회사 상태 정보가 없습니다.').show();
-      return false;
-    }
-
-    if (this.companyInfo.FmsCompanyStatusCodes.code.trim() === '') {
-      this.common.getAlertComponent()?.setMessage('회사 상태를 선택해주세요.').show();
-      return false;
-    }
-
-    return true;
-  }
 
   companyInfoEditButtonClick(): void {
     // console.log(this.companyInfo);
-    if (!this.companyInfoValidationCheck()) {
+    if (!this.companyFormBox.companyInfoValidationCheck()) {
       return;
     }
 
     const data: ModifyCompanyInfoData = {
-      companyKey: this.companyInfo.companyKey!,
+      companyKey: this.companyFormBox.companyInfo.companyKey!,
     };
 
-    if (this.cleanCompanyInfo.companyName !== this.companyInfo.companyName) {
-      data.companyName = this.companyInfo.companyName;
+    if (this.companyFormBox.isChanged('companyName')) {
+      data.companyName = this.companyFormBox.companyInfo.companyName;
     }
      
-    if (this.cleanCompanyInfo.companyCEOName !== this.companyInfo.companyCEOName) {
-      data.companyCEOName = this.companyInfo.companyCEOName;
+    if (this.companyFormBox.isChanged('companyCEOName')) {
+      data.companyCEOName = this.companyFormBox.companyInfo.companyCEOName;
     }
      
-    if (this.cleanCompanyInfo.companyCEOTel !== this.companyInfo.companyCEOTel) {
-      data.companyCEOTel = this.companyInfo.companyCEOTel;
+    if (this.companyFormBox.isChanged('companyCEOTel')) {
+      data.companyCEOTel = this.companyFormBox.companyInfo.companyCEOTel;
     }
 
-    if (this.cleanCompanyInfo.companyTel !== this.companyInfo.companyTel) {
-      data.companyTel = this.companyInfo.companyTel;
+    if (this.companyFormBox.isChanged('companyTel')) {
+      data.companyTel = this.companyFormBox.companyInfo.companyTel;
     } 
      
-    if (this.cleanCompanyInfo.companyBusinessNumber !== this.companyInfo.companyBusinessNumber) {
-      data.companyBusinessNumber = this.companyInfo.companyBusinessNumber;
+    if (this.companyFormBox.isChanged('companyBusinessNumber')) {
+      data.companyBusinessNumber = this.companyFormBox.companyInfo.companyBusinessNumber;
     } 
      
-    if (this.cleanCompanyInfo.companyAddress !== this.companyInfo.companyAddress) {
-      data.companyAddress = this.companyInfo.companyAddress;
+    if (this.companyFormBox.isChanged('companyAddress')) {
+      data.companyAddress = this.companyFormBox.companyInfo.companyAddress;
     } 
 
-    if (this.cleanCompanyInfo.memo !== this.companyInfo.memo) {
-      data.memo = this.companyInfo.memo;
+    if (this.companyFormBox.isChanged('memo')) {
+      data.memo = this.companyFormBox.companyInfo.memo;
     } 
       
-    if (this.cleanCompanyInfo.FmsCompanyStatusCodes?.code !== this.companyInfo.FmsCompanyStatusCodes?.code) {
-      data.companyStatus = this.companyInfo.FmsCompanyStatusCodes?.code;
+    if (this.companyFormBox.isChanged('companyStatus')) {
+      data.companyStatus = this.companyFormBox.companyInfo.FmsCompanyStatusCodes?.code;
     } 
 
     console.log('data', data);
+
+    if (Object.keys(data).length === 1) {
+      this.common.getAlertComponent()?.setDefault().setMessage('수정된 부분이 없습니다.').show();
+      return;
+    }
 
     const observable = this.ajax.post(environment.api.company.modifyCompany, data);
     const subscribe = observable.subscribe(

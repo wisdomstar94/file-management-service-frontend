@@ -12,6 +12,7 @@ import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
 import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module';
 import { FmsSelectModule } from 'src/app/components/fms-select/fms-select.module';
 import { FmsTextareaModule } from 'src/app/components/fms-textarea/fms-textarea.module';
+import { CompanyFormBoxModule } from 'src/app/components/company-form-box/company-form-box.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { FmsTextareaModule } from 'src/app/components/fms-textarea/fms-textarea.
     FmsButtonModule,
     FmsSelectModule,
     FmsTextareaModule,
+    CompanyFormBoxModule,
   ],
 })
 export class InfoPageModule { }

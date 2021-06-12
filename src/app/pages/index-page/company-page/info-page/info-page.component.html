@@ -3,7 +3,8 @@
   <app-article-title>
     {{ fixedCompanyName }} 회사정보
   </app-article-title>
-  <app-fms-info-ul>
+  <app-company-form-box #companyFormBox></app-company-form-box>
+  <!-- <app-fms-info-ul>
     <app-fms-info-li>
       <app-fms-info-title>
         회사명
@@ -76,7 +77,7 @@
         <app-fms-textarea [textareaValue]="companyInfo.memo!" (textareaValueChange)="companyInfo.memo = $event;"></app-fms-textarea>
       </app-fms-info-content>
     </app-fms-info-li>
-  </app-fms-info-ul>
+  </app-fms-info-ul> -->
   <div class="button-row">
     <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="goList();">
       목록으로
