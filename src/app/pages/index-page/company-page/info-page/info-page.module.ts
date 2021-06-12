@@ -10,6 +10,8 @@ import { FmsInfoModule } from 'src/app/components/fms-info/fms-info.module';
 import { FormsModule } from '@angular/forms';
 import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
 import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module';
+import { FmsSelectModule } from 'src/app/components/fms-select/fms-select.module';
+import { FmsTextareaModule } from 'src/app/components/fms-textarea/fms-textarea.module';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module
     FmsInfoModule,
     FmsInputModule,
     FmsButtonModule,
+    FmsSelectModule,
+    FmsTextareaModule,
   ],
 })
 export class InfoPageModule { }

@@ -1,0 +1,16 @@
+textarea.textarea {
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 120px;
+  display: inline-block;
+  margin: 0;
+  padding: 7px;
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  font-size: 10pt;
+  color: #333;
+  font-weight: normal;
+  text-align: left;
+}

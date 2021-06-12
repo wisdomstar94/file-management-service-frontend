@@ -74,6 +74,12 @@ export class IndexPageComponent implements OnInit, DoCheck {
       itemTitle: '상태',
       checkboxItemList: [],
     },
+    {
+      uniqueID: 'companyMemo',
+      searchType: 'text',
+      itemTitle: '메모',
+      currentValue: '',
+    },
   ];
 
   isCompanyListAllCheck: boolean;
@@ -160,6 +166,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
       createdAtStart: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyCreateDatetime') { return x; } else { return; } })[0].startDatetime + ' 00:00:00',
       createdAtEnd: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyCreateDatetime') { return x; } else { return; } })[0].endDatetime + ' 23:59:59',
       companyStatus: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyStatus') { return x; } else { return; } })[0].checkboxItemList?.filter((x) => { if (x.checked === true) { return x.checkboxValue; } else { return; } }).map((x) => { return x.checkboxValue; }),
+      memo: t.searchItemList.filter((x) => { if (x.uniqueID === 'companyMemo') { return x; } else { return; } })[0].currentValue,
     };
 
     // console.log('forms', forms);
@@ -174,6 +181,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
       createdAtStart: forms.createdAtStart,
       createdAtEnd: forms.createdAtEnd,
       companyStatus: forms.companyStatus,
+      memo: forms.memo,
 
       page: page,
       pageViewCount: 5,

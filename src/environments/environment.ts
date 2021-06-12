@@ -11,6 +11,15 @@ export const environment = {
 
   mobileBaseWidth: 650,
 
+  stringLengthLimit: {
+    companyNameMaxLength: 100,
+    companyBusinessNumberMaxLength: 15,
+    companyAddressMaxLength: 150,
+    companyCEONameMaxLength: 100,
+    companyCEOTelMaxLength: 15,
+    companyTelMaxLength: 15,
+  },
+
   api: {
     code: {
       getCode: baseUrl + '/api/code/getCode',
@@ -31,6 +40,7 @@ export const environment = {
     company: {
       getCompany: baseUrl + '/api/company/getCompany',
       getCompanyInfo: baseUrl + '/api/company/getCompanyInfo',
+      modifyCompany: baseUrl + '/api/company/modifyCompany',
     },
     menu: {
       getUserMenu: baseUrl + '/api/menu/getUserMenu',

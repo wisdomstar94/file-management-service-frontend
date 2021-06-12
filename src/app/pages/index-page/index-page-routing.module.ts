@@ -18,8 +18,14 @@ const routes: Routes = [
     },
     component: IndexPageComponent,
     children: [
-      { path: 'dashboard', loadChildren: () => import('./dashboard-page/dashboard-page.module').then(m => m.DashboardPageModule) },
-      { path: 'company', loadChildren: () => import('./company-page/company-page.module').then(m => m.CompanyPageModule), resolve: { CompanyStatusCode: CompanyStatusCodeResolver } }, 
+      { 
+        path: 'dashboard', 
+        loadChildren: () => import('./dashboard-page/dashboard-page.module').then(m => m.DashboardPageModule) 
+      },
+      { 
+        path: 'company', 
+        loadChildren: () => import('./company-page/company-page.module').then(m => m.CompanyPageModule),  
+      }, 
     ],
   },
 ];

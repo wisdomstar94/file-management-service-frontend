@@ -8,6 +8,7 @@ import { InputValueInfo } from 'src/app/interfaces/input-value-info.interface';
 })
 export class FmsInputComponent implements OnInit {
   @Input() inputValue!: string;
+  @Input() disabled!: boolean;
   @Output() inputValueChange = new EventEmitter<string>();
 
   constructor() { 
