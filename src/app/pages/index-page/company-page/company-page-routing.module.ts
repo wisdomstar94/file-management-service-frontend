@@ -8,7 +8,6 @@ const routes: Routes = [
     path: '', 
     component: CompanyPageComponent, 
     children: [
-      // { path: 'info/:companyKey', loadChildren: () => import('./info-page/info-page.module').then(m => m.InfoPageModule) },
       { 
         path: '', 
         loadChildren: () => import('./index-page/index-page.module').then(m => m.IndexPageModule), 
@@ -26,8 +25,6 @@ const routes: Routes = [
       },
     ]
   },
-  // { path: 'info/:companyKey', loadChildren: () => import('./info-page/info-page.module').then(m => m.InfoPageModule), resolve: { companyInfo: CompanyInfoResolver } },
-  // { path: 'index', loadChildren: () => import('./index-page/index-page.module').then(m => m.IndexPageModule) },
 ];
 
 @NgModule({
