@@ -11,17 +11,14 @@ const routes: Routes = [
       { 
         path: '', 
         loadChildren: () => import('./index-page/index-page.module').then(m => m.IndexPageModule), 
-        data: {
-          animation: 'CompanyIndexPage',
-        },
       },
       { 
         path: 'info/:companyKey', 
         loadChildren: () => import('./info-page/info-page.module').then(m => m.InfoPageModule), 
-        resolve: { companyInfo: CompanyInfoResolver }, 
-        data: {
-          animation: 'CompanyInfoPage',
-        },
+      },
+      { 
+        path: 'upload', 
+        loadChildren: () => import('./upload-page/upload-page.module').then(m => m.UploadPageModule) 
       },
     ]
   },

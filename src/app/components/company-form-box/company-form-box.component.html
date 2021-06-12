@@ -4,7 +4,7 @@
       회사명
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="companyInfo.companyName!" (inputValueChange)="companyInfo.companyName = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="companyInfo?.companyName!" (inputValueChange)="companyInfo.companyName = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -12,7 +12,7 @@
       사업자번호
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="companyInfo.companyBusinessNumber!" (inputValueChange)="companyInfo.companyBusinessNumber = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="companyInfo?.companyBusinessNumber!" (inputValueChange)="companyInfo.companyBusinessNumber = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -20,7 +20,7 @@
       사업장주소
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="companyInfo.companyAddress!" (inputValueChange)="companyInfo.companyAddress = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="companyInfo?.companyAddress!" (inputValueChange)="companyInfo.companyAddress = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -28,7 +28,7 @@
       대표자명
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="companyInfo.companyCEOName!" (inputValueChange)="companyInfo.companyCEOName = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="companyInfo?.companyCEOName!" (inputValueChange)="companyInfo.companyCEOName = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -36,7 +36,7 @@
       대표자 연락처
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="companyInfo.companyCEOTel!" (inputValueChange)="companyInfo.companyCEOTel = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="companyInfo?.companyCEOTel!" (inputValueChange)="companyInfo.companyCEOTel = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -44,7 +44,7 @@
       회사 전화번호
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="companyInfo.companyTel!" (inputValueChange)="companyInfo.companyTel = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="companyInfo?.companyTel!" (inputValueChange)="companyInfo.companyTel = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -52,7 +52,7 @@
       등록일
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="companyInfo.createdAt!" [disabled]="true" (inputValueChange)="companyInfo.createdAt = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="companyInfo?.createdAt!" [disabled]="true" (inputValueChange)="companyInfo.createdAt = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -60,7 +60,7 @@
       상태
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-select [selectItems]="companyStatusSelectItems" [selectedValue]="companyInfo.FmsCompanyStatusCodes!.code" (valueChanged)="companyInfo.FmsCompanyStatusCodes!.code = $event;"></app-fms-select>
+      <app-fms-select [selectItems]="companyStatusSelectItems" [selectedValue]="companyInfo?.FmsCompanyStatusCodes!.code" (valueChanged)="companyInfo.FmsCompanyStatusCodes!.code = $event;"></app-fms-select>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -68,7 +68,7 @@
       메모
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-textarea [textareaValue]="companyInfo.memo!" (textareaValueChange)="companyInfo.memo = $event;"></app-fms-textarea>
+      <app-fms-textarea [textareaValue]="companyInfo?.memo!" (textareaValueChange)="companyInfo.memo = $event;"></app-fms-textarea>
     </app-fms-info-content>
   </app-fms-info-li>
 </app-fms-info-ul>

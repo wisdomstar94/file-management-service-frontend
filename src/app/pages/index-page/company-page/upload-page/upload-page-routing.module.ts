@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyInfoResolver } from 'src/app/resolvers/company-info.resolver';
 import { CompanyStatusCodeResolver } from 'src/app/resolvers/company-status-code.resolver';
-import { InfoPageComponent } from './info-page.component';
+import { UploadPageComponent } from './upload-page.component';
 
 const routes: Routes = [
   { 
     path: '', 
-    component: InfoPageComponent,
-    resolve: { 
-      companyInfo: CompanyInfoResolver,
-      CompanyStatusCode: CompanyStatusCodeResolver 
+    component: UploadPageComponent, 
+    resolve: {
+      CompanyStatusCode: CompanyStatusCodeResolver, 
     },
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class InfoPageRoutingModule { }
+export class UploadPageRoutingModule { }

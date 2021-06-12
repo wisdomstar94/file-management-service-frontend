@@ -37,6 +37,7 @@ export const environment = {
       getCompany: baseUrl + '/api/company/getCompany',
       getCompanyInfo: baseUrl + '/api/company/getCompanyInfo',
       modifyCompany: baseUrl + '/api/company/modifyCompany',
+      createCompany: baseUrl + '/api/company/createCompany',
     },
     menu: {
       getUserMenu: baseUrl + '/api/menu/getUserMenu',

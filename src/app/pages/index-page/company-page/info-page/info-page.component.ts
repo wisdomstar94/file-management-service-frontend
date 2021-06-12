@@ -26,6 +26,8 @@ export class InfoPageComponent implements OnInit, DoCheck {
   companyStatusCodeList!: CodeItem[];
   companyStatusSelectItems!: SelectItem[];
 
+  isModifyingCompany: boolean;
+
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
@@ -35,12 +37,11 @@ export class InfoPageComponent implements OnInit, DoCheck {
   ) { 
     const companyInfo: CompanyInfo = this.route.snapshot.data.companyInfo;
     this.fixedCompanyName = companyInfo.companyName;
+    this.isModifyingCompany = false;
   }
 
   ngOnInit(): void {
-    // setInterval(() => {
-    //   console.log(this.companyInfo);
-    // }, 1000);
+
   } 
 
   ngDoCheck(): void {
@@ -51,6 +52,10 @@ export class InfoPageComponent implements OnInit, DoCheck {
 
 
   companyInfoEditButtonClick(): void {
+    if (this.isModifyingCompany) {
+      this.common.getAlertComponent()?.setDefault().setMessage('수정 중입니다. 잠시만 기다려주세요.').show();
+      return;
+    }
     // console.log(this.companyInfo);
     if (!this.companyFormBox.companyInfoValidationCheck()) {
       return;
@@ -104,6 +109,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
     const observable = this.ajax.post(environment.api.company.modifyCompany, data);
     const subscribe = observable.subscribe(
       data => {
+        this.isModifyingCompany = false;
         console.log('response', data);
         if (data.result !== 'success') {
           this.common.alertMessage(data);
@@ -114,6 +120,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
         return;
       },
       error => {
+        this.isModifyingCompany = false;
         this.common.alertMessage(error);
         return;
       },

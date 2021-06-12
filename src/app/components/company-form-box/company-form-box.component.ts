@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CompanyFormBoxComponent implements OnInit {
   cleanCompanyInfo!: CompanyInfo;
-  companyInfo!: CompanyInfo;
+  companyInfo: CompanyInfo;
   companyStatusCodeList!: CodeItem[];
   companyStatusSelectItems!: SelectItem[];
 
@@ -28,7 +28,24 @@ export class CompanyFormBoxComponent implements OnInit {
     const companyInfo: CompanyInfo = this.route.snapshot.data.companyInfo;
     this.companyInfo = companyInfo;
     this.cleanCompanyInfo = { ...companyInfo };
-    this.cleanCompanyInfo.FmsCompanyStatusCodes = { ...companyInfo.FmsCompanyStatusCodes! };
+    if (this.companyInfo === undefined || this.companyInfo === null) {
+      this.companyInfo = {
+        companyKey: '',
+        companyAddress: '',
+        companyBusinessNumber: '',
+        companyCEOName: '',
+        companyCEOTel: '',
+        companyName: '',
+        companyStatus: 'CMPST00000001',
+        companyTel: '',
+        createdAt: '',
+        FmsCompanyStatusCodes: {
+          code: 'CMPST00000001',
+          codeName: '승인',
+        },
+      };
+    }
+    this.cleanCompanyInfo.FmsCompanyStatusCodes = { ...companyInfo?.FmsCompanyStatusCodes! };
     this.companyStatusCodeList = this.route.snapshot.data.CompanyStatusCode;
     this.companyStatusSelectItems = this.companyStatusCodeList.map((x) => {
       return {

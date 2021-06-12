@@ -1,15 +1,15 @@
-<app-page-title-box>회사 상세정보</app-page-title-box>
+<app-page-title-box>회사 등록</app-page-title-box>
 <app-article>
   <app-article-title>
-    {{ fixedCompanyName }} 회사정보
+    신규 회사 등록
   </app-article-title>
   <app-company-form-box #companyFormBox></app-company-form-box>
   <div class="button-row">
     <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="goList();">
       목록으로
     </app-fms-button>
-    <app-fms-button [color]="'green'" (onClick)="companyInfoEditButtonClick();">
-      회사 정보 수정하기
+    <app-fms-button [color]="'red'" (onClick)="companyUploadButtonClick();">
+      회사 등록하기
     </app-fms-button>
   </div>
 </app-article>

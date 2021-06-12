@@ -232,4 +232,8 @@ export class IndexPageComponent implements OnInit, DoCheck {
     this.router.navigate(['company/info/' + item.companyKey]);
     return;
   }
+
+  companyUploadButtonClick(): void {
+    this.router.navigate(['company/upload']);
+  }
 }
