@@ -36,6 +36,7 @@ export const environment = {
       logout: baseUrl + '/api/user/logout',
       authCheck: baseUrl + '/api/user/authCheck',
       getLoginInfo: baseUrl + '/api/user/getLoginInfo',
+      getUser: baseUrl + '/api/user/getUser',
     },
     company: {
       getCompany: baseUrl + '/api/company/getCompany',

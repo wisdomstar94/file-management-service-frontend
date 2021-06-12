@@ -113,7 +113,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    console.log('Company Page Index Page ngOnInit()');
+    // console.log('Company Page Index Page ngOnInit()');
     this.getList(1);
   }
 

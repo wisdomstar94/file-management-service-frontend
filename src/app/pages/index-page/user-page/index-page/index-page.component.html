@@ -1,0 +1,56 @@
+<app-page-title-box>회원관리</app-page-title-box>
+<app-article>
+  <app-article-title>조회조건</app-article-title>
+  <app-search-box (onEnter)="getList(1);"
+    [searchItemList]="searchItemList" #userSearchBox>
+    <div leftButton>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-fms-button>
+      <app-fms-button [color]="'sky-blue'" (onClick)="getList(1);">
+        검색
+      </app-fms-button>
+    </div>
+    <div rightButton>
+      <app-fms-button [color]="'red'" (onClick)="userUploadButtonClick();">
+        회원 등록
+      </app-fms-button>
+    </div>
+  </app-search-box>
+</app-article>
+<app-article>
+  <app-table-top-box (tableViewTypeChanged)="userTableViewType = $event;" #userTableTopBox></app-table-top-box>
+  <app-fms-table [ngClass]="[userTableViewType]">
+    <app-fms-thead [ngClass]="[userTableViewType]">
+      <app-fms-tr [ngClass]="[userTableViewType]">
+        <app-fms-th [ngClass]="[userTableViewType]"><input type="checkbox" (change)="userListAllCheckChanged();" [(ngModel)]="isUserListAllCheck" /></app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">No.</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">ID</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">회사명</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">회원명</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">휴대폰번호</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">가입일</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">가입시 IP 주소</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">상태</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">&nbsp;</app-fms-th>
+      </app-fms-tr>
+    </app-fms-thead>
+    <app-fms-tbody [ngClass]="[userTableViewType]">
+      <ng-container *ngFor="let item of userList">
+        <app-fms-tr [ngClass]="[userTableViewType]">
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'No.'">{{ item.seq }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'ID'">{{ item.userId }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'회사명'">{{ item.FmsCompany?.companyName }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'회원명'">{{ item.userName }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'휴대폰번호'">{{ item.userPhone }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'가입일'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'가입시 IP 주소'">{{ item.createdIp }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'상태'">{{ item.FmsUserStatusCodes?.codeName }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType"><app-fms-button [color]="'dark-blue'" (click)="userDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
+        </app-fms-tr>
+      </ng-container>
+    </app-fms-tbody>
+  </app-fms-table>
+  <app-pagination-box #userListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
+</app-article>
