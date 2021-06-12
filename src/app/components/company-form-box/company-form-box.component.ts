@@ -26,8 +26,9 @@ export class CompanyFormBoxComponent implements OnInit {
     private ajax: AjaxService,
   ) { 
     const companyInfo: CompanyInfo = this.route.snapshot.data.companyInfo;
-    this.cleanCompanyInfo = { ...companyInfo };
     this.companyInfo = companyInfo;
+    this.cleanCompanyInfo = { ...companyInfo };
+    this.cleanCompanyInfo.FmsCompanyStatusCodes = { ...companyInfo.FmsCompanyStatusCodes! };
     this.companyStatusCodeList = this.route.snapshot.data.CompanyStatusCode;
     this.companyStatusSelectItems = this.companyStatusCodeList.map((x) => {
       return {

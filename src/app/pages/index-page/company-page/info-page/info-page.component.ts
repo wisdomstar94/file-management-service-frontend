@@ -88,6 +88,8 @@ export class InfoPageComponent implements OnInit, DoCheck {
       data.memo = this.companyFormBox.companyInfo.memo;
     } 
       
+    console.log(`this.companyFormBox.isChanged('companyStatus')`, this.companyFormBox.isChanged('companyStatus'));
+
     if (this.companyFormBox.isChanged('companyStatus')) {
       data.companyStatus = this.companyFormBox.companyInfo.FmsCompanyStatusCodes?.code;
     } 
