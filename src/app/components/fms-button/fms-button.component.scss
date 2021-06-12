@@ -47,6 +47,16 @@ button {
       background-color: #d83333;
     }
   }
+
+  &.green {
+    background-color: #12b7cc;
+    color: #fff;
+    font-size: 10pt;
+
+    &:hover {
+      background-color: #079eb1;
+    }
+  }
 }
 
 

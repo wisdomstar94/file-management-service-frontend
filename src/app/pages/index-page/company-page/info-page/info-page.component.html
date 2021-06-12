@@ -1,7 +1,7 @@
 <app-page-title-box>회사 상세정보</app-page-title-box>
 <app-article>
   <app-article-title>
-    {{ companyInfo?.companyName }} 회사정보
+    {{ fixedCompanyName }} 회사정보
   </app-article-title>
   <app-fms-info-ul>
     <app-fms-info-li>
@@ -9,7 +9,7 @@
         회사명
       </app-fms-info-title>
       <app-fms-info-content>
-        <app-fms-input type="text" [inputValueInfo]="companyInfo"></app-fms-input>
+        <app-fms-input type="text" [inputValue]="companyInfo.companyName!" (inputValueChange)="companyInfo.companyName = $event;"></app-fms-input>
       </app-fms-info-content>
     </app-fms-info-li>
     <app-fms-info-li>
@@ -21,5 +21,10 @@
       </app-fms-info-content>
     </app-fms-info-li>
   </app-fms-info-ul>
+  <div class="button-row">
+    <app-fms-button [color]="'green'" (onClick)="companyInfoEditButtonClick();">
+      회사 정보 수정하기
+    </app-fms-button>
+  </div>
 </app-article>
 

@@ -1,1 +1,1 @@
-<input type="text" class="input" [(ngModel)]="inputValueInfo.value" />
+<input type="text" class="input" [(ngModel)]="inputValue" (ngModelChange)="inputValueChange.emit($event);" />

@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonColor } from 'src/app/types/button-color.type';
 
 @Component({
-  selector: 'app-button',
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+  selector: 'app-fms-button',
+  templateUrl: './fms-button.component.html',
+  styleUrls: ['./fms-button.component.scss']
 })
-export class ButtonComponent implements OnInit {
+export class FmsButtonComponent implements OnInit {
   @Input() color: ButtonColor = 'basic';
   @Input() marginRight: string = '0';
   @Output() onClick: EventEmitter<void> = new EventEmitter();

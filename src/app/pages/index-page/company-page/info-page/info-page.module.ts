@@ -9,6 +9,7 @@ import { ArticleTitleModule } from 'src/app/components/article-title/article-tit
 import { FmsInfoModule } from 'src/app/components/fms-info/fms-info.module';
 import { FormsModule } from '@angular/forms';
 import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
+import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
     ArticleTitleModule,
     FmsInfoModule,
     FmsInputModule,
+    FmsButtonModule,
   ],
 })
 export class InfoPageModule { }

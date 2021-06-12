@@ -8,7 +8,7 @@ import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title
 import { ArticleModule } from 'src/app/components/article/article.module';
 import { ArticleTitleModule } from 'src/app/components/article-title/article-title.module';
 import { SearchBoxModule } from 'src/app/components/search-box/search-box.module';
-import { ButtonModule } from 'src/app/components/button/button.module';
+import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module';
 import { TableTopBoxModule } from 'src/app/components/table-top-box/table-top-box.module';
 import { FmsTableModule } from 'src/app/components/fms-table/fms-table.module';
 import { PaginationBoxModule } from 'src/app/components/pagination-box/pagination-box.module';
@@ -26,7 +26,7 @@ import { PaginationBoxModule } from 'src/app/components/pagination-box/paginatio
     ArticleModule,
     ArticleTitleModule,
     SearchBoxModule,
-    ButtonModule,
+    FmsButtonModule,
     TableTopBoxModule,
     FmsTableModule,
     PaginationBoxModule,

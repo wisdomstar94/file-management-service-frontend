@@ -13,6 +13,7 @@ import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
   styleUrls: ['./info-page.component.scss']
 })
 export class InfoPageComponent implements OnInit, DoCheck {
+  fixedCompanyName?: string;
   companyInfo!: CompanyInfo;
 
   constructor(
@@ -24,16 +25,23 @@ export class InfoPageComponent implements OnInit, DoCheck {
   ) { 
     const companyInfo: CompanyInfo = this.route.snapshot.data.companyInfo;
     // console.log('companyInfo', companyInfo);
+    this.fixedCompanyName = companyInfo.companyName;
     this.companyInfo = companyInfo;
   }
 
   ngOnInit(): void {
-
-  }
+    // setInterval(() => {
+    //   console.log(this.companyInfo);
+    // }, 1000);
+  } 
 
   ngDoCheck(): void {
     const t = this;
     t.store.dispatch(changeDestination({ destination: ['홈', '회사관리', '회사상세정보'] }));
     t.store.dispatch(setActiveMenuKey({ menuKey: 'kmRQ1617524080387RwV' }));
+  }
+
+  companyInfoEditButtonClick(): void {
+    console.log(this.companyInfo);
   }
 }

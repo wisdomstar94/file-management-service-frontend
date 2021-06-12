@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { InputValueInfo } from 'src/app/interfaces/input-value-info.interface';
 
 @Component({
@@ -7,7 +7,8 @@ import { InputValueInfo } from 'src/app/interfaces/input-value-info.interface';
   styleUrls: ['./fms-input.component.scss']
 })
 export class FmsInputComponent implements OnInit {
-  @Input() inputValueInfo!: InputValueInfo;
+  @Input() inputValue!: string;
+  @Output() inputValueChange = new EventEmitter<string>();
 
   constructor() { 
 
