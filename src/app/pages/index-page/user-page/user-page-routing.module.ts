@@ -11,9 +11,12 @@ const routes: Routes = [
         path: '', 
         loadChildren: () => import('./index-page/index-page.module').then(m => m.IndexPageModule) 
       },
+      { 
+        path: 'info/:userKey', 
+        loadChildren: () => import('./info-page/info-page.module').then(m => m.InfoPageModule) 
+      },
     ],
   },
-  
 ];
 
 @NgModule({

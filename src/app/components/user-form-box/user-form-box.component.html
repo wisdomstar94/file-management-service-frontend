@@ -1,0 +1,74 @@
+<app-fms-info-ul>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      ID
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="userInfo?.userId!" (inputValueChange)="userInfo.userId = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      회사
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="companyListSelectItems" [selectedValue]="userInfo?.FmsCompany!.companyKey" (valueChanged)="userInfo.FmsCompany!.companyKey = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      이름
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="userInfo?.userName!" (inputValueChange)="userInfo.userName = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      휴대폰번호
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="userInfo?.userPhone!" (inputValueChange)="userInfo.userPhone = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      가입일
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="userInfo?.createdAt!" [disabled]="true" (inputValueChange)="userInfo.createdAt = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      가입시 IP 주소
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="userInfo?.createdIp!" [disabled]="true" (inputValueChange)="userInfo.createdIp = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      권한 그룹
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="permissionGroupSelectItems" [selectedValue]="userInfo?.FmsPermissionGroup!.permissionGroupKey" (valueChanged)="userInfo.FmsPermissionGroup!.permissionGroupKey = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      상태
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="userStatusSelectItems" [selectedValue]="userInfo?.FmsUserStatusCodes!.code" (valueChanged)="userInfo.FmsUserStatusCodes!.code = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      메모
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-textarea [textareaValue]="userInfo?.userMemo!" (textareaValueChange)="userInfo.userMemo = $event;"></app-fms-textarea>
+    </app-fms-info-content>
+  </app-fms-info-li>
+</app-fms-info-ul>

@@ -37,6 +37,7 @@ export const environment = {
       authCheck: baseUrl + '/api/user/authCheck',
       getLoginInfo: baseUrl + '/api/user/getLoginInfo',
       getUser: baseUrl + '/api/user/getUser',
+      getUserInfo: baseUrl + '/api/user/getUserInfo',
     },
     company: {
       getCompany: baseUrl + '/api/company/getCompany',
@@ -46,6 +47,9 @@ export const environment = {
     },
     menu: {
       getUserMenu: baseUrl + '/api/menu/getUserMenu',
+    },
+    permissionGroup: {
+      getPermissionGroup: baseUrl + '/api/permissionGroup/getPermissionGroup',
     },
   },
 

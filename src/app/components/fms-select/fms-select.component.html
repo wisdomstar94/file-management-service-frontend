@@ -1,5 +1,5 @@
 <select class="select" [disabled]="disabled" [(ngModel)]="selectedValue" (ngModelChange)="valueChanged.emit($event);">
   <ng-container *ngFor="let item of selectItems">
-    <option [value]="item.optionValue">{{ item.optionDisplayText }}</option>
+    <option [value]="item.optionValue" [selected]="item.selected">{{ item.optionDisplayText }}</option>
   </ng-container>
 </select>
