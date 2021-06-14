@@ -14,6 +14,10 @@ export const environment = {
     companyCEONameMaxLength: 100,
     companyCEOTelMaxLength: 15,
     companyTelMaxLength: 15,
+
+    userIdMaxLength: 50,
+    userNameMaxLength: 50,
+    userPhoneMaxLength: 15,
   },
 
   api: {
@@ -34,6 +38,7 @@ export const environment = {
       getLoginInfo: baseUrl + '/api/user/getLoginInfo',
       getUser: baseUrl + '/api/user/getUser',
       getUserInfo: baseUrl + '/api/user/getUserInfo',
+      modifyUser: baseUrl + '/api/user/modifyUser',
     },
     company: {
       getCompany: baseUrl + '/api/company/getCompany',

@@ -32,6 +32,7 @@
         <app-fms-th [ngClass]="[userTableViewType]">가입일</app-fms-th>
         <app-fms-th [ngClass]="[userTableViewType]">가입시 IP 주소</app-fms-th>
         <app-fms-th [ngClass]="[userTableViewType]">상태</app-fms-th>
+        <app-fms-th [ngClass]="[userTableViewType]">메모</app-fms-th>
         <app-fms-th [ngClass]="[userTableViewType]">&nbsp;</app-fms-th>
       </app-fms-tr>
     </app-fms-thead>
@@ -47,6 +48,7 @@
           <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'가입일'">{{ item.createdAt }}</app-fms-td>
           <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'가입시 IP 주소'">{{ item.createdIp }}</app-fms-td>
           <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'상태'">{{ item.FmsUserStatusCodes?.codeName }}</app-fms-td>
+          <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType" [columnName]="'메모'">{{ item.userMemo }}</app-fms-td>
           <app-fms-td [ngClass]="[userTableViewType]" [tableViewType]="userTableViewType"><app-fms-button [color]="'dark-blue'" (click)="userDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
         </app-fms-tr>
       </ng-container>
