@@ -16,6 +16,7 @@ interface FmsUserStatusCodes {
 export interface UserInfo {
   userKey: string;
   userId?: string;
+  userPassword?: string;
   companyKey?: string;
   FmsCompany?: FmsCompany;
   userName?: string;

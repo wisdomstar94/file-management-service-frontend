@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserFormBoxComponent } from 'src/app/components/user-form-box/user-form-box.component';
@@ -6,6 +6,8 @@ import { ModifyUserInfoData } from 'src/app/interfaces/modify-user-info-data.int
 import { UserInfo } from 'src/app/interfaces/user-info.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { changeDestination } from 'src/app/store/destination/destination.action';
+import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,7 +15,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './info-page.component.html',
   styleUrls: ['./info-page.component.scss']
 })
-export class InfoPageComponent implements OnInit {
+export class InfoPageComponent implements OnInit, DoCheck {
   userInfo!: UserInfo;
   isModifyingUser: boolean;
   @ViewChild('userFormBox') userFormBox!: UserFormBoxComponent;
@@ -31,6 +33,12 @@ export class InfoPageComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  ngDoCheck(): void {
+    const t = this;
+    t.store.dispatch(changeDestination({ destination: ['홈', '회원관리', '회원상세정보'] }));
+    t.store.dispatch(setActiveMenuKey({ menuKey: 'wjajq1617524117533xg' }));
   }
 
   goList(): void {
@@ -74,6 +82,10 @@ export class InfoPageComponent implements OnInit {
     if (this.userFormBox.isChanged('userMemo')) {
       data.userMemo = this.userFormBox.userInfo.userMemo;
     } 
+
+    if (this.userFormBox.isChanged('userPassword')) {
+      data.userPassword = this.userFormBox.userInfo.userPassword;
+    }
 
     console.log('data', data);
 

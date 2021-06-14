@@ -9,6 +9,14 @@
   </app-fms-info-li>
   <app-fms-info-li>
     <app-fms-info-title>
+      비밀번호
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="userInfo?.userPassword!" [inputType]="'password'" (inputValueChange)="userInfo.userPassword = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
       회사
     </app-fms-info-title>
     <app-fms-info-content>

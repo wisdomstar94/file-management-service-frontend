@@ -42,9 +42,10 @@ export class UserFormBoxComponent implements OnInit {
       this.userInfo = {
         userKey: '',
         userId: '',
+        userPassword: '',
         companyKey: '',
         FmsCompany: {
-          companyKey: '',
+          companyKey: 'ovau1623568601311tXN',
           companyName: '',
         },
         userName: '',
@@ -149,6 +150,41 @@ export class UserFormBoxComponent implements OnInit {
       return false;
     }
 
+    // userPassword 체크
+    if (typeof this.userInfo.userKey !== 'string' || this.userInfo.userKey === '') {
+      if (typeof this.userInfo.userPassword !== 'string') {
+        this.common.getAlertComponent()?.setMessage('비밀번호를 입력해주세요.').show();
+        return false; 
+      }
+
+      if (this.userInfo.userPassword.trim() === '') {
+        this.common.getAlertComponent()?.setMessage('비밀번호를 입력해주세요.').show();
+        return false; 
+      }
+
+      if (this.userInfo.userPassword.length < environment.stringLengthLimit.userPasswordMinLength) {
+        this.common.getAlertComponent()?.setMessage('비밀번호는 ' + environment.stringLengthLimit.userPasswordMinLength + '자 이상이어야 합니다.').show();
+        return false; 
+      }
+
+      if (this.userInfo.userPassword.length > environment.stringLengthLimit.userPasswordMaxLength) {
+        this.common.getAlertComponent()?.setMessage('비밀번호는 ' + environment.stringLengthLimit.userPasswordMaxLength + '자를 넘을 수 없습니다.').show();
+        return false; 
+      }
+    } else {
+      if (typeof this.userInfo.userPassword === 'string' && this.userInfo.userPassword !== '') {
+        if (this.userInfo.userPassword.length < environment.stringLengthLimit.userPasswordMinLength) {
+          this.common.getAlertComponent()?.setMessage('비밀번호는 ' + environment.stringLengthLimit.userPasswordMinLength + '자 이상이어야 합니다.').show();
+          return false; 
+        }
+  
+        if (this.userInfo.userPassword.length > environment.stringLengthLimit.userPasswordMaxLength) {
+          this.common.getAlertComponent()?.setMessage('비밀번호는 ' + environment.stringLengthLimit.userPasswordMaxLength + '자를 넘을 수 없습니다.').show();
+          return false; 
+        } 
+      }
+    }
+
     // userName 체크
     if (typeof this.userInfo.userName !== 'string') {
       this.common.getAlertComponent()?.setMessage('회원명 정보가 없습니다.').show();
@@ -218,6 +254,13 @@ export class UserFormBoxComponent implements OnInit {
       case 'userId': 
         if (this.cleanUserInfo.userId !== this.userInfo.userId) {
           result = true;
+        }
+        break;
+      case 'userPassword':
+        if (typeof this.userInfo.userPassword === 'string') {
+          if (this.userInfo.userPassword.trim() !== '') {
+            return true;
+          }
         }
         break;
       case 'companyKey': 

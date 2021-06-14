@@ -215,6 +215,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
   }
 
   userUploadButtonClick(): void {
-
+    this.router.navigate(['user/upload']);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { InputValueInfo } from 'src/app/interfaces/input-value-info.interface';
+import { InputType } from 'src/app/types/input-type.type';
 
 @Component({
   selector: 'app-fms-input',
@@ -8,11 +9,12 @@ import { InputValueInfo } from 'src/app/interfaces/input-value-info.interface';
 })
 export class FmsInputComponent implements OnInit {
   @Input() inputValue!: string;
+  @Input() inputType!: InputType;
   @Input() disabled!: boolean;
   @Output() inputValueChange = new EventEmitter<string>();
 
   constructor() { 
-
+    this.inputType = 'text';
   }
 
   ngOnInit(): void {

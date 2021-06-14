@@ -22,6 +22,8 @@ export const environment = {
     userIdMaxLength: 50,
     userNameMaxLength: 50,
     userPhoneMaxLength: 15,
+    userPasswordMinLength: 6,
+    userPasswordMaxLength: 20,
   },
 
   api: {
@@ -43,6 +45,7 @@ export const environment = {
       getUser: baseUrl + '/api/user/getUser',
       getUserInfo: baseUrl + '/api/user/getUserInfo',
       modifyUser: baseUrl + '/api/user/modifyUser',
+      createUser: baseUrl + '/api/user/createUser',
     },
     company: {
       getCompany: baseUrl + '/api/company/getCompany',
