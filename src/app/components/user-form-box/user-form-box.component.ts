@@ -88,9 +88,9 @@ export class UserFormBoxComponent implements OnInit {
       }
 
       return {
-        optionUniqueID: x.permissionGroupKey,
-        optionValue: x.permissionGroupKey,
-        optionDisplayText: x.permissionGroupName,
+        optionUniqueID: x.permissionGroupKey!,
+        optionValue: x.permissionGroupKey!,
+        optionDisplayText: x.permissionGroupName!,
         selected: selected,
       };
     });

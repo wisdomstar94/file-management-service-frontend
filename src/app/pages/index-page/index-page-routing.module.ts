@@ -30,9 +30,12 @@ const routes: Routes = [
         path: 'user', 
         loadChildren: () => import('./user-page/user-page.module').then(m => m.UserPageModule) 
       },
+      { 
+        path: 'permissionGroup', 
+        loadChildren: () => import('./permission-group-page/permission-group-page.module').then(m => m.PermissionGroupPageModule) 
+      },
     ],
   },
-  
 ];
 
 @NgModule({

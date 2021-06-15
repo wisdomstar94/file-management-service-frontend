@@ -1,0 +1,50 @@
+<app-page-title-box>권한 그룹 관리</app-page-title-box>
+<app-article>
+  <app-article-title>조회조건</app-article-title>
+  <app-search-box (onEnter)="getList(1);"
+    [searchItemList]="searchItemList" #permissionGroupSearchBox>
+    <div leftButton>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-fms-button>
+      <app-fms-button [color]="'sky-blue'" (onClick)="getList(1);">
+        검색
+      </app-fms-button>
+    </div>
+    <div rightButton>
+      <app-fms-button [color]="'red'" (onClick)="permissionGroupUploadButtonClick();">
+        새 권한 그룹 등록
+      </app-fms-button>
+    </div>
+  </app-search-box>
+</app-article>
+<app-article>
+  <app-table-top-box (tableViewTypeChanged)="permissionGroupTableViewType = $event;" #permissionGroupTableTopBox></app-table-top-box>
+  <app-fms-table [ngClass]="[permissionGroupTableViewType]">
+    <app-fms-thead [ngClass]="[permissionGroupTableViewType]">
+      <app-fms-tr [ngClass]="[permissionGroupTableViewType]">
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]"><input type="checkbox" (change)="permissionGroupListAllCheckChanged();" [(ngModel)]="isPermissionGroupListAllCheck" /></app-fms-th>
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]">No.</app-fms-th>
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]">권한 그룹명</app-fms-th>
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]">권한 그룹 설명</app-fms-th>
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]">등록일</app-fms-th>
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]">권한 그룹 상태</app-fms-th>
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]">&nbsp;</app-fms-th>
+      </app-fms-tr>
+    </app-fms-thead>
+    <app-fms-tbody [ngClass]="[permissionGroupTableViewType]">
+      <ng-container *ngFor="let item of permissionGroupList">
+        <app-fms-tr [ngClass]="[permissionGroupTableViewType]">
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'No.'">{{ item.seq }}</app-fms-td>
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'권한 그룹명'">{{ item.permissionGroupName }}</app-fms-td>
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'권한 그룹 설명'">{{ item.permissionGroupDescription }}</app-fms-td>
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'등록일'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'권한 그룹 상태'">{{ item.FmsPermissionGroupStatusCodes?.codeName }}</app-fms-td>
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType"><app-fms-button [color]="'dark-blue'" (click)="permissionGroupDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
+        </app-fms-tr>
+      </ng-container>
+    </app-fms-tbody>
+  </app-fms-table>
+  <app-pagination-box #permissionGroupListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
+</app-article>
