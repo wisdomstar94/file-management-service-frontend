@@ -28,6 +28,10 @@ export class PermissionFormBoxComponent implements OnInit {
   private applyUploadedPermission(): void {
     for (const item of this.permissionAllList) {
       for (const item2 of item.permissionList) {
+        if (this.permissionGroupUploadList === undefined) {
+          continue;
+        }
+
         const matchedPermissionItem = this.permissionGroupUploadList.filter((x) => {
           if (x.permissionKey === item2.permissionKey) {
             return true;

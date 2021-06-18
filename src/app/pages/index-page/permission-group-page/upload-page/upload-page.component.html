@@ -1,0 +1,14 @@
+<app-page-title-box>권한 그룹 신규 등록</app-page-title-box>
+<app-article>
+  <app-permission-group-form-box #permissionGroupFormBox></app-permission-group-form-box>
+  <app-permission-form-box #permissionFormBox></app-permission-form-box>
+  <app-fms-row>
+    <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="goList();">
+      목록으로
+    </app-fms-button>
+    <app-fms-button [color]="'red'" (onClick)="permissionGroupInfoEditButtonClick();">
+      권한 그룹 정보 등록하기
+    </app-fms-button>
+  </app-fms-row>
+</app-article>
+
