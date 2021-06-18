@@ -34,6 +34,10 @@ const routes: Routes = [
         path: 'permissionGroup', 
         loadChildren: () => import('./permission-group-page/permission-group-page.module').then(m => m.PermissionGroupPageModule) 
       },
+      { 
+        path: 'file', 
+        loadChildren: () => import('./file-page/file-page.module').then(m => m.FilePageModule) 
+      },
     ],
   },
 ];

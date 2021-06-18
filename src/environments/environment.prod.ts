@@ -65,6 +65,9 @@ export const environment = {
       getPermissionGroupUpload: baseUrl + '/api/permissionGroupUpload/getPermissionGroupUpload',
       applyPermissionGroupUpload: baseUrl + '/api/permissionGroupUpload/applyPermissionGroupUpload',
     },
+    file: {
+      getFile: baseUrl + '/api/file/getFile',
+    },
   },
 
   image:{ 

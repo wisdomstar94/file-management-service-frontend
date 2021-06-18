@@ -1,0 +1,58 @@
+<app-page-title-box>파일관리</app-page-title-box>
+<app-article>
+  <app-article-title>조회조건</app-article-title>
+  <app-search-box (onEnter)="getList(1);"
+    [searchItemList]="searchItemList" #userSearchBox>
+    <div leftButton>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-fms-button>
+      <app-fms-button [color]="'sky-blue'" (onClick)="getList(1);">
+        검색
+      </app-fms-button>
+    </div>
+    <div rightButton>
+      <app-fms-button [color]="'red'" (onClick)="fileUploadButtonClick();">
+        파일 등록
+      </app-fms-button>
+    </div>
+  </app-search-box>
+</app-article>
+<app-article>
+  <app-table-top-box (tableViewTypeChanged)="fileTableViewType = $event;" #fileTableTopBox></app-table-top-box>
+  <app-fms-table [ngClass]="[fileTableViewType]">
+    <app-fms-thead [ngClass]="[fileTableViewType]">
+      <app-fms-tr [ngClass]="[fileTableViewType]">
+        <app-fms-th [ngClass]="[fileTableViewType]"><input type="checkbox" (change)="fileListAllCheckChanged();" [(ngModel)]="isFileListAllCheck" /></app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">No.</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">파일라벨명</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">최신버전 파일명</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">최초 업로드 날짜</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">최신버전 업로드 날짜</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">최초 업로더</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">최신버전 업로더</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">상태</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">메모</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">&nbsp;</app-fms-th>
+      </app-fms-tr>
+    </app-fms-thead>
+    <app-fms-tbody [ngClass]="[fileTableViewType]">
+      <ng-container *ngFor="let item of fileList">
+        <app-fms-tr [ngClass]="[fileTableViewType]">
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'No.'">{{ item.seq }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'파일라벨명'">{{ item.fileLabelName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'최신버전 파일명'">{{ item.recentFileVersionFileName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'최초 업로드 날짜'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'최신버전 업로드 날짜'">{{ item.recentFileVersionCreatedAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'최초 업로더'">{{ item.FmsCreaterUsers?.userId }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'최신버전 업로더'">{{ item.recentFileVersionCreaterUserId }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'상태'">{{ item.FmsFileStatusCodes?.codeName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'메모'">{{ item.fileMemo }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType"><app-fms-button [color]="'dark-blue'" (click)="fileDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
+        </app-fms-tr>
+      </ng-container>
+    </app-fms-tbody>
+  </app-fms-table>
+  <app-pagination-box #fileListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
+</app-article>
