@@ -10,6 +10,7 @@ import { FmsInfoModule } from 'src/app/components/fms-info/fms-info.module';
 import { FormsModule } from '@angular/forms';
 import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title-box.module';
 import { UserFormBoxModule } from 'src/app/components/user-form-box/user-form-box.module';
+import { FmsRowModule } from 'src/app/components/fms-row/fms-row.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { UserFormBoxModule } from 'src/app/components/user-form-box/user-form-bo
     FmsInfoModule,
     FmsButtonModule,
     UserFormBoxModule,
+    FmsRowModule,
   ]
 })
 export class UploadPageModule { }

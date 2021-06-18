@@ -1,0 +1,21 @@
+.permission-groupping-item {
+  background-color: #eee;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+ul.permission-list {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  > .item {
+    list-style-type: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    
+  }
+}

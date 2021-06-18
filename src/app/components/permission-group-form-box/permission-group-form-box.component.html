@@ -1,0 +1,34 @@
+<app-fms-info-ul>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      권한 그룹명
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="permissionGroupInfo?.permissionGroupName!" (inputValueChange)="permissionGroupInfo.permissionGroupName = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      생성일
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="permissionGroupInfo?.createdAt!" [disabled]="true" (inputValueChange)="permissionGroupInfo.createdAt = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      상태
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="permissionGroupStatusSelectItems" [selectedValue]="permissionGroupInfo?.FmsPermissionGroupStatusCodes!.code" (valueChanged)="permissionGroupInfo.FmsPermissionGroupStatusCodes!.code = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      권한 그룹 설명
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-textarea [textareaValue]="permissionGroupInfo?.permissionGroupDescription!" (textareaValueChange)="permissionGroupInfo!.permissionGroupDescription = $event;"></app-fms-textarea>
+    </app-fms-info-content>
+  </app-fms-info-li>
+</app-fms-info-ul>

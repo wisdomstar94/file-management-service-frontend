@@ -4,13 +4,13 @@
     {{ userInfo?.userId }} 회원정보
   </app-article-title>
   <app-user-form-box #userFormBox></app-user-form-box>
-  <div class="button-row">
+  <app-fms-row>
     <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="goList();">
       목록으로
     </app-fms-button>
     <app-fms-button [color]="'green'" (onClick)="userInfoEditButtonClick();">
       회원 정보 수정하기
     </app-fms-button>
-  </div>
+  </app-fms-row>
 </app-article>
 

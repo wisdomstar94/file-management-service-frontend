@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-fms-info-li',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fms-info-li.component.scss']
 })
 export class FmsInfoLiComponent implements OnInit {
-
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
+
   }
 
 }

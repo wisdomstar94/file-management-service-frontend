@@ -1,0 +1,22 @@
+<app-fms-info-title>
+  허용된 권한 정보
+</app-fms-info-title>
+<app-fms-info-ul>
+  <ng-container *ngFor="let item of permissionAllList">
+    <app-fms-info-li class="permission-groupping-item">
+      <app-fms-info-title>
+        {{ item.menuName }}
+      </app-fms-info-title>
+      <app-fms-info-content>
+        <ul class="permission-list">
+          <ng-container *ngFor="let item2 of item.permissionList">
+            <li class="item">
+              <input [id]="item2.permissionKey" type="checkbox" [checked]="item2.isActive === 'Y'" [(ngModel)]="item2.isChecked" (ngModelChange)="changedCheckbox(item2, $event);" />
+              <label [for]="item2.permissionKey">{{ item2.permissionName }}</label>
+            </li>
+          </ng-container>
+        </ul>
+      </app-fms-info-content>
+    </app-fms-info-li>
+  </ng-container>
+</app-fms-info-ul>

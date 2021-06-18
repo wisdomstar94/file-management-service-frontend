@@ -24,6 +24,8 @@ export const environment = {
     userPhoneMaxLength: 15,
     userPasswordMinLength: 6,
     userPasswordMaxLength: 20,
+
+    permissionGroupNameMaxLength: 100,
   },
 
   api: {
@@ -58,6 +60,14 @@ export const environment = {
     },
     permissionGroup: {
       getPermissionGroup: baseUrl + '/api/permissionGroup/getPermissionGroup',
+      getPermissionGroupInfo: baseUrl + '/api/permissionGroup/getPermissionGroupInfo',
+    },
+    permission: {
+      getPermission: baseUrl + '/api/permission/getPermission',
+    },
+    permissionGroupUpload: {
+      getPermissionGroupUpload: baseUrl + '/api/permissionGroupUpload/getPermissionGroupUpload',
+      applyPermissionGroupUpload: baseUrl + '/api/permissionGroupUpload/applyPermissionGroupUpload',
     },
   },
 

@@ -10,6 +10,7 @@ import { FmsInfoModule } from 'src/app/components/fms-info/fms-info.module';
 import { FormsModule } from '@angular/forms';
 import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module';
 import { CompanyFormBoxModule } from 'src/app/components/company-form-box/company-form-box.module';
+import { FmsRowModule } from 'src/app/components/fms-row/fms-row.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { CompanyFormBoxModule } from 'src/app/components/company-form-box/compan
     FmsInfoModule,
     FmsButtonModule,
     CompanyFormBoxModule,
+    FmsRowModule,
   ],
 })
 export class InfoPageModule { }
