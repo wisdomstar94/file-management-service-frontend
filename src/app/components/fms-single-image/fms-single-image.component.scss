@@ -1,0 +1,33 @@
+.box {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .image-show-area {
+    display: inline-block;
+    margin-right: 10px;
+
+    > img {
+      width: 140px;
+      height: auto;
+    }
+  }
+
+  .button-area {
+    display: inline-block;
+
+    .file {
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      visibility: hidden;
+      position: fixed;
+      top: -999999px;
+      left: -999999px;
+      overflow: hidden;
+    }
+  }
+}

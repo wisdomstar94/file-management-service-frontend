@@ -1,0 +1,74 @@
+<app-fms-info-ul>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      파일 접근키
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileBasicInfo.fileInfo.fileKey!" [disabled]="true" (inputValueChange)="fileBasicInfo.fileInfo.fileKey = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      파일 라벨명
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileBasicInfo.fileInfo.fileLabelName!" (inputValueChange)="fileBasicInfo.fileInfo.fileLabelName = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      파일 메모
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-textarea [textareaValue]="fileBasicInfo.fileInfo.fileMemo!" (textareaValueChange)="fileBasicInfo.fileInfo.fileMemo = $event;"></app-fms-textarea>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      파일 설명글
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-textarea [textareaValue]="fileBasicInfo.fileInfo.fileDescription!" (textareaValueChange)="fileBasicInfo.fileInfo.fileDescription = $event;"></app-fms-textarea>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      외부에 파일 버전의 변경 이력 노출 여부
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-radio #fileStoreVersionHistoryRadio [radioItems]="fileStoreVersionHistoryRadioItems" [checkedValue]="fileStoreVersionHistoryCheckValud"></app-fms-radio>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      외부에 파일 설명글 노출 여부
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-radio #fileStoreDescriptionOpenRadio [radioItems]="fileStoreDescriptionOpenRadioItems" [checkedValue]="fileStoreDescriptionOpenCheckValud"></app-fms-radio>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li class="half">
+    <app-fms-info-title>
+      파일 대표 이미지
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-single-image #fileRepresentImage></app-fms-single-image>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li class="half">
+    <app-fms-info-title>
+      파일 관련 스크린샷
+    </app-fms-info-title>
+    <app-fms-info-content>
+      
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      상태
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="fileStatusSelectItems" [selectedValue]="fileBasicInfo?.fileInfo?.FmsFileStatusCodes?.code!" (valueChanged)="fileBasicInfo?.fileInfo?.FmsFileStatusCodes!.code = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+</app-fms-info-ul>

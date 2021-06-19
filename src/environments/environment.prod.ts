@@ -22,6 +22,8 @@ export const environment = {
     userPasswordMaxLength: 20,
 
     permissionGroupNameMaxLength: 100,
+
+    fileLabelNameMaxLength: 100,
   },
 
   api: {
@@ -67,6 +69,7 @@ export const environment = {
     },
     file: {
       getFile: baseUrl + '/api/file/getFile',
+      fileBasicInfo: baseUrl + '/api/file/fileBasicInfo',
     },
   },
 
@@ -79,5 +82,6 @@ export const environment = {
 
     cyber: baseUrl + '/public/images/cyber_image.jpg',
     grid: baseUrl + '/public/images/grid.jpg',
+    fileSingleDefaulImageSrc: baseUrl + '/public/images/no-image.jpg',
   },
 };

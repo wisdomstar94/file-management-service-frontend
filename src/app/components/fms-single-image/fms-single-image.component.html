@@ -1,0 +1,10 @@
+<div class="box">
+  <div class="image-show-area">
+    <img [src]="imgSrc" alt="이미지" title="이미지" />
+  </div>
+  <div class="button-area">
+    <app-fms-button [color]="'red'" (onClick)="imageUploadClick();">이미지 등록</app-fms-button>
+    <app-fms-button [color]="'gray'" (onClick)="imageClear();">이미지 내리기</app-fms-button>
+    <input class="file" type="file" #file (change)="fileChanged($event);" />
+  </div>
+</div>

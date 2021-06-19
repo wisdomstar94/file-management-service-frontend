@@ -1,0 +1,8 @@
+<ul class="radio-list">
+  <ng-container *ngFor="let item of radioItems">
+    <li class="item">
+      <input type="radio" [id]="'fms_radio_id_' + radioName + '_' + item.value" [name]="radioName" [value]="item.value" [checked]="item.checked" [(ngModel)]="checkedValue" (ngModelChange)="radioCheckedValueChanged($event);" />
+      <label [for]="'fms_radio_id_' + radioName + '_' + item.value">{{ item.displayText }}</label>
+    </li>
+  </ng-container>
+</ul>
