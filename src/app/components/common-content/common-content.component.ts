@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { CommonService } from 'src/app/services/common.service';
 import { DeviceMode } from 'src/app/types/device-mode.type';
 import { NavMode } from 'src/app/types/nav-mode.type';
 
@@ -10,12 +11,16 @@ import { NavMode } from 'src/app/types/nav-mode.type';
   styleUrls: ['./common-content.component.scss']
 })
 export class CommonContentComponent implements OnInit {
-  commonContentStyle = {
-    'width': 'calc(100% - 240px)',
-    'height': 'calc(100% - 50px)',
-    'bottom': '0',
-    'right': '0',
-  };
+  @Input() zIndex: number = 1;
+  // commonContentStyle = {
+  //   'width': 'calc(100% - 240px)',
+  //   'height': 'calc(100% - 50px)',
+  //   'bottom': '0',
+  //   'right': '0',
+  //   'z-index': this.zIndex,
+  // };
+  commonContentWidth: string;
+  commonContentHeight: string;
 
   deviceMode$: Observable<DeviceMode>;
 
@@ -29,8 +34,12 @@ export class CommonContentComponent implements OnInit {
 
   constructor(
     private store: Store<{ deviceMode: DeviceMode, navWidth: string, navMode: NavMode }>,
+    private common: CommonService,
   ) { 
     const t = this;
+
+    this.commonContentWidth = 'calc(100% - 240px)';
+    this.commonContentHeight = 'calc(100% - 50px)';
 
     this.deviceMode$ = this.store.select('deviceMode');
     this.deviceMode$.subscribe(
@@ -39,12 +48,12 @@ export class CommonContentComponent implements OnInit {
           // mobile
           setTimeout(() => {
             t.commonContentClass['mobile'] = true;
-            t.commonContentStyle['width'] = '100%';
+            t.commonContentWidth = '100%';
           });
         } else {
           // pc
           t.commonContentClass['mobile'] = false;
-          t.commonContentStyle['width'] = 'calc(100% - 240px)';
+          t.commonContentWidth = 'calc(100% - 240px)';
         }
       }
     );
@@ -54,10 +63,10 @@ export class CommonContentComponent implements OnInit {
       data => {
         if (data === 'minimal') {
           // minimal
-          t.commonContentStyle['width'] = 'calc(100% - 50px)';
+          t.commonContentWidth = 'calc(100% - 50px)';
         } else {
           // basic
-          t.commonContentStyle['width'] = 'calc(100% - 240px)';
+          t.commonContentWidth = 'calc(100% - 240px)';
         }
       }
     );
@@ -67,6 +76,7 @@ export class CommonContentComponent implements OnInit {
 
   ngOnInit(): void {
     const t = this;
+    t.common.setCommonContentComponent(this);
     t.setSize();
   }
 
@@ -79,6 +89,6 @@ export class CommonContentComponent implements OnInit {
     const t = this;
     const windowHeight = window.innerHeight;
     const height = windowHeight - 50;
-    t.commonContentStyle['height'] = height + 'px';
+    t.commonContentHeight = height + 'px';
   }
 }

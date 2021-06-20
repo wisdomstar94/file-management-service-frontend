@@ -8,6 +8,7 @@ import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { TableViewType } from 'src/app/types/table-view-type.type';
 import { environment } from 'src/environments/environment';
+import { FileVersionDetailPopupComponent } from '../file-version-detail-popup/file-version-detail-popup.component';
 import { PaginationBoxComponent } from '../pagination-box/pagination-box.component';
 import { SearchBoxComponent } from '../search-box/search-box.component';
 import { TableTopBoxComponent } from '../table-top-box/table-top-box.component';
@@ -23,6 +24,8 @@ export class FileVersionBoardComponent implements OnInit {
   @ViewChild('fileVersionSearchBox') fileVersionSearchBox!: SearchBoxComponent;
   @ViewChild('fileVersionTableTopBox') fileVersionTableTopBox!: TableTopBoxComponent;
   @ViewChild('fileVersionListPaginationBox') fileVersionListPaginationBox!: PaginationBoxComponent;
+
+  @ViewChild('fileVersionDetailPopup') fileVersionDetailPopup!: FileVersionDetailPopupComponent;
 
   searchItemList: SearchItem[] = [
     {
@@ -209,6 +212,7 @@ export class FileVersionBoardComponent implements OnInit {
       return;
     }
 
+    this.fileVersionDetailPopup.show(item.fileVersionKey);
     // this.router.navigate(['file/info/' + item.fileVersionKey]);
     return;
   }

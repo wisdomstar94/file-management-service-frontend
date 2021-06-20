@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { navOpen, navClose, navModeBasic, navModeMinimal, changeNavWidth } from 
 import { DeviceMode } from 'src/app/types/device-mode.type';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NavMode } from 'src/app/types/nav-mode.type';
+import { CommonService } from 'src/app/services/common.service';
 
 const navAnimation = trigger('navAnimation', [
   transition(':enter', [
@@ -41,6 +42,7 @@ const navBackgroundAnim = trigger('navBackgroundAnim', [
   ],
 })
 export class CommonNavComponent implements OnInit {
+  @Input() zIndex: number = 1;
   @Output() onInit = new EventEmitter();
 
   environment = environment;
@@ -52,13 +54,17 @@ export class CommonNavComponent implements OnInit {
 
   navAnimationDisabled = true;
 
-  navStyle = {
-    'width': '240px',
-    'height': '100%',
-    'position': 'fixed',
-    'top': '0',
-    'left': '0',
-  };
+  // navStyle = {
+  //   'width': '240px',
+  //   'height': '100%',
+  //   'position': 'fixed',
+  //   'top': '0',
+  //   'left': '0',
+  //   'zindex': this.zIndex,
+  // };
+  navStyleWidth: string;
+  navStyleHeight: string;
+  navStyleLeft: string;
 
   navTopAreaStyle = {
     'display': 'flex',
@@ -96,8 +102,14 @@ export class CommonNavComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private sanitizer: DomSanitizer,
+    private common: CommonService,
   ) { 
     const t = this;
+
+    this.navStyleWidth = '240px';
+    this.navStyleHeight = '100%';
+    this.navStyleLeft = '0';
+
     this.deviceMode$ = this.store.select('deviceMode');
     this.deviceMode$.subscribe(
       data => {
@@ -143,7 +155,7 @@ export class CommonNavComponent implements OnInit {
     this.navWidth$.subscribe(
       data => {
         t.navWidth = data;
-        t.navStyle['width'] = data;
+        t.navStyleWidth = data;
       }
     );
 
@@ -158,6 +170,7 @@ export class CommonNavComponent implements OnInit {
   ngOnInit(): void {
     const t = this;
     t.onInit.emit(t);
+    t.common.setCommonNavComponent(this);
     const userMenuList: NavMenuItem[] = t.route.snapshot.data.UserMenuList;
     t.setUserMenuList(userMenuList);
     // setTimeout(() => {
@@ -175,16 +188,16 @@ export class CommonNavComponent implements OnInit {
       // mobile
       t.store.dispatch(navModeBasic());
       setTimeout(() => {
-        t.navStyle['width'] = `calc(100% - 60px)`;
-        t.navStyle['height'] = windowHeight + 'px';
-        // t.navStyle['left'] = -(windowWidth - 60) + 'px';
+        t.navStyleWidth = `calc(100% - 60px)`;
+        t.navStyleHeight = windowHeight + 'px';
+        // t.navStyleLeft = -(windowWidth - 60) + 'px';
         t.navAnimationDisabled = false;
       });
     } else {
       // pc
-      t.navStyle['width'] = '240px';
-      t.navStyle['height'] = windowHeight + 'px';
-      t.navStyle['left'] = '0';
+      t.navStyleWidth = '240px';
+      t.navStyleHeight = windowHeight + 'px';
+      t.navStyleLeft = '0';
       t.navAnimationDisabled = true;
     }
   }

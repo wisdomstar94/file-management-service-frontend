@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from '../components/alert/alert.component';
+import { CommonContentComponent } from '../components/common-content/common-content.component';
+import { CommonNavComponent } from '../components/common-nav/common-nav.component';
+import { CommonTopHeaderComponent } from '../components/common-top-header/common-top-header.component';
 import { CommonComponent } from '../interfaces/common-componen.interfacet';
 import { NavMenuItem } from '../interfaces/nav-menu-item.interface';
 import { ResponseData } from '../interfaces/response-data.interface';
@@ -13,6 +16,10 @@ import { SearchItem } from '../interfaces/search-item.interface';
 export class CommonService {
   components: CommonComponent = {
     alert: null,
+
+    commonNav: null,
+    commonTopHeader: null,
+    commonContent: null,
   };
 
   constructor(
@@ -48,6 +55,34 @@ export class CommonService {
     const t = this;
     return t.components.alert;
   }
+
+
+  setCommonNavComponent(v: CommonNavComponent): void {
+    this.components.commonNav = v;
+  }
+
+  getCommonNavComponent(): CommonNavComponent | null {
+    return this.components.commonNav;
+  }
+
+
+  setCommonTopHeaderComponent(v: CommonTopHeaderComponent): void {
+    this.components.commonTopHeader = v;
+  }
+
+  getCommonTopHeaderComponent(): CommonTopHeaderComponent | null {
+    return this.components.commonTopHeader;
+  }
+
+
+  setCommonContentComponent(v: CommonContentComponent): void {
+    this.components.commonContent = v;
+  }
+
+  getCommonContentComponent(): CommonContentComponent | null {
+    return this.components.commonContent;
+  }
+
 
   // --- //
 

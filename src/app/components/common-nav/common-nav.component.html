@@ -1,5 +1,12 @@
 <nav class="common-nav" 
-  [ngStyle]="navStyle" 
+  [ngStyle]="{
+    'width': navStyleWidth,
+    'height': navStyleHeight,
+    'position': 'fixed',
+    'top': '0',
+    'left': navStyleLeft,
+    'z-index': zIndex
+  }" 
   [ngClass]="{
     'mobile': (deviceMode$ | async) === 'mobile'
   }"

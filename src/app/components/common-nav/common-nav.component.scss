@@ -6,7 +6,7 @@ nav.common-nav {
   top: 0;
   left: 0;
   background-color: #ffffff;
-  z-index: 2;
+  z-index: 3;
   transition: all 0.3s;
   transition-timing-function: ease-in-out;
 
@@ -204,6 +204,6 @@ nav.common-nav {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   background-color: rgba(0, 0, 0, 0.7);
 }

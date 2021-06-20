@@ -1,4 +1,12 @@
-<section class="common-top-header" [ngStyle]="topHeaderStyle">
+<section class="common-top-header" [ngStyle]="{
+  'width': topHeaderStyleWidth,
+  'height': '50px',
+  'display': topHeaderStyleDisplay,
+  'top': '0',
+  'right': '0',
+  'position': topHeaderStylePosition,
+  'z-index': zIndex
+}">
   <ng-container *ngIf="(deviceMode$ | async) === 'pc'">
     <div class="left-area">
       <ul class="destination-box">

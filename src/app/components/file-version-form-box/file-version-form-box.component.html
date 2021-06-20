@@ -1,0 +1,88 @@
+<app-fms-info-ul>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      버전명
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileVersionInfo?.fileVersionName!" [disabled]="true" (inputValueChange)="fileVersionInfo.fileVersionName = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      버전코드
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileVersionInfo?.fileVersionCode!" [disabled]="true" (inputValueChange)="fileVersionInfo.fileVersionCode = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      파일명
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileVersionInfo?.fileDownloadName!" (inputValueChange)="fileVersionInfo.fileDownloadName= $event;"></app-fms-input>
+      <app-fms-row>
+        <app-fms-button [color]="'red'" (onClick)="versionFileUploadButtonClick();">
+          파일 업로드
+        </app-fms-button>
+        <input #versionFileElement type="file" class="version-file" (change)="fileChanged($event);" />
+      </app-fms-row>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      상태
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="fileVersionStatusSelectItems" [selectedValue]="fileVersionInfo?.FmsFileVersionStatusCodes!.code" (valueChanged)="fileVersionInfo?.FmsFileVersionStatusCodes!.code = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      최초 업로더
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileVersionInfo?.FmsCreaterUsers!.userId" [disabled]="true" (inputValueChange)="fileVersionInfo.FmsCreaterUsers!.userId= $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      최초 업로드 날짜
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileVersionInfo?.createdAt!" [disabled]="true" (inputValueChange)="fileVersionInfo.createdAt = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      최근 수정자
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileVersionInfo?.FmsUpdaterUsers!.userId" [disabled]="true" (inputValueChange)="fileVersionInfo.FmsUpdaterUsers!.userId = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      최근 수정 날짜
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileVersionInfo?.updatedAt!" [disabled]="true" (inputValueChange)="fileVersionInfo.updatedAt = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      버전 메모
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-textarea [textareaValue]="fileVersionInfo?.fileVersionMemo!" (textareaValueChange)="fileVersionInfo.fileVersionMemo = $event;"></app-fms-textarea>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      버전 설명글
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-textarea [textareaValue]="fileVersionInfo?.fileVersionDescription!" (textareaValueChange)="fileVersionInfo.fileVersionDescription = $event;"></app-fms-textarea>
+    </app-fms-info-content>
+  </app-fms-info-li>
+</app-fms-info-ul>

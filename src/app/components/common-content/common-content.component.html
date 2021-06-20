@@ -1,3 +1,9 @@
-<section (window:resize)="onResize();" class="common-content" [ngStyle]="commonContentStyle" [ngClass]="commonContentClass">
+<section (window:resize)="onResize();" class="common-content" [ngStyle]="{
+  'width': commonContentWidth,
+  'height': commonContentHeight,
+  'bottom': '0',
+  'right': '0',
+  'z-index': zIndex
+}" [ngClass]="commonContentClass">
   <ng-content></ng-content>
 </section>

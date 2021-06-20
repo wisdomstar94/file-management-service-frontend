@@ -8,8 +8,8 @@ import { FmsButtonModule } from '../fms-button/fms-button.module';
 import { TableTopBoxModule } from '../table-top-box/table-top-box.module';
 import { PaginationBoxModule } from '../pagination-box/pagination-box.module';
 import { FormsModule } from '@angular/forms';
-import { FmsInfoModule } from '../fms-info/fms-info.module';
 import { FmsTableModule } from '../fms-table/fms-table.module';
+import { FileVersionDetailPopupModule } from '../file-version-detail-popup/file-version-detail-popup.module';
 
 
 
@@ -27,6 +27,7 @@ import { FmsTableModule } from '../fms-table/fms-table.module';
     TableTopBoxModule,
     PaginationBoxModule,
     FmsTableModule,
+    FileVersionDetailPopupModule,
   ],
   exports: [
     FileVersionBoardComponent

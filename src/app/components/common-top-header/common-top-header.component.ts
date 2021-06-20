@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -15,14 +15,19 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./common-top-header.component.scss']
 })
 export class CommonTopHeaderComponent implements OnInit {
-  topHeaderStyle = {
-    'width': 'calc(100% - 240px)',
-    'height': '50px',
-    'display': 'block',
-    'top': '0',
-    'right': '0',
-    'position': 'relative',
-  };
+  @Input() zIndex: number = 1;
+  // topHeaderStyle = {
+  //   'width': 'calc(100% - 240px)',
+  //   'height': '50px',
+  //   'display': 'block',
+  //   'top': '0',
+  //   'right': '0',
+  //   'position': 'relative',
+  //   'z-index': this.zIndex,
+  // };
+  topHeaderStyleWidth: string;
+  topHeaderStyleDisplay: string;
+  topHeaderStylePosition: string;
 
   destination$: Observable<string[]>;
 
@@ -46,6 +51,11 @@ export class CommonTopHeaderComponent implements OnInit {
     private ajax: AjaxService,
   ) { 
     const t = this;
+
+    this.topHeaderStyleWidth = 'calc(100% - 240px)';
+    this.topHeaderStyleDisplay = 'block';
+    this.topHeaderStylePosition = 'relative';
+
     this.destination$ = this.store.select('destination');
     this.destination$.subscribe(
       data => {
@@ -68,7 +78,7 @@ export class CommonTopHeaderComponent implements OnInit {
       data => {
         t.navWidth = data;
         if (t.deviceMode === 'pc') {
-          t.topHeaderStyle['width'] = `calc(100% - ${t.navWidth})`;
+          t.topHeaderStyleWidth = `calc(100% - ${t.navWidth})`;
         }
       }
     );
@@ -77,7 +87,7 @@ export class CommonTopHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.common.setCommonTopHeaderComponent(this);
   }
 
   setDeviceStyle(deviceMode: DeviceMode): void {
@@ -87,13 +97,13 @@ export class CommonTopHeaderComponent implements OnInit {
     const windowHeight = window.innerHeight;
 
     if (deviceMode === 'mobile') {
-      t.topHeaderStyle['width'] = '100%';
-      t.topHeaderStyle['display'] = 'flex';
-      t.topHeaderStyle['position'] = 'relative';
+      t.topHeaderStyleWidth = '100%';
+      t.topHeaderStyleDisplay = 'flex';
+      t.topHeaderStylePosition = 'relative';
     } else {
-      t.topHeaderStyle['width'] = 'calc(100% - 240px)';
-      t.topHeaderStyle['display'] = 'block';
-      t.topHeaderStyle['position'] = 'fixed';
+      t.topHeaderStyleWidth = 'calc(100% - 240px)';
+      t.topHeaderStyleDisplay = 'block';
+      t.topHeaderStylePosition = 'fixed';
     }
   }
 
