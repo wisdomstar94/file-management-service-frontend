@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title-box.module';
 import { UserFormBoxModule } from 'src/app/components/user-form-box/user-form-box.module';
 import { FileBasicFormBoxModule } from 'src/app/components/file-basic-form-box/file-basic-form-box.module';
+import { FileVersionBoardModule } from 'src/app/components/file-version-board/file-version-board.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { FileBasicFormBoxModule } from 'src/app/components/file-basic-form-box/f
     FmsButtonModule,
     FileBasicFormBoxModule,
     FmsRowModule,
+    FileVersionBoardModule,
   ]
 })
 export class InfoPageModule { }

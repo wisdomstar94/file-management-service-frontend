@@ -1,0 +1,59 @@
+<app-article>
+  <app-article-title>
+    파일 버전 정보
+  </app-article-title>
+  <app-search-box (onEnter)="getList(1);"
+    [searchItemList]="searchItemList" #fileVersionSearchBox>
+    <div leftButton>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-fms-button>
+      <app-fms-button [color]="'sky-blue'" (onClick)="getList(1);">
+        검색
+      </app-fms-button>
+    </div>
+    <div rightButton>
+      <app-fms-button [color]="'red'" (onClick)="fileVersionUploadButtonClick();">
+        파일 버전 등록
+      </app-fms-button>
+    </div>
+  </app-search-box>
+  <app-table-top-box (tableViewTypeChanged)="fileVersionTableViewType = $event;" #fileVersionTableTopBox></app-table-top-box>
+  <app-fms-table [ngClass]="[fileVersionTableViewType]">
+    <app-fms-thead [ngClass]="[fileVersionTableViewType]">
+      <app-fms-tr [ngClass]="[fileVersionTableViewType]">
+        <app-fms-th [ngClass]="[fileVersionTableViewType]"><input type="checkbox" (change)="fileVersionListAllCheckChanged();" [(ngModel)]="isFileVersionListAllCheck" /></app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">버전</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">버전코드</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">파일명</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">업로더</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">업로드 날짜</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">최근 수정자</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">최근 수정 날짜</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">버전 설명글</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">버전 메모</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">상태</app-fms-th>
+        <app-fms-th [ngClass]="[fileVersionTableViewType]">&nbsp;</app-fms-th>
+      </app-fms-tr>
+    </app-fms-thead>
+    <app-fms-tbody [ngClass]="[fileVersionTableViewType]">
+      <ng-container *ngFor="let item of fileVersionList">
+        <app-fms-tr [ngClass]="[fileVersionTableViewType]">
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'버전'">{{ item.fileVersionName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'버전코드'">{{ item.fileVersionCode }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'파일명'">{{ item.fileOriginalName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'업로더'">{{ item.FmsCreaterUsers?.userId }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'업로드 날짜'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'최근 수정자'">{{ item.FmsUpdaterUsers?.userId }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'최근 수정 날짜'">{{ item.updatedAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'버전 설명글'">{{ item.fileVersionDescription }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'버전 메모'">{{ item.fileVersionMemo }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType" [columnName]="'상태'">{{ item.FmsFileVersionStatusCodes?.codeName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileVersionTableViewType]" [tableViewType]="fileVersionTableViewType"><app-fms-button [color]="'dark-blue'" (click)="fileVersionDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
+        </app-fms-tr>
+      </ng-container>
+    </app-fms-tbody>
+  </app-fms-table>
+  <app-pagination-box #fileVersionListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
+</app-article>
