@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class FmsSingleImageComponent implements OnInit {
   @ViewChild('file') file!: ElementRef;
   realFile!: File | null;
-  imgSrc: string | ArrayBuffer;
+  @Input() imgSrc: string | ArrayBuffer;
 
   constructor() { 
     this.imgSrc = environment.image.fileSingleDefaulImageSrc;
@@ -49,5 +49,17 @@ export class FmsSingleImageComponent implements OnInit {
 
   getFile(): File | null | undefined {
     return this.realFile;
+  }
+
+  isChanged(): boolean {
+    if (this.realFile !== null && this.realFile !== undefined) {
+      return true;
+    }
+
+    if (this.realFile === null) {
+      return true;
+    }
+
+    return false;
   }
 }

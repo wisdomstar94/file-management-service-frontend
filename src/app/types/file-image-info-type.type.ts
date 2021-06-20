@@ -1,0 +1,1 @@
+export type FileImageInfoType = 'new' | 'original' | 'delete';

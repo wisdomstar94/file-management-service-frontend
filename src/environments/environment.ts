@@ -74,6 +74,7 @@ export const environment = {
     file: {
       getFile: baseUrl + '/api/file/getFile',
       fileBasicInfo: baseUrl + '/api/file/fileBasicInfo',
+      modifyFile: baseUrl + '/api/file/modifyFile',
     },
   },
 
@@ -87,6 +88,7 @@ export const environment = {
     cyber: baseUrl + '/public/images/cyber_image.jpg',
     grid: baseUrl + '/public/images/grid.jpg',
     fileSingleDefaulImageSrc: baseUrl + '/public/images/no-image.jpg',
+    plusImage: baseUrl + '/public/images/plus-image.png',
   },
 };
 

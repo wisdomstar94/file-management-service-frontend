@@ -9,6 +9,7 @@ import { FmsTextareaModule } from '../fms-textarea/fms-textarea.module';
 import { FormsModule } from '@angular/forms';
 import { FmsRadioModule } from '../fms-radio/fms-radio.module';
 import { FmsSingleImageModule } from '../fms-single-image/fms-single-image.module';
+import { FmsMultipleImageModule } from '../fms-multiple-image/fms-multiple-image.module';
 
 
 
@@ -26,6 +27,7 @@ import { FmsSingleImageModule } from '../fms-single-image/fms-single-image.modul
     FmsButtonModule,
     FmsRadioModule,
     FmsSingleImageModule,
+    FmsMultipleImageModule,
   ],
   exports: [
     FileBasicFormBoxComponent

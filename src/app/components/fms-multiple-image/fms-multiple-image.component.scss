@@ -1,0 +1,128 @@
+ul.image-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  > li.item {
+    width: 160px;
+    height: 250px;
+    list-style-type: none;
+    margin: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 0;
+    position: relative;
+
+    &.add-button {
+      cursor: pointer;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: #eee;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+
+    &.img {
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+
+      &:hover {
+        background-color: #eee;
+      }
+    }
+     
+    > img {
+      width: 100%;
+    }
+
+    .sort-no-control-bar-area {
+      display: flex;
+      width: 100%;
+      position: absolute;
+      top: 10px;
+      left: 0;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+
+      .arrow-button {
+        width: 15px;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+
+        &.prev {
+          margin-right: 10px;
+
+          svg {
+            fill: #d62b2b;
+          }
+
+          &:hover {
+            svg {
+              fill: #9e1616;
+            }
+          }
+        }
+
+        &.next {
+          svg {
+            fill: #2a9ed8;
+          }
+
+          &:hover {
+            svg {
+              fill: #0e7da8;
+            }
+          }
+        }
+
+        > svg {
+          width: 100%;
+        }
+      }
+    }
+
+    .delete-button-area {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 1;
+      justify-content: flex-end;
+      align-items: center;
+      cursor: pointer;
+
+      > svg {
+        width: 50%;
+        stroke: #7a7a7a;
+      }
+
+      &:hover {
+        > svg {
+          stroke: #333333;
+        }
+      }
+    }
+  }
+}
+
+.file {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: -999999px;
+  left: -999999px;
+  overflow: hidden;
+}

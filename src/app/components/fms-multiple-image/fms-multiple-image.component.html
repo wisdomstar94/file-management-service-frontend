@@ -1,0 +1,25 @@
+<ul class="image-list">
+  <li class="item add-button" [ngStyle]="{
+    'background-image': 'url(' + environment.image.plusImage + ')'
+  }" (click)="imgAddButtonClick();">
+
+  </li>
+  <ng-container *ngFor="let item of imageItems">
+    <li class="item img" [ngStyle]="{
+      'background-image': 'url(' + item.imageUrl + ')'
+    }" (mouseenter)="item.isShowSortControlBar = true;" (mouseleave)="item.isShowSortControlBar = false;" *ngIf="item.isDeleted !== true">
+      <div class="sort-no-control-bar-area" *ngIf="item.isShowSortControlBar === true">
+        <span class="arrow-button prev" (click)="sortClick('prev', item);">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.23 32.06"><defs><style>.b9837852-3dda-4f45-8dcc-27e7a6fa75c9{stroke:#c1c1c1;stroke-miterlimit:10;}</style></defs><g id="ecc46118-7b5a-4f81-bf54-a05229955870" data-name="레이어 2"><g id="b78233af-c69f-4cb5-ab6f-5351414f8e4a" data-name="레이어 1"><polygon class="b9837852-3dda-4f45-8dcc-27e7a6fa75c9" points="0.83 16.03 20.73 31.06 20.73 1 0.83 16.03"/></g></g></svg>
+        </span>
+        <span class="arrow-button next" (click)="sortClick('next', item);">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.23 32.06"><defs><style>.f730ebf4-8be8-4fe7-8df4-e37b5cb46689{stroke:#c1c1c1;stroke-miterlimit:10;}</style></defs><g id="b9e7a59c-ed33-42b5-869f-5cb9b7247a7b" data-name="레이어 2"><g id="b6cd2004-83ea-409f-a09e-984720c70b07" data-name="레이어 1"><polygon class="f730ebf4-8be8-4fe7-8df4-e37b5cb46689" points="20.4 16.03 0.5 1 0.5 31.06 20.4 16.03"/></g></g></svg>
+        </span>
+      </div>
+      <div class="delete-button-area" *ngIf="item.isShowSortControlBar === true" (click)="imgDeleteButtonClick(item);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.22 20.22"><defs><style>.a94c0ae7-9ed0-4ea4-a1f9-248b22df4510{fill:none;stroke-miterlimit:10;stroke-width:3px;}</style></defs><g id="f614fa70-64e5-446e-b7c9-ae69b0cd9bba" data-name="레이어 2"><g id="ac23ea74-f12b-4f51-8842-cbc880ef4f21" data-name="레이어 1"><line class="a94c0ae7-9ed0-4ea4-a1f9-248b22df4510" x1="1.06" y1="1.06" x2="19.16" y2="19.16"/><line class="a94c0ae7-9ed0-4ea4-a1f9-248b22df4510" x1="19.16" y1="1.06" x2="1.06" y2="19.16"/></g></g></svg>
+      </div>
+    </li>
+  </ng-container>
+</ul>
+<input type="file" class="file" #file (change)="fileChanged($event);" />
