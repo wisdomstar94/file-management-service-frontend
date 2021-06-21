@@ -79,6 +79,7 @@ export const environment = {
     fileVersion: {
       getFileVersion: baseUrl + '/api/fileVersion/getFileVersion',
       versionInfo: baseUrl + '/api/fileVersion/versionInfo',
+      modifyFileVersion: baseUrl + '/api/fileVersion/modifyFileVersion',
     },
   },
 

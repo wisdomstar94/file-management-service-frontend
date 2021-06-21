@@ -159,6 +159,50 @@ export class FileVersionFormBoxComponent implements OnInit {
       return false;
     }
 
+    // fileDownloadName 체크
+    if (typeof this.fileVersionInfo.fileDownloadName !== 'string') {
+      this.common.getAlertComponent()?.setMessage('파일명 정보가 없습니다.').show();
+      return false;
+    }
+
+    if (this.fileVersionInfo.fileDownloadName.trim() === '') {
+      this.common.getAlertComponent()?.setMessage('파일명을 입력해주세요.').show();
+      return false;
+    }
+
+    // fileVersionMemo 체크 
+    if (typeof this.fileVersionInfo.fileVersionMemo !== 'string') {
+      this.common.getAlertComponent()?.setMessage('파일 메모 정보가 없습니다.').show();
+      return false;
+    }
+    
+    if (this.fileVersionInfo.fileVersionMemo.trim() === '') {
+      this.common.getAlertComponent()?.setMessage('파일 메모를 입력해주세요.').show();
+      return false;
+    }
+
+    // fileVersionDescription 체크
+    if (typeof this.fileVersionInfo.fileVersionDescription !== 'string') {
+      this.common.getAlertComponent()?.setMessage('파일 설명 정보가 없습니다.').show();
+      return false;
+    }
+    
+    if (this.fileVersionInfo.fileVersionDescription.trim() === '') {
+      this.common.getAlertComponent()?.setMessage('파일 설명을 입력해주세요.').show();
+      return false;
+    }
+
+    // fileVersionStatus 체크
+    if (typeof this.fileVersionInfo.FmsFileVersionStatusCodes?.code !== 'string') {
+      this.common.getAlertComponent()?.setMessage('파일 상태 정보가 없습니다.').show();
+      return false;
+    }
+
+    if (this.fileVersionInfo.FmsFileVersionStatusCodes?.code.trim() === '') {
+      this.common.getAlertComponent()?.setMessage('파일 상태를 선택해주세요.').show();
+      return false;
+    }
+
     return true;
   }
 
@@ -171,20 +215,35 @@ export class FileVersionFormBoxComponent implements OnInit {
         }
         break;  
       case 'fileVersionCode':
-        // 작업중...
+        if (this.fileVersionInfo.fileVersionCode !== this.cleanFileVersionInfo.fileVersionCode) {
+          result = true;
+        }
         break;  
       case 'fileDownloadName':
-
+        if (this.fileVersionInfo.fileDownloadName !== this.cleanFileVersionInfo.fileDownloadName) {
+          result = true;
+        }
         break;  
       case 'fileVersionMemo':
-
+        if (this.fileVersionInfo.fileVersionMemo !== this.cleanFileVersionInfo.fileVersionMemo) {
+          result = true;
+        }
         break;  
       case 'fileVersionDescription':
-
+        if (this.fileVersionInfo.fileVersionDescription !== this.cleanFileVersionInfo.fileVersionDescription) {
+          result = true;
+        }
         break;  
       case 'fileVersionStatus':
-
+        if (this.fileVersionInfo.FmsFileVersionStatusCodes?.code !== this.cleanFileVersionInfo.FmsFileVersionStatusCodes?.code) {
+          result = true;
+        }
         break;  
+      case 'versionFile': 
+        if (this.versionFile instanceof File) {
+          result = true;
+        }
+        break;
     }
     return result;
   }
