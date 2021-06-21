@@ -1,0 +1,102 @@
+.window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  .popup {
+    display: inline-block;
+    margin: 0;
+    padding: 18px;
+    width: 600px;
+    max-height: 500px;
+    overflow-y: scroll;
+    position: relative;
+    background-color: #fff;
+
+    .loading-window {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+
+      .text {
+        font-size: 10pt;
+        color: #fff;
+        text-align: center;
+      }
+    }
+  }
+}
+
+
+@media all and (min-width: 1300px) {
+  .window {
+    .popup {
+      width: 1200px;
+    }
+  }
+}
+
+@media all and (min-width: 1100px) and (max-width: 1299px) {
+  .window {
+    .popup {
+      width: 1080px;
+    }
+  }
+}
+
+@media all and (min-width: 900px) and (max-width: 1099px) {
+  .window {
+    .popup {
+      width: 880px;
+    }
+  }
+}
+
+@media all and (min-width: 700px) and (max-width: 899px) {
+  .window {
+    .popup {
+      width: 680px;
+    }
+  }
+}
+
+@media all and (min-width: 590px) and (max-width: 699px) {
+  .window {
+    .popup {
+      width: 570px;
+    }
+  }
+}
+
+@media all and (min-width: 380px) and (max-width: 589px) {
+  .window {
+    .popup {
+      width: 320px;
+    }
+  }
+}
+
+@media all and (min-width: 0px) and (max-width: 379px) {
+  .window {
+    .popup {
+      width: 260px;
+    }
+  }
+}

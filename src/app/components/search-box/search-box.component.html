@@ -13,6 +13,11 @@
               <span class="datetime-center-char">~</span>
               <input class="input-text datetime" type="date" [(ngModel)]="item.endDatetime" (keypress)="searchFormKeyPress($event);" />
             </ng-container>
+            <ng-container *ngIf="item.searchType === 'number'">
+              <input class="input-text datetime" type="number" [(ngModel)]="item.startNumber" (keypress)="searchFormKeyPress($event);" />
+              <span class="datetime-center-char">~</span>
+              <input class="input-text datetime" type="number" [(ngModel)]="item.endNumber" (keypress)="searchFormKeyPress($event);" />
+            </ng-container>
             <ng-container *ngIf="item.searchType === 'checkbox'">
               <ul class="checkbox-item-list">
                 <ng-container *ngFor="let checkboxItem of item.checkboxItemList">

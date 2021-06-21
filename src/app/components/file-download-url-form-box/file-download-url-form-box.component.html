@@ -1,0 +1,95 @@
+<app-fms-info-ul>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      파일 다운로드 키
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadUrlKey!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo.fileDownloadUrlKey = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      타겟 계정
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.FmsFileDownloadUrlTargetUsers?.userId!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo?.FmsFileDownloadUrlTargetUsers!.userId = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      타겟 버전
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="fileVersionListSelectItems" [selectedValue]="fileDownloadUrlInfo?.FmsTargetFileVersions?.fileVersionKey!" (valueChanged)="fileDownloadUrlInfo?.FmsTargetFileVersions!.fileVersionKey = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      URL 접근 횟수
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadUrlAccessCount!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadUrlAccessCount = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      다운로드 제한 기간
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeStart!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeStart = $event;"></app-fms-input>
+      <span>~</span>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeEnd!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeEnd = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      다운로드 제한 횟수
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadLimitMaxCount!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadLimitMaxCount = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      현재 다운로드된 수
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadCount!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadCount = $event;"></app-fms-input>
+      <app-fms-button [color]="'red'">
+        초기화
+      </app-fms-button>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      URL 생성일
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="fileDownloadUrlInfo?.createdAt!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo.createdAt = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      상태
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-select [selectItems]="fileDownloadUrlStatusSelectItems" [selectedValue]="fileDownloadUrlInfo?.FmsFileDownloadUrlStatusCodes!.code" (valueChanged)="fileDownloadUrlInfo?.FmsFileDownloadUrlStatusCodes!.code = $event;"></app-fms-select>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      메일 삽입용 HTML (복사 후 붙여넣기하여 사용)
+    </app-fms-info-title>
+    <app-fms-info-content>
+      
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      다운로드(접근) 제한
+    </app-fms-info-title>
+    <app-fms-info-content>
+      
+    </app-fms-info-content>
+  </app-fms-info-li>
+</app-fms-info-ul>

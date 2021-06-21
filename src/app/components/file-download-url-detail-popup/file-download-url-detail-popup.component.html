@@ -1,0 +1,30 @@
+<div class="window" [@popupAnimation]="isShow" *ngIf="isShow">
+  <div class="popup">
+    <div class="loading-window" *ngIf="isLoading">
+      <div class="text">
+        정보를 가져오는 중입니다. <br />
+        잠시만 기다려주세요.
+      </div>
+    </div>
+    <app-article-title>
+      파일 버전 상세 정보
+    </app-article-title>
+    <app-file-download-url-form-box 
+      [popupMode]="popupMode"
+      [fileDownloadUrlKey]="fileDownloadUrlKey"
+      (infoTaking)="isLoading = true;"
+      (infoTaken)="isLoading = false;"
+      #fileDownloadUrlFormBox></app-file-download-url-form-box>
+    <app-fms-row>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="closeButtonClick();">
+        닫기
+      </app-fms-button>
+      <app-fms-button [color]="'green'" (onClick)="fileVersionInfoEditButtonClick();" *ngIf="popupMode === 'modify'">
+        파일 버전 정보 수정하기
+      </app-fms-button>
+      <app-fms-button [color]="'red'" (onClick)="fileVersionInfoUploadButtonClick();" *ngIf="popupMode === 'upload'">
+        파일 버전 정보 등록하기
+      </app-fms-button>
+    </app-fms-row>
+  </div>
+</div>

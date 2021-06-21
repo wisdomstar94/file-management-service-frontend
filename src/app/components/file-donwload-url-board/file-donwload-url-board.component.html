@@ -1,0 +1,63 @@
+<app-article>
+  <app-article-title>
+    발급된 파일 다운로드 URL 목록
+  </app-article-title>
+  <app-search-box (onEnter)="getList(1);"
+    [searchItemList]="searchItemList" #fileDownloadUrlSearchBox>
+    <div leftButton>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-fms-button>
+      <app-fms-button [color]="'sky-blue'" (onClick)="getList(1);">
+        검색
+      </app-fms-button>
+    </div>
+    <div rightButton>
+      <app-fms-button [color]="'red'" (onClick)="fileDownloadUrlUploadButtonClick();">
+        새 파일 다운로드 URL 등록
+      </app-fms-button>
+    </div>
+  </app-search-box>
+  <app-table-top-box (tableViewTypeChanged)="fileDownloadUrlTableViewType = $event;" #fileDownloadUrlTableTopBox></app-table-top-box>
+  <app-fms-table [ngClass]="[fileDownloadUrlTableViewType]">
+    <app-fms-thead [ngClass]="[fileDownloadUrlTableViewType]">
+      <app-fms-tr [ngClass]="[fileDownloadUrlTableViewType]">
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]"><input type="checkbox" (change)="fileDownloadUrlListAllCheckChanged();" [(ngModel)]="isFileDownloadUrlListAllCheck" /></app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">No.</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">파일 다운로드 URL</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">타겟 계정</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">타겟 버전</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">URL 접근 횟수</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">다운로드 제한 기간</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">다운로드 제한 횟수</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">다운로드 된 횟수</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">URL 생성일</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">다운로드(접근) 제한</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">상태</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadUrlTableViewType]">&nbsp;</app-fms-th>
+      </app-fms-tr>
+    </app-fms-thead>
+    <app-fms-tbody [ngClass]="[fileDownloadUrlTableViewType]">
+      <ng-container *ngFor="let item of fileDownloadUrlList">
+        <app-fms-tr [ngClass]="[fileDownloadUrlTableViewType]">
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'No.'">{{ item.seq }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'파일 다운로드 URL'">{{ item.fileDownloadUrlKey }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'타겟 계정'">{{ item.FmsFileDownloadUrlTargetUsers?.userId }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'타겟 버전'">{{ item.FmsTargetFileVersions?.fileVersionName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'URL 접근 횟수'">{{ item.fileDownloadUrlAccessCount }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'다운로드 제한 기간'">{{ item.fileDownloadPossibleDateTimeStart + ' ~ ' + item.fileDownloadPossibleDateTimeEnd }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'다운로드 제한 횟수'">{{ item.fileDownloadLimitMaxCount }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'다운로드 된 횟수'">{{ item.fileDownloadCount }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'URL 생성일'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'다운로드(접근) 제한'"></app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'상태'">{{ item.FmsFileDownloadUrlStatusCodes?.codeName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType"><app-fms-button [color]="'dark-blue'" (click)="fileDownloadUrlDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
+        </app-fms-tr>
+      </ng-container>
+    </app-fms-tbody>
+  </app-fms-table>
+  <app-pagination-box #fileDownloadUrlListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
+</app-article>
+
+<app-file-download-url-detail-popup #fileDownloadUrlDetailPopup [fileKey]="fileKey" (newFileVersionUploaded)="getList(1);"></app-file-download-url-detail-popup>

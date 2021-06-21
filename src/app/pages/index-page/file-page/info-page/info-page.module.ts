@@ -13,6 +13,7 @@ import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title
 import { UserFormBoxModule } from 'src/app/components/user-form-box/user-form-box.module';
 import { FileBasicFormBoxModule } from 'src/app/components/file-basic-form-box/file-basic-form-box.module';
 import { FileVersionBoardModule } from 'src/app/components/file-version-board/file-version-board.module';
+import { FileDonwloadUrlBoardModule } from 'src/app/components/file-donwload-url-board/file-donwload-url-board.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { FileVersionBoardModule } from 'src/app/components/file-version-board/fi
     FileBasicFormBoxModule,
     FmsRowModule,
     FileVersionBoardModule,
+    FileDonwloadUrlBoardModule,
   ]
 })
 export class InfoPageModule { }

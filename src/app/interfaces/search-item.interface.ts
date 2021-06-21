@@ -10,5 +10,8 @@ export interface SearchItem {
   startDatetime?: string;
   endDatetime?: string;
 
+  startNumber?: number;
+  endNumber?: number;
+
   checkboxItemList?: CheckboxItem[];
 }
