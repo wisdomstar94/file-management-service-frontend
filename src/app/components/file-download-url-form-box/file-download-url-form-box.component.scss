@@ -1,0 +1,49 @@
+.condition-input-area {
+  display: block;
+  margin: 0; 
+  margin-bottom: 10px;
+  padding: 0;
+  position: relative;
+}
+
+
+ul.condition-show-list {
+  display: block;
+  margin: 0; 
+  padding: 0;
+  position: relative;
+
+  > li.item {
+    list-style-type: none;
+    display: flex;
+    margin: 0; 
+    margin-bottom: 6px;
+    padding: 14px;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #ededed;
+    border-radius: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .title {
+      display: inline-block;
+      // min-width: 200px;
+      width: 100%;
+      font-size: 10pt;
+      background-color: #5e9fd7;
+      color: #fff;
+      border-radius: 10px;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+
+    .content {
+      display: inline-block;
+      font-size: 10pt;
+      color: #444;
+      overflow-wrap: anywhere;
+    }
+  }
+}

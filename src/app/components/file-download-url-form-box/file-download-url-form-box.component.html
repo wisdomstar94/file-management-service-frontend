@@ -81,7 +81,28 @@
       메일 삽입용 HTML (복사 후 붙여넣기하여 사용)
     </app-fms-info-title>
     <app-fms-info-content>
-      
+      <br />
+      <br />
+      <div style="display: inline-block; background-color: #fff; border: 1px solid #999; max-width: 700px;">
+        <div style="background-color: #bed8ef; text-align: center; padding: 14px; box-sizing: border-box; color: #222;">
+          {{ fileDownloadUrlInfo?.FmsTargetFileVersions?.fileDownloadName }}
+        </div>
+        <div style="display: block; padding: 10px;">
+          <div style="display: block; text-align: center; color: #aaa;">
+            파일 다운로드 기간<br />
+            {{ fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart + ' ~ ' + fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd }}
+          </div>
+          <div style="display: block; text-align: center;">
+            <a [href]="'/download/file/' + fileDownloadUrlInfo.fileDownloadUrlKey">
+              파일 다운로드
+            </a>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -89,7 +110,44 @@
       다운로드(접근) 제한
     </app-fms-info-title>
     <app-fms-info-content>
-      
+      <div class="condition-input-area">
+        <app-fms-select [selectItems]="conditionCodeListSelectItems" [selectedValue]="currentSelectedConditionInfo.conditionType" (valueChanged)="currentSelectedConditionInfo.conditionType = $event;"></app-fms-select>
+        <ng-container *ngIf="['FDUCT00000001', 'FDUCT00000003'].includes(currentSelectedConditionInfo.conditionType)">
+          <app-fms-input [placeHolder]="'값 입력'" [inputValue]="currentConditionValueInfo.value" (inputValueChange)="currentConditionValueInfo.value = $event"></app-fms-input>
+        </ng-container>
+        <ng-container *ngIf="['FDUCT00000002'].includes(currentSelectedConditionInfo.conditionType)">
+          <app-fms-input [placeHolder]="'키 입력'" [inputValue]="currentConditionKeyInfo.key" (inputValueChange)="currentConditionKeyInfo.key = $event"></app-fms-input>
+          <app-fms-input [placeHolder]="'값 입력'" [inputValue]="currentConditionValueInfo.value" (inputValueChange)="currentConditionValueInfo.value = $event"></app-fms-input>
+        </ng-container>
+        <app-fms-button [color]="'red'" (onClick)="conditionUploadButtonClick();">
+          등록
+        </app-fms-button>
+      </div>
+      <div>
+        <ul class="condition-show-list">
+          <ng-container *ngFor="let item of conditionItems">
+            <li class="item">
+              <div class="title">
+                {{ item.conditionTypeName }}
+              </div>
+              <div class="content">
+                <ng-container *ngIf="item.conditionType === 'FDUCT00000001'">
+                  {{ item.value }} IP 주소에 대해서만 접근 허용
+                </ng-container>
+                <ng-container *ngIf="item.conditionType === 'FDUCT00000002'">
+                  Header 의 "{{ item.key }}" 값이 "{{ item.value }}" 인 요청에 대해서만 접근 허용
+                </ng-container>
+                <ng-container *ngIf="item.conditionType === 'FDUCT00000003'">
+                  "{{ item.value }}" 라는 암호를 입력해야 접근 가능
+                </ng-container>
+                <ng-container *ngIf="item.conditionType === 'FDUCT00000004'">
+                  파일 정보를 확인하는 페이지에 접근 후 다운로드 접근 가능
+                </ng-container>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
     </app-fms-info-content>
   </app-fms-info-li>
 </app-fms-info-ul>

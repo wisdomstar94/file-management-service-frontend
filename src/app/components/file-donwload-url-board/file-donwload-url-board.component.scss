@@ -1,0 +1,25 @@
+ul.condition-list {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  > li.item {
+    list-style-type: none;
+    display: block;
+    margin: 0;
+    margin-bottom: 4px;
+    padding: 6px;
+    position: relative;
+    font-size: 10pt;
+    color: #ffffff;
+    text-align: left;
+    box-sizing: border-box;
+    background-color: #888888;
+    border-radius: 8px;
+  }
+}
+
+span.blue {
+  color: #2475d1;
+}

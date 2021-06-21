@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CodeItem } from 'src/app/interfaces/code-item.interface';
+import { ConditionInfo } from 'src/app/interfaces/condition-info.interface';
+import { FileDownloadUrlAccessConditionInfo } from 'src/app/interfaces/file-download-url-access-condition-info.interface';
 import { FileDownloadUrlInfo } from 'src/app/interfaces/file-download-url-info.interface';
 import { FileOnlyVersionItem } from 'src/app/interfaces/file-only-version-item.interface';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
@@ -25,10 +27,30 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
   fileDownloadUrlInfo!: FileDownloadUrlInfo;
   fileDownloadUrlStatusSelectItems: SelectItem[] = [];
 
+  conditionInfo: ConditionInfo[] = [];
+
+  cleanConditionItems: FileDownloadUrlAccessConditionInfo[] = [];
+  conditionItems: FileDownloadUrlAccessConditionInfo[] = [];
+
   isFileDownloadUrlInfoGetting = false;
 
   fileVersionList: FileOnlyVersionItem[] = [];
   fileVersionListSelectItems: SelectItem[] = [];
+
+  conditionCodeList: CodeItem[] = [];
+  conditionCodeListSelectItems: SelectItem[] = [];
+  
+  currentSelectedConditionInfo = {
+    conditionType: 'FDUCT00000001',
+  };
+  currentConditionKeyInfo = {
+    key: '',
+  };
+  currentConditionValueInfo = {
+    value: '',
+  };
+
+  
 
 
   constructor(
@@ -36,6 +58,16 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     private ajax: AjaxService,
     private common: CommonService,
   ) { 
+    this.conditionCodeList = this.route.snapshot.data.FileDownloadUrlConditionTypeCode;
+    this.conditionCodeListSelectItems = this.conditionCodeList.map((x) => {
+      return {
+        optionUniqueID: x.code,
+        optionValue: x.code,
+        optionDisplayText: x.codeName,
+        selected: false,
+      };
+    });
+
     this.fileVersionList = this.route.snapshot.data.FileVersionList;
     this.fileVersionListSelectItems = this.fileVersionList.map((x) => {
       return {
@@ -44,6 +76,12 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         optionDisplayText: x.fileVersionName,
         selected: false,
       };
+    });
+    this.fileVersionListSelectItems.unshift({
+      optionUniqueID: 'null',
+      optionValue: 'null',
+      optionDisplayText: '최신 버전',
+      selected: false,
     });
 
     const statusCodeList: CodeItem[] = this.route.snapshot.data.FileDownloadUrlStatusCode;
@@ -72,6 +110,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         fileKey: '',
         fileVersionName: '',
         fileVersionCode: '',
+        fileDownloadName: '',
       },
       FmsCreaterUsers: {
         userKey: '',
@@ -124,6 +163,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
           fileKey: '',
           fileVersionName: '',
           fileVersionCode: '',
+          fileDownloadName: '',
         },
         FmsCreaterUsers: {
           userKey: '',
@@ -141,6 +181,23 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         },
       };
     }
+  }
+
+  setConditionInfo(conditionInfo: ConditionInfo[]): void {
+    this.conditionInfo = conditionInfo;
+    this.conditionItems = this.conditionInfo.map((x) => {
+      return {
+        fileAccessConditionKey: x.fileAccessConditionKey,
+        key: x.key,
+        value: x.value,
+        type: 'modify',
+        conditionStatus: x.FmsFileDownloadAccessConditionStatusCodes.code,
+
+        conditionTypeName: x.FmsFileDownloadAccessConditionTypeCodes.codeName,
+        conditionType: x.conditionType,
+      };
+    });
+    this.cleanConditionItems = { ...this.conditionItems };
   }
 
   getFileDownloadUrlInfo(fileDownloadUrlKey: string): void {
@@ -168,8 +225,14 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         this.isFileDownloadUrlInfoGetting = false;
         this.infoTaken.emit();
 
+        if (data.fileDownloadUrlInfo === null) {
+          return;
+        }
+
         const fileDownloadUrlInfo: FileDownloadUrlInfo = data.fileDownloadUrlInfo;
-        this.setFileDownloadUrlInfo(data.fileDownloadUrlInfo);
+        const conditionInfo: ConditionInfo[] = data.conditionInfo;
+        this.setFileDownloadUrlInfo(fileDownloadUrlInfo);
+        this.setConditionInfo(conditionInfo);
       },
       error => {
         this.isFileDownloadUrlInfoGetting = false;
@@ -217,5 +280,71 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
       // ...
     }
     return result;
+  }
+
+  conditionUploadButtonClick(): void {
+    const currentConditionType = this.currentSelectedConditionInfo.conditionType;
+
+    // console.log('currentConditionType', currentConditionType);
+    // console.log(this.conditionItems.map((x) => { return x.conditionType; }));
+
+    if (['FDUCT00000003', 'FDUCT00000004'].includes(currentConditionType)) {
+      if (this.conditionItems.map((x) => { return x.conditionType; }).includes(currentConditionType)) {
+        this.common.getAlertComponent()?.setDefault().setMessage('해당 제한 종류는 1개만 등록 가능합니다.').show();
+        return;
+      }
+    }
+
+    if (typeof this.currentConditionValueInfo.value !== 'string') {
+      this.common.getAlertComponent()?.setDefault().setMessage('값을 입력해주세요.').show();
+      return;
+    }
+
+    if (this.currentConditionValueInfo.value.trim() === '') {
+      this.common.getAlertComponent()?.setDefault().setMessage('값을 입력해주세요.').show();
+      return;
+    }
+
+    const newConditionItem: FileDownloadUrlAccessConditionInfo = {
+      fileAccessConditionKey: '',
+      type: 'new',
+      value: this.currentConditionValueInfo.value,
+      conditionStatus: 'FDUCS00000001',
+
+      conditionType: currentConditionType,
+      conditionTypeName: this.conditionCodeList.filter((x) => {
+        if (x.code === currentConditionType) {
+          return true;
+        }
+        return false;
+      })[0].codeName,
+    };
+
+    switch (currentConditionType) {
+      case 'FDUCT00000001': // 특정 IP 제한
+        
+        break;
+      case 'FDUCT00000002': // 특정 Header 값 제한
+        if (typeof this.currentConditionKeyInfo.key !== 'string') {
+          this.common.getAlertComponent()?.setDefault().setMessage('키를 입력해주세요.').show();
+          return;
+        }
+
+        if (this.currentConditionKeyInfo.key.trim() === '') {
+          this.common.getAlertComponent()?.setDefault().setMessage('키를 입력해주세요.').show();
+          return;
+        }
+
+        newConditionItem.key = this.currentConditionKeyInfo.key;
+        break;
+      case 'FDUCT00000003': // 특정 암호 필요
+
+        break;
+      case 'FDUCT00000004': // 파일 정보 확인 후 다운로드 (URL 직접 다운로드 제한)
+
+        break;
+    }
+
+    this.conditionItems.unshift(newConditionItem);
   }
 }

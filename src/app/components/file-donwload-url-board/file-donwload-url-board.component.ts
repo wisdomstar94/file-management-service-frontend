@@ -166,6 +166,7 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
     // console.log('forms', forms);
 
     const data = {
+      fileKey: this.fileKey,
       fileDownloadUrlKey: forms.fileDownloadUrlKey,
       fileDownloadLimitMaxCountStart: forms.fileDownloadLimitMaxCountStart,
       fileDownloadLimitMaxCountEnd: forms.fileDownloadLimitMaxCountEnd,

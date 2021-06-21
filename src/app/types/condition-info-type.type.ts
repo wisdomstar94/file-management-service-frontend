@@ -1,0 +1,1 @@
+export type ConditionInfoType = 'new' | 'modify' | 'delete';

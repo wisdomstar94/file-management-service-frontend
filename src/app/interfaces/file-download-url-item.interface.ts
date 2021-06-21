@@ -18,9 +18,15 @@ interface FmsFileDownloadAccessConditionTypeCodes {
   codeName: string;
 }
 
+interface FmsFileDownloadAccessConditionStatusCodes {
+  code: string;
+  codeName: string;
+}
+
 interface Conditions {
   conditionType: string;
   FmsFileDownloadAccessConditionTypeCodes: FmsFileDownloadAccessConditionTypeCodes;
+  FmsFileDownloadAccessConditionStatusCodes: FmsFileDownloadAccessConditionStatusCodes;
 }
 
 export interface FileDownloadUrlItem {

@@ -14,6 +14,7 @@ interface FmsTargetFileVersions {
   fileKey: string;
   fileVersionName: string;
   fileVersionCode: string;
+  fileDownloadName: string;
 }
 
 interface FmsCreaterUsers {
