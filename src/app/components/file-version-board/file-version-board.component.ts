@@ -212,12 +212,13 @@ export class FileVersionBoardComponent implements OnInit {
       return;
     }
 
-    this.fileVersionDetailPopup.show(item.fileVersionKey);
+    this.fileVersionDetailPopup.show(item.fileVersionKey, 'modify');
     // this.router.navigate(['file/info/' + item.fileVersionKey]);
     return;
   }
 
   fileVersionUploadButtonClick(): void {
     // this.router.navigate(['file/upload']);
+    this.fileVersionDetailPopup.show('', 'upload');
   }  
 }

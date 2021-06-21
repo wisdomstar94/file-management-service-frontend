@@ -4,7 +4,7 @@
       버전명
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="fileVersionInfo?.fileVersionName!" [disabled]="true" (inputValueChange)="fileVersionInfo.fileVersionName = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="fileVersionInfo?.fileVersionName!" [disabled]="popupMode === 'modify'" (inputValueChange)="fileVersionInfo.fileVersionName = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -12,7 +12,7 @@
       버전코드
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="fileVersionInfo?.fileVersionCode!" [disabled]="true" (inputValueChange)="fileVersionInfo.fileVersionCode = $event;"></app-fms-input>
+      <app-fms-input [inputValue]="fileVersionInfo?.fileVersionCode!" [disabled]="popupMode === 'modify'" (inputValueChange)="fileVersionInfo.fileVersionCode = $event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>

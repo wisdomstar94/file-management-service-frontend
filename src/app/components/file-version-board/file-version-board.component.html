@@ -58,4 +58,4 @@
   <app-pagination-box #fileVersionListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
 </app-article>
 
-<app-file-version-detail-popup #fileVersionDetailPopup></app-file-version-detail-popup>
+<app-file-version-detail-popup #fileVersionDetailPopup [fileKey]="fileKey" (newFileVersionUploaded)="getList(1);"></app-file-version-detail-popup>

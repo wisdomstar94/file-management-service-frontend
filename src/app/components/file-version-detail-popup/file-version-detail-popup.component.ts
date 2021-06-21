@@ -1,7 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { PopupMode } from 'src/app/types/popup-mode.type';
 import { environment } from 'src/environments/environment';
 import { FileVersionFormBoxComponent } from '../file-version-form-box/file-version-form-box.component';
 
@@ -28,6 +29,11 @@ export class FileVersionDetailPopupComponent implements OnInit {
   isLoading: boolean;
   fileVersionKey: string;
   isFileVersionModifying: boolean;
+  isFileVersionUploading: boolean;
+  popupMode: PopupMode;
+
+  @Input() fileKey!: string;
+  @Output() newFileVersionUploaded = new EventEmitter();
 
   @ViewChild('fileVersionFormBox') fileVersionFormBox!: FileVersionFormBoxComponent;
 
@@ -39,6 +45,8 @@ export class FileVersionDetailPopupComponent implements OnInit {
     this.isLoading = false;
     this.fileVersionKey = '';
     this.isFileVersionModifying = false;
+    this.isFileVersionUploading = false;
+    this.popupMode = 'modify';
   }
 
   ngOnInit(): void {
@@ -49,12 +57,16 @@ export class FileVersionDetailPopupComponent implements OnInit {
     this.fileVersionKey = fileVersionKey;
   }
 
-  show(fileVersionKey: string): void {
- 
+  setPopupMode(popupMode: PopupMode): void {
+    this.popupMode = popupMode;
+  }
+
+  show(fileVersionKey: string, popupMode: PopupMode): void {
     if (this.isShow === true) {
       return;
     }
 
+    this.setPopupMode(popupMode);
     this.setFileVersionKey(fileVersionKey);
 
     this.common.getCommonNavComponent()!.zIndex = 1;
@@ -86,6 +98,10 @@ export class FileVersionDetailPopupComponent implements OnInit {
       return;
     }
 
+    if (!this.fileVersionFormBox.infoValidationCheck()) {
+      return;
+    }
+
     const formData = new FormData();
 
     formData.append('fileVersionKey', this.fileVersionKey);
@@ -110,6 +126,8 @@ export class FileVersionDetailPopupComponent implements OnInit {
       formData.append('fileVersionStatus', this.fileVersionFormBox.fileVersionInfo.FmsFileVersionStatusCodes?.code!);
     }
 
+    this.isFileVersionModifying = true;
+
     const options = {
       reportProgress: true,
       withCredentials: true,
@@ -130,6 +148,61 @@ export class FileVersionDetailPopupComponent implements OnInit {
       },
       error => {
         this.isFileVersionModifying = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
+  }
+
+  fileVersionInfoUploadButtonClick(): void {
+    if (this.isFileVersionUploading === true) {
+      this.common.getAlertComponent()?.setMessage('등록 중입니다. 잠시만 기다려주세요.').show();
+      return;
+    }
+
+    if (!this.fileVersionFormBox.infoValidationCheck()) {
+      return;
+    }
+
+    if (!(this.fileVersionFormBox.versionFile instanceof File)) {
+      this.common.getAlertComponent()?.setMessage('파일을 등록해주세요.').show();
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append('fileKey', this.fileKey);
+    formData.append('fileVersionName', this.fileVersionFormBox.fileVersionInfo.fileVersionName!);
+    formData.append('fileVersionCode', this.fileVersionFormBox.fileVersionInfo.fileVersionCode!);
+    formData.append('fileDownloadName', this.fileVersionFormBox.fileVersionInfo.fileDownloadName!);
+    formData.append('versionFile', this.fileVersionFormBox.versionFile);
+    formData.append('fileVersionMemo', this.fileVersionFormBox.fileVersionInfo.fileVersionMemo!);
+    formData.append('fileVersionDescription', this.fileVersionFormBox.fileVersionInfo.fileVersionDescription!);
+    formData.append('fileVersionStatus', this.fileVersionFormBox.fileVersionInfo.FmsFileVersionStatusCodes?.code!);
+  
+    this.isFileVersionUploading = true;
+
+    const options = {
+      reportProgress: true,
+      withCredentials: true,
+    };
+
+    const observable = this.ajax.post(environment.api.fileVersion.uploadFileVersion, formData, options);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isFileVersionUploading = false;
+        console.log('response', data);
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()?.setDefault().setMessage('파일 버전 정보가 등록되었습니다.').show();
+        this.newFileVersionUploaded.emit(this);
+        return;
+      },
+      error => {
+        this.isFileVersionUploading = false;
         this.common.alertMessage(error);
         return;
       },

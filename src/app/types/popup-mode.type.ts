@@ -1,0 +1,1 @@
+export type PopupMode = 'upload' | 'modify';

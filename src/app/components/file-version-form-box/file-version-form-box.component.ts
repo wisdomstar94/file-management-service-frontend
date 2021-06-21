@@ -6,6 +6,7 @@ import { SelectItem } from 'src/app/interfaces/select-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { FileVersionColumn } from 'src/app/types/file-version-column.type';
+import { PopupMode } from 'src/app/types/popup-mode.type';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,6 +19,7 @@ export class FileVersionFormBoxComponent implements OnInit {
   @Output() infoTaken = new EventEmitter();
 
   @Input() fileVersionKey!: string;
+  @Input() popupMode: PopupMode;
   cleanFileVersionInfo!: FileVersionInfo;
   fileVersionInfo!: FileVersionInfo;
   fileVersionStatusSelectItems: SelectItem[] = [];
@@ -41,6 +43,7 @@ export class FileVersionFormBoxComponent implements OnInit {
         selected: false,
       };
     });
+    this.popupMode = 'modify';
 
     this.fileVersionInfo = {
       FmsFiles: {
@@ -56,10 +59,11 @@ export class FileVersionFormBoxComponent implements OnInit {
         userKey: '',
       },
       FmsFileVersionStatusCodes: {
-        code: '',
+        code: 'FVSTS00000001',
         codeName: '',
       }
     };
+    this.setFileVersionInfo(this.fileVersionInfo);
   }
 
   ngOnInit(): void {
@@ -101,6 +105,10 @@ export class FileVersionFormBoxComponent implements OnInit {
 
   getFileVersionInfo(fileVersionKey: string): void {
     if (this.isFileVersionInfoGetting === true) {
+      return;
+    }
+
+    if (fileVersionKey === '') {
       return;
     }
 
@@ -157,6 +165,37 @@ export class FileVersionFormBoxComponent implements OnInit {
     if (this.fileVersionInfo === undefined) {
       this.common.getAlertComponent()?.setMessage('파일 버전 정보가 없습니다.').show();
       return false;
+    }
+
+    // fileVersionName 체크
+    if (typeof this.fileVersionInfo.fileVersionName !== 'string') {
+      this.common.getAlertComponent()?.setMessage('파일 버전명 정보가 없습니다.').show();
+      return false;
+    }
+
+    if (this.fileVersionInfo.fileVersionName.trim() === '') {
+      this.common.getAlertComponent()?.setMessage('파일 버전명을 입력해주세요.').show();
+      return false;
+    }
+
+    // fileVersionCode 체크
+    if (typeof this.fileVersionInfo.fileVersionCode !== 'string' && typeof this.fileVersionInfo.fileVersionCode !== 'number') {
+      this.common.getAlertComponent()?.setMessage('파일 버전 코드 정보가 없습니다.').show();
+      return false;
+    }
+
+    if (typeof this.fileVersionInfo.fileVersionCode === 'string') {
+      if (this.fileVersionInfo.fileVersionCode.trim() === '') {
+        this.common.getAlertComponent()?.setMessage('파일 버전 코드를 입력해주세요.').show();
+        return false;
+      }
+    }
+
+    if (typeof this.fileVersionInfo.fileVersionCode === 'number') {
+      if (Number(this.fileVersionInfo.fileVersionCode) === 0) {
+        this.common.getAlertComponent()?.setMessage('파일 버전 코드를 입력해주세요.').show();
+        return false;
+      }
     }
 
     // fileDownloadName 체크
