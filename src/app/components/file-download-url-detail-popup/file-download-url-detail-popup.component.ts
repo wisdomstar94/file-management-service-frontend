@@ -1,5 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ModifyFileDownloadUrlData } from 'src/app/interfaces/modify-file-download-url-data.interface';
+import { UploadFileDownloadUrlData } from 'src/app/interfaces/upload-file-download-url-data.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { PopupMode } from 'src/app/types/popup-mode.type';
@@ -34,12 +37,14 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
 
   @Input() fileKey!: string;
   @Output() newFileDownloadUrlUploaded = new EventEmitter();
+  @Output() newFileDownloadUrlModifyed = new EventEmitter();
 
   @ViewChild('fileDownloadUrlFormBox') fileDownloadUrlFormBox!: FileDownloadUrlFormBoxComponent;
 
   constructor(
     private common: CommonService,
     private ajax: AjaxService,
+    private route: ActivatedRoute,
   ) { 
     this.isShow = false;
     this.isLoading = false;
@@ -92,7 +97,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
     this.hide();
   }
 
-  fileVersionInfoEditButtonClick(): void {
+  fileDownloadUrlInfoEditButtonClick(): void {
     if (this.isFileDownloadUrlModifying === true) {
       this.common.getAlertComponent()?.setMessage('수정 중입니다. 잠시만 기다려주세요.').show();
       return;
@@ -102,14 +107,37 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
       return;
     }
 
-    const data: any = {};
-
-    data.fileDownloadUrlKey = this.fileDownloadUrlKey;
+    const data: ModifyFileDownloadUrlData = {
+      fileDownloadUrlKey: this.fileDownloadUrlKey,
+    };
 
     if (this.fileDownloadUrlFormBox.isChanged('fileDownloadUrlTargetVersion')) {
       data.fileVersionKey = this.fileDownloadUrlFormBox.fileDownloadUrlInfo.FmsTargetFileVersions?.fileVersionKey;
     }
-    // ...
+
+    if (this.fileDownloadUrlFormBox.isChanged('fileDownloadPossibleDateTimeStart')) {
+      data.fileDownloadPossibleDateTimeStart = this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart;
+    }
+
+    if (this.fileDownloadUrlFormBox.isChanged('fileDownloadPossibleDateTimeEnd')) {
+      data.fileDownloadPossibleDateTimeEnd = this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd;
+    }
+
+    if (this.fileDownloadUrlFormBox.isChanged('fileDownloadLimitMaxCount')) {
+      data.fileDownloadLimitMaxCount = this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadLimitMaxCount;
+    }
+
+    if (this.fileDownloadUrlFormBox.isChanged('fileDownloadCount')) {
+      data.fileDownloadCount = this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadCount;
+    }
+
+    if (this.fileDownloadUrlFormBox.isChanged('fileDownloadUrlStatus')) {
+      data.fileDownloadUrlStatus = this.fileDownloadUrlFormBox.fileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code;
+    }
+
+    if (this.fileDownloadUrlFormBox.isChanged('fileDownloadUrlAccessConditionInfo')) {
+      data.fileDownloadUrlAccessConditionInfo = this.fileDownloadUrlFormBox.conditionItems;
+    }
 
     this.isFileDownloadUrlModifying = true;
 
@@ -128,6 +156,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('파일 다운로드 URL 정보가 수정되었습니다.').show();
+        this.newFileDownloadUrlModifyed.emit(this);
         return;
       },
       error => {
@@ -138,7 +167,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
     );
   }
 
-  fileVersionInfoUploadButtonClick(): void {
+  fileDownloadUrlInfoUploadButtonClick(): void {
     if (this.isFileDownloadUrlUploading === true) {
       this.common.getAlertComponent()?.setMessage('등록 중입니다. 잠시만 기다려주세요.').show();
       return;
@@ -148,9 +177,16 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
       return;
     }
 
-    const data: any = {};
-
-    data.fileDownloadUrlKey = this.fileDownloadUrlKey;
+    const data: UploadFileDownloadUrlData = {
+      downloadTargetUserKey: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.downloadTargetUserKey as string,
+      fileKey: this.route.snapshot.params.fileKey,
+      fileVersionKey: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.FmsTargetFileVersions?.fileVersionKey as string,
+      fileDownloadPossibleDateTimeStart: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart as string,
+      fileDownloadPossibleDateTimeEnd: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd as string,
+      fileDownloadLimitMaxCount: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadLimitMaxCount as string,
+      fileDownloadUrlAccessConditionInfo: this.fileDownloadUrlFormBox.conditionItems,
+      fileDownloadUrlStatus: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code as string,
+    };
     // ...
   
     this.isFileDownloadUrlUploading = true;
@@ -160,7 +196,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
       withCredentials: true,
     };
 
-    const observable = this.ajax.post(environment.api.fileVersion.uploadFileVersion, data, options);
+    const observable = this.ajax.post(environment.api.fileDownloadUrl.createFileDownloadUrl, data, options);
     const subscribe = observable.subscribe(
       data => {
         this.isFileDownloadUrlUploading = false;
@@ -170,7 +206,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
           return;
         }
 
-        this.common.getAlertComponent()?.setDefault().setMessage('파일 버전 정보가 등록되었습니다.').show();
+        this.common.getAlertComponent()?.setDefault().setMessage('파일 다운로드 URL이 등록되었습니다.').show();
         this.newFileDownloadUrlUploaded.emit(this);
         return;
       },

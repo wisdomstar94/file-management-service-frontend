@@ -6,6 +6,7 @@ import { FileDownloadUrlAccessConditionInfo } from 'src/app/interfaces/file-down
 import { FileDownloadUrlInfo } from 'src/app/interfaces/file-download-url-info.interface';
 import { FileOnlyVersionItem } from 'src/app/interfaces/file-only-version-item.interface';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
+import { UserItem } from 'src/app/interfaces/user-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { FileDownloadUrlColumn } from 'src/app/types/file-download-url-column.type';
@@ -50,14 +51,24 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     value: '',
   };
 
-  
-
+  userList: UserItem[] = [];
+  userSelectItems: SelectItem[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private ajax: AjaxService,
     private common: CommonService,
   ) { 
+    this.userList = this.route.snapshot.data.UserList;
+    this.userSelectItems = this.userList.map((x) => {
+      return {
+        optionUniqueID: x.userKey as string,
+        optionValue: x.userKey as string,
+        optionDisplayText: x.userId as string,
+        selected: false,
+      };
+    });
+
     this.conditionCodeList = this.route.snapshot.data.FileDownloadUrlConditionTypeCode;
     this.conditionCodeListSelectItems = this.conditionCodeList.map((x) => {
       return {
@@ -106,7 +117,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         fileLabelName: '',
       },
       FmsTargetFileVersions: {
-        fileVersionKey: '',
+        fileVersionKey: 'null',
         fileKey: '',
         fileVersionName: '',
         fileVersionCode: '',
@@ -159,7 +170,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
           fileLabelName: '',
         },
         FmsTargetFileVersions: {
-          fileVersionKey: '',
+          fileVersionKey: 'null',
           fileKey: '',
           fileVersionName: '',
           fileVersionCode: '',
@@ -230,6 +241,15 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         }
 
         const fileDownloadUrlInfo: FileDownloadUrlInfo = data.fileDownloadUrlInfo;
+        if (fileDownloadUrlInfo.FmsTargetFileVersions === null) {
+          fileDownloadUrlInfo.FmsTargetFileVersions = {
+            fileVersionKey: 'null',
+            fileVersionName: '최신버전',
+            fileVersionCode: '0',
+            fileDownloadName: '',
+            fileKey: '',
+          };
+        }
         const conditionInfo: ConditionInfo[] = data.conditionInfo;
         this.setFileDownloadUrlInfo(fileDownloadUrlInfo);
         this.setConditionInfo(conditionInfo);
@@ -277,6 +297,36 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
           result = true;
         }
         break;  
+      case 'fileDownloadPossibleDateTimeStart':
+        if (this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart !== this.cleanFileDownloadUrlInfo.fileDownloadPossibleDateTimeStart) {
+          result = true;
+        }
+        break;
+      case 'fileDownloadPossibleDateTimeEnd':
+        if (this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd !== this.cleanFileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd) {
+          result = true;
+        }
+        break;
+      case 'fileDownloadLimitMaxCount':
+        if (this.fileDownloadUrlInfo.fileDownloadLimitMaxCount !== this.cleanFileDownloadUrlInfo.fileDownloadLimitMaxCount) {
+          result = true;
+        }
+        break;
+      case 'fileDownloadCount':
+        if (this.fileDownloadUrlInfo.fileDownloadCount !== this.cleanFileDownloadUrlInfo.fileDownloadCount) {
+          result = true;
+        }
+        break;
+      case 'fileDownloadUrlAccessConditionInfo':
+        if (this.cleanConditionItems.length !== this.conditionItems.length) {
+          result = true;
+        } 
+        break;
+      case 'fileDownloadUrlStatus':
+        if (this.fileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code !== this.cleanFileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code) {
+          result = true;
+        }
+        break;
       // ...
     }
     return result;
@@ -308,6 +358,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     const newConditionItem: FileDownloadUrlAccessConditionInfo = {
       fileAccessConditionKey: '',
       type: 'new',
+      key: '',
       value: this.currentConditionValueInfo.value,
       conditionStatus: 'FDUCS00000001',
 
@@ -346,5 +397,22 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     }
 
     this.conditionItems.unshift(newConditionItem);
+  }
+
+  conditionDeleteButtonClick(item: FileDownloadUrlAccessConditionInfo): void {
+    item.type = 'delete';
+    if (item.fileAccessConditionKey === '') {
+      this.conditionItems = this.conditionItems.filter((x) => {
+        if (x !== item) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
+  }
+
+  fileDownloadCountInitButtonClick(): void {
+    this.fileDownloadUrlInfo.fileDownloadCount = '0';
   }
 }

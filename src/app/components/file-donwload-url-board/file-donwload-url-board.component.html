@@ -75,4 +75,4 @@
   <app-pagination-box #fileDownloadUrlListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
 </app-article>
 
-<app-file-download-url-detail-popup #fileDownloadUrlDetailPopup [fileKey]="fileKey" (newFileVersionUploaded)="getList(1);"></app-file-download-url-detail-popup>
+<app-file-download-url-detail-popup #fileDownloadUrlDetailPopup [fileKey]="fileKey" (newFileDownloadUrlUploaded)="getList(1);" (newFileDownloadUrlModifyed)="getList(1);"></app-file-download-url-detail-popup>

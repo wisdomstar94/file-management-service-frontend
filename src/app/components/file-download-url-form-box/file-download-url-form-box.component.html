@@ -12,7 +12,8 @@
       타겟 계정
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="fileDownloadUrlInfo?.FmsFileDownloadUrlTargetUsers?.userId!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo?.FmsFileDownloadUrlTargetUsers!.userId = $event;"></app-fms-input>
+      <!-- <app-fms-input [inputValue]="fileDownloadUrlInfo?.FmsFileDownloadUrlTargetUsers?.userId!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo?.FmsFileDownloadUrlTargetUsers!.userId = $event;"></app-fms-input> -->
+      <app-fms-select [selectItems]="userSelectItems" [selectedValue]="fileDownloadUrlInfo?.downloadTargetUserKey!" [disabled]="popupMode === 'modify'" (valueChanged)="fileDownloadUrlInfo!.downloadTargetUserKey = $event;"></app-fms-select>  
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -55,7 +56,7 @@
     </app-fms-info-title>
     <app-fms-info-content>
       <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadCount!" [disabled]="true" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadCount = $event;"></app-fms-input>
-      <app-fms-button [color]="'red'">
+      <app-fms-button [color]="'red'" (click)="fileDownloadCountInitButtonClick();" *ngIf="popupMode === 'modify'">
         초기화
       </app-fms-button>
     </app-fms-info-content>
@@ -76,7 +77,7 @@
       <app-fms-select [selectItems]="fileDownloadUrlStatusSelectItems" [selectedValue]="fileDownloadUrlInfo?.FmsFileDownloadUrlStatusCodes!.code" (valueChanged)="fileDownloadUrlInfo?.FmsFileDownloadUrlStatusCodes!.code = $event;"></app-fms-select>
     </app-fms-info-content>
   </app-fms-info-li>
-  <app-fms-info-li>
+  <app-fms-info-li *ngIf="popupMode === 'modify'">
     <app-fms-info-title>
       메일 삽입용 HTML (복사 후 붙여넣기하여 사용)
     </app-fms-info-title>
@@ -126,7 +127,7 @@
       <div>
         <ul class="condition-show-list">
           <ng-container *ngFor="let item of conditionItems">
-            <li class="item">
+            <li class="item" *ngIf="item.type !== 'delete'">
               <div class="title">
                 {{ item.conditionTypeName }}
               </div>
@@ -143,6 +144,9 @@
                 <ng-container *ngIf="item.conditionType === 'FDUCT00000004'">
                   파일 정보를 확인하는 페이지에 접근 후 다운로드 접근 가능
                 </ng-container>
+              </div>
+              <div class="button-area">
+                <app-fms-button [color]="'gray'" (click)="conditionDeleteButtonClick(item);">삭제</app-fms-button>
               </div>
             </li>
           </ng-container>

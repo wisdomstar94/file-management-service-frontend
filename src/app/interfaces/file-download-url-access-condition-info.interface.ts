@@ -2,7 +2,7 @@ import { ConditionInfoType } from "../types/condition-info-type.type";
 
 export interface FileDownloadUrlAccessConditionInfo {
   fileAccessConditionKey: string;
-  key?: string;
+  key: string;
   value: string;
   type: ConditionInfoType;
   conditionStatus: string;
