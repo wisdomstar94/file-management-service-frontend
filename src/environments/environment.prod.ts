@@ -71,6 +71,7 @@ export const environment = {
       getFile: baseUrl + '/api/file/getFile',
       fileBasicInfo: baseUrl + '/api/file/fileBasicInfo',
       modifyFile: baseUrl + '/api/file/modifyFile',
+      fileDownloadUrlOuterInfo: baseUrl + '/api/file/fileDownloadUrlOuterInfo',
     },
     fileVersion: {
       getFileVersion: baseUrl + '/api/fileVersion/getFileVersion',
@@ -88,6 +89,8 @@ export const environment = {
     download: {
       yyyymmList: baseUrl + '/api/download/yyyymmList',
       statistics: baseUrl + '/api/download/statistics',
+      downloadCheck: baseUrl + '/api/download/downloadCheck',
+      downloadPasswordCheck: baseUrl + '/api/download/downloadPasswordCheck',
     },
   },
 

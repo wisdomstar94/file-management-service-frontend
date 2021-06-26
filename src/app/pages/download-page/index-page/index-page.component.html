@@ -1,0 +1,35 @@
+<div class="background">
+
+</div>
+<app-content-center class="full-box">
+  <div class="file-box">
+    <div class="title-row">
+      <div class="file-name">
+        {{ fileNormalInfo.fileDownloadName }}
+      </div>
+    </div>
+    <div class="content-row">
+      <ul class="file-info-list">
+        <li class="item">
+          <div class="title-row">
+            용량
+          </div>
+          <div class="content-row">
+            {{ byteConvertInfo.sizeToFixed }} {{ byteConvertInfo.unit }}
+          </div>
+        </li>
+        <li class="item" *ngIf="fileNormalInfo.requirePassword === true">
+          <div class="title-row">
+            암호
+          </div>
+          <div class="content-row">
+            <app-fms-input [inputValue]="password" [inputType]="'password'" (inputValueChange)="password = $event;"></app-fms-input>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="download-button-row">
+      <app-fms-button [color]="'gray'" (onClick)="downloadButtonClick();">다운로드</app-fms-button>
+    </div>
+  </div>
+</app-content-center>

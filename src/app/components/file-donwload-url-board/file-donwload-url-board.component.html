@@ -42,7 +42,9 @@
         <app-fms-tr [ngClass]="[fileDownloadUrlTableViewType]">
           <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
           <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'No.'">{{ item.seq }}</app-fms-td>
-          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'파일 다운로드 URL'">{{ item.fileDownloadUrlKey }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'파일 다운로드 URL'">
+            <a [href]="environment.baseUrl + '/api/download/file/' + item.fileDownloadUrlKey">{{ item.fileDownloadUrlKey }}</a>
+          </app-fms-td>
           <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'타겟 계정'">{{ item.FmsFileDownloadUrlTargetUsers?.userId }}</app-fms-td>
           <app-fms-td [ngClass]="[fileDownloadUrlTableViewType]" [tableViewType]="fileDownloadUrlTableViewType" [columnName]="'타겟 버전'">
             <ng-container *ngIf="item.FmsTargetFileVersions === null">

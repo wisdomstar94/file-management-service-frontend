@@ -62,7 +62,7 @@
                       {{ item2.fileLabelName }}
                     </td>
                     <td>
-                      {{ item2.fileVersionName }}
+                      {{ item2.fileVersionName === null ? '최신버전' : item2.fileVersionName }}
                     </td>
                     <td class="count">
                       {{ item2.downloadCount }}

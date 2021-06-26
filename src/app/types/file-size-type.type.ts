@@ -1,0 +1,1 @@
+export type FileSizeType = 'B' | 'KB' | 'MB' | 'GB' | 'TB';

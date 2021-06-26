@@ -6,6 +6,7 @@ import { CommonContentComponent } from '../components/common-content/common-cont
 import { CommonNavComponent } from '../components/common-nav/common-nav.component';
 import { CommonTopHeaderComponent } from '../components/common-top-header/common-top-header.component';
 import { CommonComponent } from '../interfaces/common-componen.interfacet';
+import { FileSizeUnit } from '../interfaces/file-size-unit.interface';
 import { NavMenuItem } from '../interfaces/nav-menu-item.interface';
 import { ResponseData } from '../interfaces/response-data.interface';
 import { SearchItem } from '../interfaces/search-item.interface';
@@ -159,5 +160,41 @@ export class CommonService {
       this.getRandomString(second_length),
     );
     return token;
+  }
+
+  byteConvert(num: number): FileSizeUnit {
+    // KB 로 표시
+    if (num < 1024000) {
+      return {
+        size: num / 1024,
+        sizeToFixed: (num / 1024).toFixed(2),
+        unit: 'KB',
+      };
+    }
+
+    // MB 로 표시
+    if (num < 1073700000) {
+      return {
+        size: num / 1048576,
+        sizeToFixed: (num / 1048576).toFixed(2),
+        unit: 'MB',
+      };
+    }
+
+    // GB 로 표시
+    if (num < 1099500000000) {
+      return {
+        size: num / 1073700000,
+        sizeToFixed: (num / 1073700000).toFixed(2),
+        unit: 'GB',
+      };
+    }
+
+    // TB 로 표시
+    return {
+      size: num / 1099500000000,
+      sizeToFixed: (num / 1099500000000).toFixed(2),
+      unit: 'TB',
+    };
   }
 }

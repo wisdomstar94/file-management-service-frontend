@@ -19,6 +19,8 @@ import { TableTopBoxComponent } from '../table-top-box/table-top-box.component';
   styleUrls: ['./file-donwload-url-board.component.scss']
 })
 export class FileDonwloadUrlBoardComponent implements OnInit {
+  environment = environment;
+
   @Input() fileKey!: string;
 
   @ViewChild('fileDownloadUrlSearchBox') fileDownloadUrlSearchBox!: SearchBoxComponent;

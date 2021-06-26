@@ -26,7 +26,7 @@ import { menuActiveReducer } from './store/menu/menu-active.reducer';
     AlertModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
-      cookieName: 'csrf-token',
+      cookieName: 'CSRF-TOKEN',
       headerName: 'csrf-token',
     }),
     StoreModule.forRoot({ 
