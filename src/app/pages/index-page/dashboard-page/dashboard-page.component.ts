@@ -163,7 +163,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             item.mainResult = Number((data.targetDateTotalSize / checkFileSize.division).toFixed(2));
             item.resultUnit = checkFileSize.unit;
 
-            item.subResult = data.todayTotalSizeByte / checkSubFileSize.division;
+            item.subResult = Number(((data.todayTotalSizeByte / checkSubFileSize.division).toFixed(2)));
             item.subUnit = checkSubFileSize.unit;
           },
           error => {

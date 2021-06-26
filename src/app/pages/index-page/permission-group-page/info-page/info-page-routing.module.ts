@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PermissionCheckGuard } from 'src/app/guards/permission-check.guard';
 import { PermissionAllListResolver } from 'src/app/resolvers/permission-all-list.resolver';
 import { PermissionGroupInfoResolver } from 'src/app/resolvers/permission-group-info.resolver';
 import { PermissionGroupStatusCodeResolver } from 'src/app/resolvers/permission-group-status-code.resolver';
@@ -10,6 +11,9 @@ const routes: Routes = [
   { 
     path: '', 
     component: InfoPageComponent,
+    canActivate: [
+      PermissionCheckGuard,
+    ],
     resolve: {
       PermissionGroupStatusCode: PermissionGroupStatusCodeResolver,
       PermissionGroupInfo: PermissionGroupInfoResolver,

@@ -50,6 +50,7 @@ export const environment = {
       getUserInfo: baseUrl + '/api/user/getUserInfo',
       modifyUser: baseUrl + '/api/user/modifyUser',
       createUser: baseUrl + '/api/user/createUser',
+      permissionCheck: baseUrl + '/api/user/permissionCheck',
     },
     company: {
       getCompany: baseUrl + '/api/company/getCompany',

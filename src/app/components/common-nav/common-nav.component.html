@@ -24,7 +24,7 @@
   <div class="bottom-area">
     <ul class="menu-list">
       <ng-container *ngFor="let item of userMenuList">
-        <li class="item">
+        <li class="item" *ngIf="item.menuList.length > 0">
           <div class="category-name-row" [ngClass]="categoryNameRowClass">
             {{ item.menuCategoryName }}
           </div>

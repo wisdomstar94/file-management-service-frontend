@@ -42,7 +42,7 @@ const navBackgroundAnim = trigger('navBackgroundAnim', [
   ],
 })
 export class CommonNavComponent implements OnInit {
-  @Input() zIndex: number = 1;
+  @Input() zIndex: number = 3;
   @Output() onInit = new EventEmitter();
 
   environment = environment;

@@ -37,9 +37,11 @@
       다운로드 제한 기간
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeStart!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeStart = $event;"></app-fms-input>
-      <span>~</span>
-      <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeEnd!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeEnd = $event;"></app-fms-input>
+      <!-- <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeStart!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeStart = $event;"></app-fms-input> -->
+      <app-fms-datetime-input [value]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeStart!" [fixedSecond]="'00'" (valueChanged)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeStart = $event;"></app-fms-datetime-input>
+      <span class="datetime-period-char">~</span>
+      <!-- <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeEnd!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeEnd = $event;"></app-fms-input> -->
+      <app-fms-datetime-input [value]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeEnd!" [fixedSecond]="'59'" (valueChanged)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeEnd = $event;"></app-fms-datetime-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>

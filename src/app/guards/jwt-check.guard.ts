@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AjaxService } from '../services/ajax.service';
 
@@ -24,6 +24,7 @@ export class JwtCheckGuard implements CanActivate {
     const jwtCheckObservable = t.http.post<any>(
       environment.api.user.authCheck, {}, { withCredentials: true })
       .pipe(
+        retry(1),
         map(e => {
           if (e) {
             return true;

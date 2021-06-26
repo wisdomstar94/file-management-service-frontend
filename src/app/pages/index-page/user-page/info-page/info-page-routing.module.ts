@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PermissionCheckGuard } from 'src/app/guards/permission-check.guard';
 import { CompanyListResolver } from 'src/app/resolvers/company-list.resolver';
 import { PermissionGroupListResolver } from 'src/app/resolvers/permission-group-list.resolver';
 import { UserInfoResolver } from 'src/app/resolvers/user-info.resolver';
@@ -10,6 +11,9 @@ const routes: Routes = [
   { 
     path: '', 
     component: InfoPageComponent,
+    canActivate: [
+      PermissionCheckGuard,
+    ],
     resolve: {
       UserInfo: UserInfoResolver,
       UserStatusCode: UserStatusCodeResolver,

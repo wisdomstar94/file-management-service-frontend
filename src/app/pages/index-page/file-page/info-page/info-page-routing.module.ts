@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PermissionCheckGuard } from 'src/app/guards/permission-check.guard';
 import { FileBasicInfoResolver } from 'src/app/resolvers/file-basic-info.resolver';
 import { FileDownloadUrlConditionTypeCodeResolver } from 'src/app/resolvers/file-download-url-condition-type-code.resolver';
 import { FileDownloadUrlStatusCodeResolver } from 'src/app/resolvers/file-download-url-status-code.resolver';
@@ -12,7 +13,10 @@ import { InfoPageComponent } from './info-page.component';
 const routes: Routes = [
   { 
     path: '', 
-    component: InfoPageComponent, 
+    component: InfoPageComponent,
+    canActivate: [
+      PermissionCheckGuard,
+    ], 
     resolve: {
       FileBasicInfo: FileBasicInfoResolver,
       FileStatusCode: FileStatusCodeResolver,
