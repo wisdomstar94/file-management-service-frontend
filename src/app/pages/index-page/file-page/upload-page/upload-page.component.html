@@ -1,0 +1,16 @@
+<app-page-title-box>파일 신규 등록</app-page-title-box>
+<app-article>
+  <app-article-title>
+    파일 기본 정보
+  </app-article-title>
+  <app-file-basic-form-box #fileBasicFormBox></app-file-basic-form-box>
+  <app-fms-row>
+    <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="goList();">
+      목록으로
+    </app-fms-button>
+    <app-fms-button [color]="'red'" (onClick)="fileUploadButtonClick();">
+      파일 등록하기
+    </app-fms-button>
+  </app-fms-row>
+</app-article>
+

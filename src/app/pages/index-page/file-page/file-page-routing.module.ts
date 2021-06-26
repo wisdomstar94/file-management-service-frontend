@@ -15,6 +15,10 @@ const routes: Routes = [
         path: 'info/:fileKey', 
         loadChildren: () => import('./info-page/info-page.module').then(m => m.InfoPageModule) 
       },
+      { 
+        path: 'upload', 
+        loadChildren: () => import('./upload-page/upload-page.module').then(m => m.UploadPageModule) 
+      },
     ],
   },
 ];

@@ -76,6 +76,7 @@ export const environment = {
       fileBasicInfo: baseUrl + '/api/file/fileBasicInfo',
       modifyFile: baseUrl + '/api/file/modifyFile',
       fileDownloadUrlOuterInfo: baseUrl + '/api/file/fileDownloadUrlOuterInfo',
+      uploadFile: baseUrl + '/api/file/uploadFile',
     },
     fileVersion: {
       getFileVersion: baseUrl + '/api/fileVersion/getFileVersion',

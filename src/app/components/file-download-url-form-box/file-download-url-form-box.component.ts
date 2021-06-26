@@ -54,6 +54,8 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
   userList: UserItem[] = [];
   userSelectItems: SelectItem[] = [];
 
+  isFileVersionGetting = false;
+
   constructor(
     private route: ActivatedRoute,
     private ajax: AjaxService,
@@ -143,6 +145,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('이 부분 호출 확인 abab', this.fileVersionKey);
+    this.getFileVersionList();
     setTimeout(() => {
       this.getFileDownloadUrlInfo(this.fileDownloadUrlKey);
     });
@@ -414,5 +417,46 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
   fileDownloadCountInitButtonClick(): void {
     this.fileDownloadUrlInfo.fileDownloadCount = '0';
+  }
+
+  getFileVersionList(): void {
+    if (this.isFileVersionGetting) {
+      return;
+    }
+
+    const myObservable = this.ajax.post(environment.api.fileVersion.onlyFileVersionList, {
+      fileKey: this.route.snapshot.params.fileKey,
+    });
+
+    this.isFileVersionGetting = true;
+
+    myObservable.subscribe(
+      data => {
+        this.isFileVersionGetting = false;
+        const result: FileOnlyVersionItem[] = data.list;
+
+        this.fileVersionListSelectItems = result.map((x) => {
+          return {
+            optionUniqueID: x.fileVersionKey,
+            optionValue: x.fileVersionKey,
+            optionDisplayText: x.fileVersionName,
+            selected: false,
+          };
+        });
+        this.fileVersionListSelectItems.unshift({
+          optionUniqueID: 'null',
+          optionValue: 'null',
+          optionDisplayText: '최신 버전',
+          selected: false,
+        });
+      },
+      error => {
+        this.isFileVersionGetting = false;
+
+      },
+      () => {
+
+      }
+    );
   }
 }

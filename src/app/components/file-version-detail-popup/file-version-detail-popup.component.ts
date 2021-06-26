@@ -144,6 +144,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('파일 버전 정보가 수정되었습니다.').show();
+        this.isShow = false;
         return;
       },
       error => {
@@ -198,6 +199,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('파일 버전 정보가 등록되었습니다.').show();
+        this.isShow = false;
         this.newFileVersionUploaded.emit(this);
         return;
       },
