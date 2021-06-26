@@ -38,6 +38,10 @@ const routes: Routes = [
         path: 'file', 
         loadChildren: () => import('./file-page/file-page.module').then(m => m.FilePageModule) 
       },
+      { 
+        path: 'fileDownloadState', 
+        loadChildren: () => import('./file-download-state/file-download-state.module').then(m => m.FileDownloadStateModule) 
+      },
     ],
   },
 ];

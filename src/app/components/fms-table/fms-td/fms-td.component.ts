@@ -9,10 +9,12 @@ import { TableViewType } from 'src/app/types/table-view-type.type';
 export class FmsTdComponent implements OnInit {
   @Input() columnName: string;
   @Input() tableViewType: TableViewType;
+  @Input() contentWidth: string;
 
   constructor() { 
     this.columnName = '';
     this.tableViewType = 'row';
+    this.contentWidth = 'auto';
   }
 
   ngOnInit(): void {

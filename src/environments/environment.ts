@@ -89,6 +89,10 @@ export const environment = {
       modifyFileDownloadUrl: baseUrl + '/api/fileDownloadUrl/modifyFileDownloadUrl',
       createFileDownloadUrl: baseUrl + '/api/fileDownloadUrl/createFileDownloadUrl',
     },
+    download: {
+      yyyymmList: baseUrl + '/api/download/yyyymmList',
+      statistics: baseUrl + '/api/download/statistics',
+    },
   },
 
   image:{ 

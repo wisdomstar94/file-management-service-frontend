@@ -1,5 +1,6 @@
 import { SearchType } from "../types/search-type.type";
 import { CheckboxItem } from "./checkbox-item.interface";
+import { SelectItem } from "./select-item.interface";
 
 export interface SearchItem {
   uniqueID: string;
@@ -9,9 +10,12 @@ export interface SearchItem {
 
   startDatetime?: string;
   endDatetime?: string;
+  oneDatetime?: string;
 
   startNumber?: number;
   endNumber?: number;
 
   checkboxItemList?: CheckboxItem[];
+
+  selectItems?: SelectItem[];
 }

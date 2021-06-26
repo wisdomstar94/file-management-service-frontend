@@ -1,0 +1,81 @@
+<app-page-title-box>파일 다운로드 현황</app-page-title-box>
+<app-article>
+  <app-article-title>조회조건</app-article-title>
+  <app-search-box (onEnter)="getList(1);"
+    [searchItemList]="searchItemList" #userSearchBox>
+    <div leftButton>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-fms-button>
+      <app-fms-button [color]="'sky-blue'" (onClick)="getList(1);">
+        검색
+      </app-fms-button>
+    </div>
+    <div rightButton>
+      
+    </div>
+  </app-search-box>
+</app-article>
+<app-article>
+  <app-table-top-box [viewCountHide]="true" (tableViewTypeChanged)="fileDownloadStateTableViewType = $event;" #fileDownloadStateTableTopBox></app-table-top-box>
+  <app-fms-table [ngClass]="[fileDownloadStateTableViewType]">
+    <app-fms-thead [ngClass]="[fileDownloadStateTableViewType]">
+      <app-fms-tr [ngClass]="[fileDownloadStateTableViewType]">
+        <app-fms-th [ngClass]="[fileDownloadStateTableViewType]"><input type="checkbox" (change)="fileDownloadStateListAllCheckChanged();" [(ngModel)]="isFileDownloadStateListAllCheck" /></app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadStateTableViewType]">회사명</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadStateTableViewType]">회원 ID</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadStateTableViewType]">다운로드 URL 정보</app-fms-th>
+        <app-fms-th [ngClass]="[fileDownloadStateTableViewType]">&nbsp;</app-fms-th>
+      </app-fms-tr>
+    </app-fms-thead>
+    <app-fms-tbody [ngClass]="[fileDownloadStateTableViewType]">
+      <ng-container *ngFor="let item of fileDownloadStateList">
+        <app-fms-tr [ngClass]="[fileDownloadStateTableViewType]">
+          <app-fms-td [ngClass]="[fileDownloadStateTableViewType]" [tableViewType]="fileDownloadStateTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadStateTableViewType]" [tableViewType]="fileDownloadStateTableViewType" [columnName]="'회사명'">{{ item.downloadTargetUserCompanyName }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadStateTableViewType]" [tableViewType]="fileDownloadStateTableViewType" [columnName]="'회원 ID'">{{ item.downloadTargetUserId }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadStateTableViewType]" [contentWidth]="'90%'" [tableViewType]="fileDownloadStateTableViewType" [columnName]="'다운로드 URL 정보'">
+            <table class="download-url-key-info-list" cellspacing="0" cellpadding="0">
+              <thead>
+                <tr>
+                  <th>
+                    다운로드 KEY
+                  </th>
+                  <th>
+                    파일라벨명
+                  </th>
+                  <th>
+                    파일버전명
+                  </th>
+                  <th>
+                    다운로드된 수
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let item2 of item.fileDownloadUrlKeyGroupingList">
+                  <tr class="item">
+                    <td class="url-key">
+                      {{ item2.fileDownloadUrlKey }}
+                    </td>
+                    <td>
+                      {{ item2.fileLabelName }}
+                    </td>
+                    <td>
+                      {{ item2.fileVersionName }}
+                    </td>
+                    <td class="count">
+                      {{ item2.downloadCount }}
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </app-fms-td>
+          <app-fms-td [ngClass]="[fileDownloadStateTableViewType]" [tableViewType]="fileDownloadStateTableViewType"><app-fms-button [color]="'dark-blue'" (click)="fileDownloadStateDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
+        </app-fms-tr>
+      </ng-container>
+    </app-fms-tbody>
+  </app-fms-table>
+  <!-- <app-pagination-box #fileListPaginationBox (pageClicked)="getList($event);"></app-pagination-box> -->
+</app-article>

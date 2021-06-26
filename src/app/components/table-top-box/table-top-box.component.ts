@@ -14,6 +14,7 @@ import { TableViewType } from 'src/app/types/table-view-type.type';
 export class TableTopBoxComponent implements OnInit {
   total: number;
 
+  @Input() viewCountHide: boolean;
   @Input() tableViewType: TableViewType = 'row';
   @Output() tableViewTypeChanged = new EventEmitter();
 
@@ -59,6 +60,7 @@ export class TableTopBoxComponent implements OnInit {
   constructor(
     private store: Store<{ deviceMode: DeviceMode }>,
   ) { 
+    this.viewCountHide = false;
     this.total = 0;
     this.deviceMode$ = this.store.select('deviceMode');
   }

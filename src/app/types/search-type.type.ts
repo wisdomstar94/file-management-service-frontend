@@ -1,1 +1,1 @@
-export type SearchType = 'text' | 'datetime' | 'number' | 'checkbox' | 'select';
+export type SearchType = 'text' | 'datetime' | 'one-datetime' | 'number' | 'checkbox' | 'select';

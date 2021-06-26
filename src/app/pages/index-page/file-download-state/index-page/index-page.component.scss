@@ -1,0 +1,46 @@
+$table-stoke-color: #bfe2d5;
+$table-th-bg-color: #99c5b5;
+
+table.download-url-key-info-list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  border-top: 1px solid $table-stoke-color;
+  border-left: 1px solid $table-stoke-color;
+
+  thead {
+    tr {
+      th {
+        background-color: $table-th-bg-color;
+        color: #333;
+        font-size: 10pt;
+        font-weight: normal;
+        padding: 4px;
+        border-right: 1px solid $table-stoke-color;
+        border-bottom: 1px solid $table-stoke-color;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        color: #333;
+        font-size: 10pt;
+        font-weight: normal;
+        padding: 4px;
+        border-right: 1px solid $table-stoke-color;
+        border-bottom: 1px solid $table-stoke-color;
+  
+        &.url-key {
+  
+        }
+    
+        &.count {
+    
+        }
+      }
+    }
+  }
+}

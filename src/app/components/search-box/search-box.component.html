@@ -13,6 +13,9 @@
               <span class="datetime-center-char">~</span>
               <input class="input-text datetime" type="date" [(ngModel)]="item.endDatetime" (keypress)="searchFormKeyPress($event);" />
             </ng-container>
+            <ng-container *ngIf="item.searchType === 'one-datetime'">
+              <input class="input-text datetime" type="date" [(ngModel)]="item.oneDatetime" (keypress)="searchFormKeyPress($event);" />
+            </ng-container>
             <ng-container *ngIf="item.searchType === 'number'">
               <input class="input-text datetime" type="number" [(ngModel)]="item.startNumber" (keypress)="searchFormKeyPress($event);" />
               <span class="datetime-center-char">~</span>
@@ -27,6 +30,9 @@
                   </li>
                 </ng-container>
               </ul>
+            </ng-container>
+            <ng-container *ngIf="item.searchType === 'select'">
+              <app-fms-select [selectItems]="item.selectItems!" (valueChanged)="item.currentValue = $event;" [selectedValue]="item.currentValue!"></app-fms-select>
             </ng-container>
           </div>
         </li>

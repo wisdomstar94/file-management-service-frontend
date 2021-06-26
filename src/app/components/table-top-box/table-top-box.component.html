@@ -21,7 +21,7 @@
         </div>
       </li>
     </ul>
-    <div class="view-count-control-box">
+    <div class="view-count-control-box" *ngIf="!viewCountHide">
       <app-select [selectItemList]="viewCountSelectList" [selectedInfo]="viewCountInfo"></app-select>
     </div>
   </div>
