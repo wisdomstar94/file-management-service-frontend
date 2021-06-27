@@ -32,6 +32,7 @@
         <app-fms-th [ngClass]="[companyTableViewType]">대표자 연락처</app-fms-th>
         <app-fms-th [ngClass]="[companyTableViewType]">회사 전화번호</app-fms-th>
         <app-fms-th [ngClass]="[companyTableViewType]">등록일</app-fms-th>
+        <app-fms-th [ngClass]="[companyTableViewType]">등록자</app-fms-th>
         <app-fms-th [ngClass]="[companyTableViewType]">메모</app-fms-th>
         <app-fms-th [ngClass]="[companyTableViewType]">상태</app-fms-th>
         <app-fms-th [ngClass]="[companyTableViewType]">&nbsp;</app-fms-th>
@@ -49,6 +50,7 @@
           <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'대표자 연락처'">{{ item.companyCEOTel }}</app-fms-td>
           <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'회사 전화번호'">{{ item.companyTel }}</app-fms-td>
           <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'등록일'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'등록자'">{{ item.FmsCompanyInfoUser?.userId }}</app-fms-td>
           <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'메모'">{{ item.memo }}</app-fms-td>
           <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType" [columnName]="'상태'">{{ item.FmsCompanyStatusCodes?.codeName }}</app-fms-td>
           <app-fms-td [ngClass]="[companyTableViewType]" [tableViewType]="companyTableViewType"><app-fms-button [color]="'dark-blue'" (click)="companyDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>

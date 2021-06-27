@@ -3,6 +3,11 @@ interface FmsPermissionGroupStatusCodes {
   codeName: string;
 }
 
+interface FmsPermissionGroupInfoUser {
+  userKey: string;
+  userId: string;
+}
+
 export interface PermissionGroupItem {
   seq?: number;
   permissionGroupKey?: string;
@@ -14,5 +19,6 @@ export interface PermissionGroupItem {
   updatedAt?: string;
   updatedIp?: string;
   FmsPermissionGroupStatusCodes?: FmsPermissionGroupStatusCodes;
+  FmsPermissionGroupInfoUser?: FmsPermissionGroupInfoUser;
   isChecked?: boolean;
 }

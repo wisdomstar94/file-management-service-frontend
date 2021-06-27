@@ -28,6 +28,7 @@
         <app-fms-th [ngClass]="[permissionGroupTableViewType]">권한 그룹명</app-fms-th>
         <app-fms-th [ngClass]="[permissionGroupTableViewType]">권한 그룹 설명</app-fms-th>
         <app-fms-th [ngClass]="[permissionGroupTableViewType]">등록일</app-fms-th>
+        <app-fms-th [ngClass]="[permissionGroupTableViewType]">등록자</app-fms-th>
         <app-fms-th [ngClass]="[permissionGroupTableViewType]">권한 그룹 상태</app-fms-th>
         <app-fms-th [ngClass]="[permissionGroupTableViewType]">&nbsp;</app-fms-th>
       </app-fms-tr>
@@ -40,6 +41,7 @@
           <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'권한 그룹명'">{{ item.permissionGroupName }}</app-fms-td>
           <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'권한 그룹 설명'">{{ item.permissionGroupDescription }}</app-fms-td>
           <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'등록일'">{{ item.createdAt }}</app-fms-td>
+          <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'등록자'">{{ item.FmsPermissionGroupInfoUser?.userId }}</app-fms-td>
           <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType" [columnName]="'권한 그룹 상태'">{{ item.FmsPermissionGroupStatusCodes?.codeName }}</app-fms-td>
           <app-fms-td [ngClass]="[permissionGroupTableViewType]" [tableViewType]="permissionGroupTableViewType"><app-fms-button [color]="'dark-blue'" (click)="permissionGroupDetailInfoButtonClick(item);">상세정보</app-fms-button></app-fms-td>
         </app-fms-tr>

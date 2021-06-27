@@ -57,6 +57,14 @@
   </app-fms-info-li>
   <app-fms-info-li>
     <app-fms-info-title>
+      등록자
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="companyInfo?.FmsCompanyInfos?.FmsCompanyInfoUser?.userId!" [disabled]="true" (inputValueChange)="companyInfo?.FmsCompanyInfos?.FmsCompanyInfoUser!.userId = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
       상태
     </app-fms-info-title>
     <app-fms-info-content>

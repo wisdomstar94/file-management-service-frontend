@@ -17,6 +17,14 @@
   </app-fms-info-li>
   <app-fms-info-li>
     <app-fms-info-title>
+      생성자
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="permissionGroupInfo?.FmsPermissionGroupInfos?.FmsPermissionGroupInfoUser?.userId!" [disabled]="true" (inputValueChange)="permissionGroupInfo?.FmsPermissionGroupInfos?.FmsPermissionGroupInfoUser!.userId = $event;"></app-fms-input>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
       상태
     </app-fms-info-title>
     <app-fms-info-content>
