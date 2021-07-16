@@ -348,14 +348,16 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
       }
     }
 
-    if (typeof this.currentConditionValueInfo.value !== 'string') {
-      this.common.getAlertComponent()?.setDefault().setMessage('값을 입력해주세요.').show();
-      return;
-    }
+    if (currentConditionType !== 'FDUCT00000004') {
+      if (typeof this.currentConditionValueInfo.value !== 'string') {
+        this.common.getAlertComponent()?.setDefault().setMessage('값을 입력해주세요.').show();
+        return;
+      }
 
-    if (this.currentConditionValueInfo.value.trim() === '') {
-      this.common.getAlertComponent()?.setDefault().setMessage('값을 입력해주세요.').show();
-      return;
+      if (this.currentConditionValueInfo.value.trim() === '') {
+        this.common.getAlertComponent()?.setDefault().setMessage('값을 입력해주세요.').show();
+        return;
+      }
     }
 
     const newConditionItem: FileDownloadUrlAccessConditionInfo = {

@@ -36,13 +36,15 @@ export class IndexPageComponent implements OnInit {
   }
 
   downloadButtonClick(): void {
+    const baseUrl = environment.baseUrl;
+
     if (this.fileNormalInfo.requirePassword !== true) {
       const myObservable = this.ajax.post(environment.api.download.downloadCheck, {
         fileDownloadUrlKey: this.fileDownloadUrlKey,
       });
       myObservable.subscribe(
         data => {
-          location.href = 'http://localhost:47220/api/download/file/' + this.fileDownloadUrlKey;
+          location.href = baseUrl + '/api/download/file/' + this.fileDownloadUrlKey;
           return;
         },
         error => {
@@ -68,7 +70,7 @@ export class IndexPageComponent implements OnInit {
         }
 
         this.password = '';
-        location.href = 'http://localhost:47220/api/download/file/' + this.fileDownloadUrlKey;
+        location.href = baseUrl + '/api/download/file/' + this.fileDownloadUrlKey;
         return;
       },
       error => {
