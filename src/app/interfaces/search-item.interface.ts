@@ -7,6 +7,7 @@ export interface SearchItem {
   searchType: SearchType;
   itemTitle: string;
   currentValue?: string;
+  marginRight?: string;
 
   startDatetime?: string;
   endDatetime?: string;
@@ -14,6 +15,12 @@ export interface SearchItem {
 
   startNumber?: number;
   endNumber?: number;
+
+  startYear?: string;
+  startMonth?: string;
+  endYear?: string;
+  endMonth?: string;
+  endLastDate?: string;
 
   checkboxItemList?: CheckboxItem[];
 

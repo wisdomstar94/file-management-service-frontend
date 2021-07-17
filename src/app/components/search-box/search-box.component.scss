@@ -48,6 +48,7 @@
             font-size: 10pt;
             color: #333;
             min-height: 32px;
+            background-color: #fff;
   
             &.datetime {
               width: 150px;
@@ -129,4 +130,9 @@
       align-items: center;
     }
   }
+}
+
+
+.group-a {
+  display: inline-block;
 }

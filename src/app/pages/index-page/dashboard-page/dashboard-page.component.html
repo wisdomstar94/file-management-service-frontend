@@ -1,4 +1,21 @@
 <app-page-title-box>대시보드</app-page-title-box>
+<div class="options-row">
+  <app-search-box (onEnter)="allRefresh();"
+    [isRightButtonShow]="false"
+    [searchItemList]="searchItemList" #dashboardSearchBox>
+    <div leftButton>
+      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
+        검색 값 초기화
+      </app-fms-button>
+      <app-fms-button [color]="'sky-blue'" (onClick)="allRefresh();">
+        조회
+      </app-fms-button>
+    </div>
+    <div rightButton>
+      <!--  -->
+    </div>
+  </app-search-box>
+</div>
 <div class="info-box">
   <ul class="info-card-list">
     <ng-container *ngFor="let item of cardInfoList">

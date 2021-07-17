@@ -10,10 +10,11 @@ export class FmsSelectComponent implements OnInit {
   @Input() selectItems!: SelectItem[];
   @Input() selectedValue!: string;
   @Input() disabled!: boolean;
+  @Input() width: string;
   @Output() valueChanged = new EventEmitter<string>();
 
   constructor() { 
-
+    this.width = '100%';
   }
 
   ngOnInit(): void {

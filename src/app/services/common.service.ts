@@ -10,6 +10,7 @@ import { FileSizeUnit } from '../interfaces/file-size-unit.interface';
 import { NavMenuItem } from '../interfaces/nav-menu-item.interface';
 import { ResponseData } from '../interfaces/response-data.interface';
 import { SearchItem } from '../interfaces/search-item.interface';
+import * as dayjs from 'dayjs';
 
 @Injectable({
   providedIn: 'root'
@@ -196,5 +197,23 @@ export class CommonService {
       sizeToFixed: (num / 1099500000000).toFixed(2),
       unit: 'TB',
     };
+  }
+
+  getLastDate(obj: dayjs.Dayjs): string {
+    return this.fillZero(obj.add(1, 'months').date(0).date(), 2);
+  }
+
+  fillZero(v: number, length: number): string {
+    if (v.toString().length >= length) {
+      return v.toString();
+    }
+
+    let zeroCount = length - v.toString().length;
+    let zeroString = '';
+    for (let i = 0; i < zeroCount; i++) {
+      zeroString += '0';
+    }
+
+    return zeroString + v;
   }
 }

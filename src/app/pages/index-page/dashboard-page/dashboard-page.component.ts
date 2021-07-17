@@ -1,14 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { CardInfo } from 'src/app/interfaces/card-info.interface';
+import { SearchItem } from 'src/app/interfaces/search-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
 import { environment } from 'src/environments/environment';
+import * as dayjs from 'dayjs';
+import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -16,7 +19,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit, DoCheck {
-
+  @ViewChild('dashboardSearchBox') dashboardSearchBox!: SearchBoxComponent;
+ 
   cardInfoList: CardInfo[] = [
     {
       id: 'totalDownloadedCount',
@@ -30,8 +34,29 @@ export class DashboardPageComponent implements OnInit, DoCheck {
       subUnit: '번',
       isRefreshing: false,
       startRefresh: (): void => {
+        const startDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
+          .concat('-', '01').concat(' 00:00:00');
+        
+        const endDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endLastDate!).concat(' 23:59:59');
+
+        if (dayjs(startDatetime).valueOf() > dayjs(endDatetime).valueOf()) {
+          this.common.getAlertComponent()
+            ?.setDefault()
+            .setMessage('조회 시작날짜는 종료날짜보다 이후 날짜가 될 수 없습니다.')
+            .show();
+          return;
+        }
+
         const myObservable = this.http.post<any>(
-          environment.api.dashboard.getDownloadedCount, {}, { withCredentials: true })
+          environment.api.dashboard.getDownloadedCount, {
+            targetStartDatetime: startDatetime,
+            targetEndDatetime: endDatetime,
+          }, { withCredentials: true })
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
@@ -81,8 +106,29 @@ export class DashboardPageComponent implements OnInit, DoCheck {
       subUnit: '개',
       isRefreshing: false,
       startRefresh: (): void => {
+        const startDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
+          .concat('-', '01').concat(' 00:00:00');
+        
+        const endDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endLastDate!).concat(' 23:59:59');
+
+        if (dayjs(startDatetime).valueOf() > dayjs(endDatetime).valueOf()) {
+          this.common.getAlertComponent()
+            ?.setDefault()
+            .setMessage('조회 시작날짜는 종료날짜보다 이후 날짜가 될 수 없습니다.')
+            .show();
+          return;
+        }
+
         const myObservable = this.http.post<any>(
-          environment.api.dashboard.getUploadedFileCount, {}, { withCredentials: true })
+          environment.api.dashboard.getUploadedFileCount, {
+            searchStartDatetime: startDatetime,
+            searchEndDatetime: endDatetime,
+          }, { withCredentials: true })
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
@@ -132,8 +178,29 @@ export class DashboardPageComponent implements OnInit, DoCheck {
       subUnit: 'MB',
       isRefreshing: false,
       startRefresh: (): void => {
+        const startDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
+          .concat('-', '01').concat(' 00:00:00');
+        
+        const endDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endLastDate!).concat(' 23:59:59');
+
+        if (dayjs(startDatetime).valueOf() > dayjs(endDatetime).valueOf()) {
+          this.common.getAlertComponent()
+            ?.setDefault()
+            .setMessage('조회 시작날짜는 종료날짜보다 이후 날짜가 될 수 없습니다.')
+            .show();
+          return;
+        }
+
         const myObservable = this.http.post<any>(
-          environment.api.dashboard.getDownloadedSize, {}, { withCredentials: true })
+          environment.api.dashboard.getDownloadedSize, {
+            targetStartDatetime: startDatetime,
+            targetEndDatetime: endDatetime,
+          }, { withCredentials: true })
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
@@ -191,8 +258,29 @@ export class DashboardPageComponent implements OnInit, DoCheck {
       subUnit: '회',
       isRefreshing: false,
       startRefresh: (): void => {
+        const startDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
+          .concat('-', '01').concat(' 00:00:00');
+        
+        const endDatetime = ''
+          .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
+          .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endLastDate!).concat(' 23:59:59');
+
+        if (dayjs(startDatetime).valueOf() > dayjs(endDatetime).valueOf()) {
+          this.common.getAlertComponent()
+            ?.setDefault()
+            .setMessage('조회 시작날짜는 종료날짜보다 이후 날짜가 될 수 없습니다.')
+            .show();
+          return;
+        }
+
         const myObservable = this.http.post<any>(
-          environment.api.dashboard.getFileDownloadUrlAccessCount, {}, { withCredentials: true })
+          environment.api.dashboard.getFileDownloadUrlAccessCount, {
+            searchStartDatetime: startDatetime,
+            searchEndDatetime: endDatetime,
+          }, { withCredentials: true })
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
@@ -232,17 +320,33 @@ export class DashboardPageComponent implements OnInit, DoCheck {
     },
   ];
 
+  searchItemList: SearchItem[];
+
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private http: HttpClient,
     public common: CommonService,
   ) { 
-
+    this.searchItemList = [
+      {
+        uniqueID: 'targetDatetime',
+        searchType: 'year-month',
+        itemTitle: '조회 기간',
+        marginRight: '0',
+        startYear: dayjs().add(-3, 'months').format('YYYY'),
+        startMonth: dayjs().add(-3, 'months').format('MM'),
+        endYear: dayjs().format('YYYY'),
+        endMonth: dayjs().format('MM'),
+        endLastDate: this.common.getLastDate(dayjs()),
+      },
+    ];
   }
 
   ngOnInit(): void {
     const t = this;
-    t.allRefresh();
+    setTimeout(() => {
+      t.allRefresh();
+    });
   }
 
   ngDoCheck(): void {
@@ -252,8 +356,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
   }
 
   allRefresh(): void {
-    const t = this;
-    for (const item of t.cardInfoList) {
+    for (const item of this.cardInfoList) {
       item.startRefresh();
     }
   }
@@ -284,5 +387,13 @@ export class DashboardPageComponent implements OnInit, DoCheck {
 
     item.isRefreshing = true;
     item.startRefresh();
+  }
+
+  clearSearchItem(): void {
+    // this.dashboardSearchBox.clearSearchItem();
+    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.startYear = dayjs().add(3, 'months').format('YYYY');
+    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.startMonth = dayjs().add(3, 'months').format('MM');
+    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.endYear = dayjs().format('YYYY');
+    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.endMonth = dayjs().format('MM');
   }
 }

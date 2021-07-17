@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
+import { SelectItem } from 'src/app/interfaces/select-item.interface';
+import { CommonService } from 'src/app/services/common.service';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-search-box',
@@ -10,9 +13,45 @@ export class SearchBoxComponent implements OnInit {
   @Output() onEnter = new EventEmitter();
 
   @Input() searchItemList: SearchItem[] = [];
+  @Input() isRightButtonShow: boolean;
 
-  constructor() { 
+  years: string[] = [];
+  yearSelectItems: SelectItem[];
 
+  months: string[] = [];
+  monthSelectItems: SelectItem[];
+
+  constructor(
+    private common: CommonService,
+  ) { 
+    this.isRightButtonShow = true;
+
+    const token1 = this.common.getUniqueToken(20);
+    for (let i = 2021; i <= 2099; i++) {
+      this.years.push(i.toString());
+    }
+    this.yearSelectItems = this.years.map((x) => {
+      return {
+        optionUniqueID: token1 + '_' + x, 
+        optionValue: x, 
+        optionDisplayText: x + '년', 
+        selected: false,
+      };
+    });
+
+    const token2 = this.common.getUniqueToken(20);
+    for (let i = 1; i <= 12; i++) {
+      this.months.push(i.toString());
+    }
+    this.monthSelectItems = this.months.map((x) => {
+      return {
+        optionUniqueID: token2 + '_' + x, 
+        optionValue: this.common.fillZero(Number(x), 2), 
+        optionDisplayText: x + '월', 
+        selected: false,
+      };
+    });
+    // this.yearSelectItems =
   }
 
   ngOnInit(): void {
@@ -71,5 +110,24 @@ export class SearchBoxComponent implements OnInit {
     if (event.key === 'Enter') {
       this.onEnter.emit();
     }
+  }
+
+  getSearchItem(uniqueID: string): SearchItem | null {
+    for (const item of this.searchItemList) {
+      if (item.uniqueID === uniqueID) {
+        return item;
+      }
+    }
+
+    return null;
+  }
+
+  endChanged(item: SearchItem): void {
+    const year = item.endYear;
+    const month = item.endMonth;
+    const date = '01';
+
+    const lastDate = this.common.getLastDate(dayjs(year + '-' + month + date));
+    item.endLastDate = lastDate;
   }
 }

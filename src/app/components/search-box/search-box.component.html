@@ -2,7 +2,9 @@
   <div class="top-area">
     <ul class="search-item-list">
       <ng-container *ngFor="let item of searchItemList">
-        <li class="item">
+        <li class="item" [ngStyle]="{
+          'margin-right': item.marginRight ?? '14px'
+        }">
           <div class="title-area">{{ item.itemTitle }}</div>
           <div class="content-area">
             <ng-container *ngIf="item.searchType === 'text'">
@@ -15,6 +17,17 @@
             </ng-container>
             <ng-container *ngIf="item.searchType === 'one-datetime'">
               <input class="input-text datetime" type="date" [(ngModel)]="item.oneDatetime" (keypress)="searchFormKeyPress($event);" />
+            </ng-container>
+            <ng-container *ngIf="item.searchType === 'year-month'">
+              <div class="group-a">
+                <app-fms-select [width]="'auto'" [selectItems]="yearSelectItems" (valueChanged)="item.startYear = $event;" [selectedValue]="item.startYear!"></app-fms-select>
+                <app-fms-select [width]="'auto'" [selectItems]="monthSelectItems" (valueChanged)="item.startMonth = $event;" [selectedValue]="item.startMonth!"></app-fms-select>
+              </div>
+              <span class="datetime-center-char">~</span>
+              <div class="group-a">
+                <app-fms-select [width]="'auto'" [selectItems]="yearSelectItems" (valueChanged)="item.endYear = $event; endChanged(item);" [selectedValue]="item.endYear!"></app-fms-select>
+                <app-fms-select [width]="'auto'" [selectItems]="monthSelectItems" (valueChanged)="item.endMonth = $event; endChanged(item);" [selectedValue]="item.endMonth!"></app-fms-select>
+              </div>
             </ng-container>
             <ng-container *ngIf="item.searchType === 'number'">
               <input class="input-text datetime" type="number" [(ngModel)]="item.startNumber" (keypress)="searchFormKeyPress($event);" />
@@ -43,7 +56,7 @@
     <div class="left-button-area">
       <ng-content select="[leftButton]"></ng-content>
     </div>
-    <div class="right-button-area">
+    <div class="right-button-area" *ngIf="isRightButtonShow">
       <ng-content select="[rightButton]"></ng-content>
     </div>
   </div>
