@@ -57,6 +57,16 @@ button {
       background-color: #079eb1;
     }
   }
+
+  &.black {
+    background-color: #333333;
+    color: #fff;
+    font-size: 10pt;
+
+    &:hover {
+      background-color: #111111;
+    }
+  }
 }
 
 

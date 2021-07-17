@@ -47,12 +47,14 @@ export const environment = {
       modifyUser: baseUrl + '/api/user/modifyUser',
       createUser: baseUrl + '/api/user/createUser',
       permissionCheck: baseUrl + '/api/user/permissionCheck',
+      deleteUser: baseUrl + '/api/user/deleteUser',
     },
     company: {
       getCompany: baseUrl + '/api/company/getCompany',
       getCompanyInfo: baseUrl + '/api/company/getCompanyInfo',
       modifyCompany: baseUrl + '/api/company/modifyCompany',
       createCompany: baseUrl + '/api/company/createCompany',
+      deleteCompany: baseUrl + '/api/company/deleteCompany',
     },
     menu: {
       getUserMenu: baseUrl + '/api/menu/getUserMenu',
@@ -61,6 +63,7 @@ export const environment = {
       getPermissionGroup: baseUrl + '/api/permissionGroup/getPermissionGroup',
       getPermissionGroupInfo: baseUrl + '/api/permissionGroup/getPermissionGroupInfo',
       copyPermissionGroup: baseUrl + '/api/permissionGroup/copyPermissionGroup',
+      deletePermissionGroup: baseUrl + '/api/permissionGroup/deletePermissionGroup',
     },
     permission: {
       getPermission: baseUrl + '/api/permission/getPermission',
@@ -75,6 +78,7 @@ export const environment = {
       modifyFile: baseUrl + '/api/file/modifyFile',
       fileDownloadUrlOuterInfo: baseUrl + '/api/file/fileDownloadUrlOuterInfo',
       uploadFile: baseUrl + '/api/file/uploadFile',
+      deleteFile: baseUrl + '/api/file/deleteFile',
     },
     fileVersion: {
       getFileVersion: baseUrl + '/api/fileVersion/getFileVersion',

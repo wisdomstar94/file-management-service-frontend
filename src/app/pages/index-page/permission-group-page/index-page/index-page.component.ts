@@ -55,6 +55,7 @@ export class IndexPageComponent implements OnInit {
   isPermissionGroupListAllCheck: boolean;
   permissionGroupTableViewType!: TableViewType;
   isPermissionGroupListGetting = false;
+  isPermissionGroupDeleting = false;
   permissionGroupList: PermissionGroupItem[] = [];
 
   constructor(
@@ -188,6 +189,105 @@ export class IndexPageComponent implements OnInit {
 
     this.router.navigate(['permissionGroup/info/' + item.permissionGroupKey]);
     return;
+  }
+
+  permissionGroupDeleteButtonClick(): void {
+    if (this.isPermissionGroupDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    const permissionGroupKey: string[] = [];
+
+    for (const item of this.permissionGroupList) {
+      if (item.isChecked) {
+        permissionGroupKey.push(item.permissionGroupKey!);
+      }
+    }
+
+    if (permissionGroupKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('선택된 권한 그룹이 없습니다.')
+        .show();
+      return;
+    }
+
+    this.common.getAlertComponent()
+      ?.setDefault()
+      .setTitle('안내')
+      .setMessage('선택된 ' + permissionGroupKey.length + '개 권한 그룹을 삭제하시겠습니까?')
+      .setCancelButton(true)
+      .setConfirmButton(true)
+      .setCancelCallback(() => {
+        this.common.getAlertComponent()?.hide();
+      })
+      .setConfirmCallback(() => {
+        this.deletePermissionGroup(permissionGroupKey);
+        this.common.getAlertComponent()?.hide();
+      })
+      .show();
+      return;
+  }
+
+  deletePermissionGroup(permissionGroupKey: string[]): void {
+    if (this.isPermissionGroupDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    if (permissionGroupKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제할 권한 그룹이 없습니다.')
+        .show();
+      return;
+    }
+
+    // console.log('permissionGroupKey', permissionGroupKey);
+
+    const data = {
+      permissionGroupKey: permissionGroupKey,
+    };
+
+    this.isPermissionGroupDeleting = true;
+    const observable = this.ajax.post(environment.api.permissionGroup.deletePermissionGroup, data);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isPermissionGroupDeleting = false;
+        // console.log('response', data);
+
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()
+          ?.setDefault()
+          .setMessage('선택된 권한 그룹이 삭제 되었습니다.')
+          .setConfirmCallback(() => {
+            this.common.getAlertComponent()?.hide();
+            this.getList(1);
+          })
+          .show();
+        return;
+      },
+      error => {
+        this.isPermissionGroupDeleting = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
   }
 
   permissionGroupUploadButtonClick(): void {

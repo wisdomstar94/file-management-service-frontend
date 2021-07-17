@@ -61,6 +61,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
   isFileListAllCheck: boolean;
   fileTableViewType!: TableViewType;
   isFileListGetting = false;
+  isFileDeleting = false;
   fileList: FileItem[] = [];
 
   constructor(
@@ -196,6 +197,105 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
     this.router.navigate(['file/info/' + item.fileKey]);
     return;
+  }
+
+  fileDeleteButtonClick(): void {
+    if (this.isFileDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    const fileKey: string[] = [];
+
+    for (const item of this.fileList) {
+      if (item.isChecked) {
+        fileKey.push(item.fileKey!);
+      }
+    }
+
+    if (fileKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('선택된 파일이 없습니다.')
+        .show();
+      return;
+    }
+
+    this.common.getAlertComponent()
+      ?.setDefault()
+      .setTitle('안내')
+      .setMessage('파일을 삭제하면, 해당 파일에 등록된 버전별 파일과 다운로드 URL이 모두 이용불가 상태가 됩니다. \n정말 선택된 ' + fileKey.length + '개 파일을 삭제하시겠습니까?')
+      .setCancelButton(true)
+      .setConfirmButton(true)
+      .setCancelCallback(() => {
+        this.common.getAlertComponent()?.hide();
+      })
+      .setConfirmCallback(() => {
+        this.deleteFile(fileKey);
+        this.common.getAlertComponent()?.hide();
+      })
+      .show();
+      return;
+  }
+
+  deleteFile(fileKey: string[]): void {
+    if (this.isFileDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    if (fileKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제할 파일이 없습니다.')
+        .show();
+      return;
+    }
+
+    // console.log('fileKey', fileKey);
+
+    const data = {
+      fileKey: fileKey,
+    };
+
+    this.isFileDeleting = true;
+    const observable = this.ajax.post(environment.api.file.deleteFile, data);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isFileDeleting = false;
+        // console.log('response', data);
+
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()
+          ?.setDefault()
+          .setMessage('선택된 파일이 삭제 되었습니다.')
+          .setConfirmCallback(() => {
+            this.common.getAlertComponent()?.hide();
+            this.getList(1);
+          })
+          .show();
+        return;
+      },
+      error => {
+        this.isFileDeleting = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
   }
 
   fileUploadButtonClick(): void {

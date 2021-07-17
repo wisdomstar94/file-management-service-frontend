@@ -73,6 +73,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
   isUserListAllCheck: boolean;
   userTableViewType!: TableViewType;
   isUserListGetting = false;
+  isUserDeleting = false;
   userList: UserItem[] = [];
 
   constructor(
@@ -212,6 +213,105 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
     this.router.navigate(['user/info/' + item.userKey]);
     return;
+  }
+
+  userDeleteButtonClick(): void {
+    if (this.isUserDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    const userKey: string[] = [];
+
+    for (const item of this.userList) {
+      if (item.isChecked) {
+        userKey.push(item.userKey!);
+      }
+    }
+
+    if (userKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('선택된 회원이 없습니다.')
+        .show();
+      return;
+    }
+
+    this.common.getAlertComponent()
+      ?.setDefault()
+      .setTitle('안내')
+      .setMessage('선택된 ' + userKey.length + '개 회원을 삭제하시겠습니까?')
+      .setCancelButton(true)
+      .setConfirmButton(true)
+      .setCancelCallback(() => {
+        this.common.getAlertComponent()?.hide();
+      })
+      .setConfirmCallback(() => {
+        this.deleteUser(userKey);
+        this.common.getAlertComponent()?.hide();
+      })
+      .show();
+      return;
+  }
+
+  deleteUser(userKey: string[]): void {
+    if (this.isUserDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    if (userKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제할 회원이 없습니다.')
+        .show();
+      return;
+    }
+
+    // console.log('userKey', userKey);
+
+    const data = {
+      userKey: userKey,
+    };
+
+    this.isUserDeleting = true;
+    const observable = this.ajax.post(environment.api.user.deleteUser, data);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isUserDeleting = false;
+        // console.log('response', data);
+
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()
+          ?.setDefault()
+          .setMessage('선택된 회원이 삭제 되었습니다.')
+          .setConfirmCallback(() => {
+            this.common.getAlertComponent()?.hide();
+            this.getList(1);
+          })
+          .show();
+        return;
+      },
+      error => {
+        this.isUserDeleting = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
   }
 
   userUploadButtonClick(): void {

@@ -87,6 +87,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
   companyList: CompanyItem[] = [];
 
   isCompanyListGetting = false;
+  isCompanyDeleting = false;
 
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
@@ -231,6 +232,105 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
     this.router.navigate(['company/info/' + item.companyKey]);
     return;
+  }
+
+  companyDeleteButtonClick(): void {
+    if (this.isCompanyDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    const companyKey: string[] = [];
+
+    for (const item of this.companyList) {
+      if (item.isChecked) {
+        companyKey.push(item.companyKey!);
+      }
+    }
+
+    if (companyKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('선택된 회사가 없습니다.')
+        .show();
+      return;
+    }
+
+    this.common.getAlertComponent()
+      ?.setDefault()
+      .setTitle('안내')
+      .setMessage('선택된 ' + companyKey.length + '개 회사를 삭제하시겠습니까?')
+      .setCancelButton(true)
+      .setConfirmButton(true)
+      .setCancelCallback(() => {
+        this.common.getAlertComponent()?.hide();
+      })
+      .setConfirmCallback(() => {
+        this.deleteCompany(companyKey);
+        this.common.getAlertComponent()?.hide();
+      })
+      .show();
+      return;
+  }
+
+  deleteCompany(companyKey: string[]): void {
+    if (this.isCompanyDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    if (companyKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제할 회사가 없습니다.')
+        .show();
+      return;
+    }
+    
+    // console.log('companyKey', companyKey);
+
+    const data = {
+      companyKey: companyKey,
+    };
+
+    this.isCompanyDeleting = true;
+    const observable = this.ajax.post(environment.api.company.deleteCompany, data);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isCompanyDeleting = false;
+        // console.log('response', data);
+
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()
+          ?.setDefault()
+          .setMessage('선택된 회사가 삭제 되었습니다.')
+          .setConfirmCallback(() => {
+            this.common.getAlertComponent()?.hide();
+            this.getList(1);
+          })
+          .show();
+        return;
+      },
+      error => {
+        this.isCompanyDeleting = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
   }
 
   companyUploadButtonClick(): void {

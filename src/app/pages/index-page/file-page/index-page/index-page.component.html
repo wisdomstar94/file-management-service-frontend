@@ -12,6 +12,9 @@
       </app-fms-button>
     </div>
     <div rightButton>
+      <app-fms-button [color]="'black'" [marginRight]="'10px'" (onClick)="fileDeleteButtonClick();">
+        선택한 파일 삭제
+      </app-fms-button>
       <app-fms-button [color]="'red'" (onClick)="fileUploadButtonClick();">
         파일 등록
       </app-fms-button>
