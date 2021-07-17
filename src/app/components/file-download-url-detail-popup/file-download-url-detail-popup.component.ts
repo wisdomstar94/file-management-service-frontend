@@ -156,7 +156,8 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('파일 다운로드 URL 정보가 수정되었습니다.').show();
-        this.isShow = false;
+        // this.isShow = false;
+        this.hide();
         this.newFileDownloadUrlModifyed.emit(this);
         return;
       },
@@ -208,7 +209,8 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('파일 다운로드 URL이 등록되었습니다.').show();
-        this.isShow = false;
+        // this.isShow = false;
+        this.hide();
         this.newFileDownloadUrlUploaded.emit(this);
         return;
       },
