@@ -51,7 +51,7 @@ export class LoginFormBoxComponent implements OnInit {
       const result = loginObservable.subscribe(
         data => {
           if (data.result === 'success') {
-            t.router.navigate(['']);
+            t.router.navigate(['dashboard']);
           } else {
             t.common.alertMessage(data);
           }
