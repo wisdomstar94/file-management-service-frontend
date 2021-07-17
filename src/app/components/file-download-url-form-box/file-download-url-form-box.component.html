@@ -96,7 +96,7 @@
             {{ fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart + ' ~ ' + fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd }}
           </div>
           <div style="display: block; text-align: center;">
-            <a [href]="'/download/file/' + fileDownloadUrlInfo.fileDownloadUrlKey">
+            <a [href]="baseUrl + '/api/download/file/' + fileDownloadUrlInfo.fileDownloadUrlKey">
               파일 다운로드
             </a>
           </div>

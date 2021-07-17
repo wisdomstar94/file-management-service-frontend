@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FileVersionHistoryPopupComponent } from 'src/app/components/file-version-history-popup/file-version-history-popup.component';
 import { FileNormalInfo } from 'src/app/interfaces/file-normal-info.interface';
 import { FileSizeUnit } from 'src/app/interfaces/file-size-unit.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
@@ -12,6 +13,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./index-page.component.scss']
 })
 export class IndexPageComponent implements OnInit {
+  @ViewChild('fileVersionHistoryPopup') fileVersionHistoryPopup!: FileVersionHistoryPopupComponent;
+
   fileDownloadUrlKey: string;
   fileNormalInfo: FileNormalInfo;
   byteConvertInfo: FileSizeUnit;
@@ -81,5 +84,9 @@ export class IndexPageComponent implements OnInit {
       }
     );
     return;
+  }
+
+  versionHistoryViewButtonClicked(event: MouseEvent): void {
+    this.fileVersionHistoryPopup.show();
   }
 }

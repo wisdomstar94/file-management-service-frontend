@@ -26,6 +26,20 @@
             <app-fms-input [inputValue]="password" [inputType]="'password'" (inputValueChange)="password = $event;"></app-fms-input>
           </div>
         </li>
+        <li class="item" *ngIf="fileNormalInfo.fileDescription !== ''">
+          <div class="title-row">
+            설명
+          </div>
+          <div class="content-row pre-line">{{ fileNormalInfo.fileDescription }}</div>
+        </li>
+        <li class="item" *ngIf="fileNormalInfo.fileVersionHistoryList.length > 0">
+          <div class="title-row">
+            버전 이력
+          </div>
+          <div class="content-row">
+            <app-fms-button [color]="'red'" (click)="versionHistoryViewButtonClicked($event);">버전 이력 확인</app-fms-button>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="download-button-row">
@@ -33,3 +47,5 @@
     </div>
   </div>
 </app-content-center>
+
+<app-file-version-history-popup #fileVersionHistoryPopup [fileVersionHistoryItems]="fileNormalInfo.fileVersionHistoryList" [isShow]="false"></app-file-version-history-popup>

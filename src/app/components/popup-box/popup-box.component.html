@@ -1,0 +1,9 @@
+<div class="window" [ngStyle]="{
+  'z-index': zIndex,
+  'border-radius': borderRadius
+}" [@popupAnimation]="isShow" *ngIf="isShow">
+  <div class="background-box" (click)="backgroundClicked($event);"></div>
+  <div class="content-box" [ngStyle]="{
+    'padding': padding
+  }"><ng-content></ng-content></div>
+</div>

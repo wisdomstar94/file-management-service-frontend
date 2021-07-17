@@ -21,6 +21,7 @@
   .file-box {
     max-width: 90%;
     min-width: 250px;
+    max-height: 400px;
     display: inline-block;
     margin: 0;
     // padding: 14px;
@@ -58,7 +59,7 @@
           list-style-type: none;
           display: block;
           margin: 0;
-          margin-bottom: 6px;
+          margin-bottom: 10px;
           padding: 0;
           position: relative;
           text-align: center;
@@ -70,13 +71,17 @@
           .title-row {
             font-size: 10pt;
             color: #222;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             font-weight: bold;
           }
 
           .content-row {
             font-size: 10pt;
             color: #888;
+
+            &.pre-line {
+              white-space: pre-line;
+            }
           }
         }
       }
@@ -86,5 +91,26 @@
       text-align: center;
       margin-bottom: 14px;
     }
+  }
+}
+
+
+
+
+ul.file-version-history-list {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  > li.item {
+    list-style-type: none;
+    display: block;
+    margin: 0;
+    padding: 12px;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
   }
 }

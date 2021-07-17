@@ -6,6 +6,7 @@ import { IndexPageComponent } from './index-page.component';
 import { ContentCenterModule } from 'src/app/components/content-center/content-center.module';
 import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module';
 import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
+import { FileVersionHistoryPopupModule } from 'src/app/components/file-version-history-popup/file-version-history-popup.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
     ContentCenterModule,
     FmsButtonModule,
     FmsInputModule,
+    FileVersionHistoryPopupModule,
   ]
 })
 export class IndexPageModule { }

@@ -1,0 +1,52 @@
+.title-row {
+  display: block;
+  margin: 0;
+  margin-bottom: 12px;
+  padding: 0;
+  position: relative;
+
+  .title {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-size: 12pt;
+    color: #333;
+    font-weight: bolder;
+  }
+}
+
+.content-row {
+  display: block;
+  margin: 0;
+  margin-bottom: 20px;
+  padding: 0;
+  position: relative;
+
+  ul.file-version-history-list {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    > li.item {
+      
+      display: block;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+  }  
+}
+
+.button-row {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+.description {
+  white-space: pre-line;
+}

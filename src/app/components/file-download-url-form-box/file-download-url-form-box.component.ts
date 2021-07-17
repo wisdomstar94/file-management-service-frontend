@@ -56,6 +56,8 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
   isFileVersionGetting = false;
 
+  baseUrl = environment.baseUrl;
+
   constructor(
     private route: ActivatedRoute,
     private ajax: AjaxService,

@@ -1,0 +1,36 @@
+<app-popup-box [isShow]="isShow" #popupBox>
+  <div class="title-row">
+    <div class="title">
+      버전 이력
+    </div>
+  </div>
+  <div class="content-row">
+    <app-fms-table [ngClass]="[tableViewType]">
+      <app-fms-thead [ngClass]="[tableViewType]">
+        <app-fms-tr [ngClass]="[tableViewType]">
+          <app-fms-th [ngClass]="[tableViewType]">
+            버전명
+          </app-fms-th>
+          <app-fms-th [ngClass]="[tableViewType]">
+            업로드 날짜
+          </app-fms-th>
+          <app-fms-th [ngClass]="[tableViewType]">
+            설명
+          </app-fms-th>
+        </app-fms-tr>
+      </app-fms-thead>
+      <app-fms-tbody [ngClass]="[tableViewType]">
+        <ng-container *ngFor="let item of fileVersionHistoryItems">
+          <app-fms-tr [ngClass]="[tableViewType]">
+            <app-fms-td [ngClass]="[tableViewType]" [tableViewType]="tableViewType" [columnName]="'버전명'">{{ item.fileVersionName }}</app-fms-td>
+            <app-fms-td [ngClass]="[tableViewType]" [tableViewType]="tableViewType" [columnName]="'업로드 날짜'">{{ item.createdAt }}</app-fms-td>
+            <app-fms-td class="left description" [ngClass]="[tableViewType]" [tableViewType]="tableViewType" [columnName]="'설명'">{{ item.fileVersionDescription }}</app-fms-td>
+          </app-fms-tr>
+        </ng-container>
+      </app-fms-tbody>
+    </app-fms-table>
+  </div>
+  <div class="button-row">
+    <app-fms-button [color]="'gray'" (click)="closeButtonClicked($event);">닫기</app-fms-button>
+  </div>
+</app-popup-box>
