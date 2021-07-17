@@ -21,6 +21,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
   @ViewChild('permissionGroupFormBox') permissionGroupFormBox!: PermissionGroupFormBoxComponent;
   @ViewChild('permissionFormBox') permissionFormBox!: PermissionFormBoxComponent;
   isModifyingPermissionGroup: boolean;
+  isCopyingPermissionGroup: boolean;
 
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
@@ -30,6 +31,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
     private ajax: AjaxService,
   ) { 
     this.isModifyingPermissionGroup = false; 
+    this.isCopyingPermissionGroup = false;
   }
 
   ngOnInit(): void {
@@ -44,6 +46,60 @@ export class InfoPageComponent implements OnInit, DoCheck {
 
   goList(): void {
     this.router.navigate(['permissionGroup']);
+  }
+
+  permissionGroupCopyButtonClick(): void {
+    if (this.isCopyingPermissionGroup) {
+      this.common.getAlertComponent()?.setDefault().setMessage('복제 중입니다. 잠시만 기다려주세요.').show();
+      return;
+    }
+
+    this.common.getAlertComponent()?.setDefault()
+      .setMessage('권한 그룹을 복제하시겠습니까?')
+      .setConfirmButton(true)
+      .setCancelButton(true)
+      .setConfirmCallback(() => {
+        this.copyPermissionGroup();
+        this.common.getAlertComponent()?.hide();
+      })
+      .setCancelCallback(() => {
+        this.common.getAlertComponent()?.hide();
+      })
+      .show();
+    return;
+  }
+
+  copyPermissionGroup(): void {
+    if (this.isCopyingPermissionGroup) {
+      this.common.getAlertComponent()?.setDefault().setMessage('복제 중입니다. 잠시만 기다려주세요.').show();
+      return;
+    }
+
+    this.isCopyingPermissionGroup = true;
+
+    const data = {
+      permissionGroupKey: this.permissionGroupFormBox.permissionGroupInfo.permissionGroupKey,
+    };
+
+    const observable = this.ajax.post(environment.api.permissionGroup.copyPermissionGroup, data);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isCopyingPermissionGroup = false;
+        console.log('response', data);
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()?.setDefault().setMessage('권한 그룹이 복제 되었습니다. 목록으로 돌아가시면 확인 가능합니다.').show();
+        return;
+      },
+      error => {
+        this.isCopyingPermissionGroup = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
   }
 
   permissionGroupInfoEditButtonClick(): void {

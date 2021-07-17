@@ -60,6 +60,7 @@ export const environment = {
     permissionGroup: {
       getPermissionGroup: baseUrl + '/api/permissionGroup/getPermissionGroup',
       getPermissionGroupInfo: baseUrl + '/api/permissionGroup/getPermissionGroupInfo',
+      copyPermissionGroup: baseUrl + '/api/permissionGroup/copyPermissionGroup',
     },
     permission: {
       getPermission: baseUrl + '/api/permission/getPermission',
