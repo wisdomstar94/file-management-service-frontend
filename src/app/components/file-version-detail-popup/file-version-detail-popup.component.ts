@@ -34,6 +34,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
 
   @Input() fileKey!: string;
   @Output() newFileVersionUploaded = new EventEmitter();
+  @Output() fileVersionModified = new EventEmitter();
 
   @ViewChild('fileVersionFormBox') fileVersionFormBox!: FileVersionFormBoxComponent;
 
@@ -146,6 +147,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
         this.common.getAlertComponent()?.setDefault().setMessage('파일 버전 정보가 수정되었습니다.').show();
         // this.isShow = false;
         this.hide();
+        this.fileVersionModified.emit();
         return;
       },
       error => {

@@ -76,6 +76,7 @@ export class FileVersionBoardComponent implements OnInit {
   isFileVersionListAllCheck: boolean;
   fileVersionTableViewType!: TableViewType;
   isFileVersionListGetting = false;
+  isFileVersionDeleting = false;
   fileVersionList: FileVersionItem[] = [];
 
   constructor(
@@ -215,6 +216,105 @@ export class FileVersionBoardComponent implements OnInit {
     this.fileVersionDetailPopup.show(item.fileVersionKey, 'modify');
     // this.router.navigate(['file/info/' + item.fileVersionKey]);
     return;
+  }
+
+  fileVersionDeleteButtonClick(): void {
+    if (this.isFileVersionDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    const fileVersionKey: string[] = [];
+
+    for (const item of this.fileVersionList) {
+      if (item.isChecked) {
+        fileVersionKey.push(item.fileVersionKey!);
+      }
+    }
+
+    if (fileVersionKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('선택된 파일 버전이 없습니다.')
+        .show();
+      return;
+    }
+
+    this.common.getAlertComponent()
+      ?.setDefault()
+      .setTitle('안내')
+      .setMessage('선택된 ' + fileVersionKey.length + '개 파일 버전을 삭제하시겠습니까?')
+      .setCancelButton(true)
+      .setConfirmButton(true)
+      .setCancelCallback(() => {
+        this.common.getAlertComponent()?.hide();
+      })
+      .setConfirmCallback(() => {
+        this.deleteFileVersion(fileVersionKey);
+        this.common.getAlertComponent()?.hide();
+      })
+      .show();
+      return;
+  }
+
+  deleteFileVersion(fileVersionKey: string[]): void {
+    if (this.isFileVersionDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    if (fileVersionKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제할 파일 버전이 없습니다.')
+        .show();
+      return;
+    }
+    
+    // console.log('fileVersionKey', fileVersionKey);
+
+    const data = {
+      fileVersionKey: fileVersionKey,
+    };
+
+    this.isFileVersionDeleting = true;
+    const observable = this.ajax.post(environment.api.fileVersion.deleteFileVersion, data);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isFileVersionDeleting = false;
+        // console.log('response', data);
+
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()
+          ?.setDefault()
+          .setMessage('선택된 파일 버전이 삭제 되었습니다.')
+          .setConfirmCallback(() => {
+            this.common.getAlertComponent()?.hide();
+            this.getList(1);
+          })
+          .show();
+        return;
+      },
+      error => {
+        this.isFileVersionDeleting = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
   }
 
   fileVersionUploadButtonClick(): void {

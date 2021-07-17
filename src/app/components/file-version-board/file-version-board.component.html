@@ -13,6 +13,9 @@
       </app-fms-button>
     </div>
     <div rightButton>
+      <app-fms-button [color]="'black'" [marginRight]="'10px'" (onClick)="fileVersionDeleteButtonClick();">
+        선택한 파일 버전 삭제
+      </app-fms-button>
       <app-fms-button [color]="'red'" (onClick)="fileVersionUploadButtonClick();">
         파일 버전 등록
       </app-fms-button>
@@ -58,4 +61,6 @@
   <app-pagination-box #fileVersionListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
 </app-article>
 
-<app-file-version-detail-popup #fileVersionDetailPopup [fileKey]="fileKey" (newFileVersionUploaded)="getList(1);"></app-file-version-detail-popup>
+<app-file-version-detail-popup #fileVersionDetailPopup [fileKey]="fileKey" 
+  (newFileVersionUploaded)="getList(1);"
+  (fileVersionModified)="getList(1);"></app-file-version-detail-popup>

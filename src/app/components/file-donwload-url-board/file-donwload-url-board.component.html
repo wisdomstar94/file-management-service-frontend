@@ -13,6 +13,9 @@
       </app-fms-button>
     </div>
     <div rightButton>
+      <app-fms-button [color]="'black'" [marginRight]="'10px'" (onClick)="fileDownloadUrlDeleteButtonClick();">
+        선택한 파일 다운로드 URL 삭제
+      </app-fms-button>
       <app-fms-button [color]="'red'" (onClick)="fileDownloadUrlUploadButtonClick();">
         새 파일 다운로드 URL 등록
       </app-fms-button>

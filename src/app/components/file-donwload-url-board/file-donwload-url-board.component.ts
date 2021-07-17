@@ -72,6 +72,7 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
   isFileDownloadUrlListAllCheck: boolean;
   fileDownloadUrlTableViewType!: TableViewType;
   isFileDownloadUrlListGetting = false;
+  isFileDownloadUrlDeleting = false;
   fileDownloadUrlList: FileDownloadUrlItem[] = [];
 
   constructor(
@@ -228,6 +229,105 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
     this.fileDownloadUrlDetailPopup.show(item.fileDownloadUrlKey, 'modify');
     // this.router.navigate(['file/info/' + item.fileVersionKey]);
     return;
+  }
+
+  fileDownloadUrlDeleteButtonClick(): void {
+    if (this.isFileDownloadUrlDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    const fileDownloadUrlKey: string[] = [];
+
+    for (const item of this.fileDownloadUrlList) {
+      if (item.isChecked) {
+        fileDownloadUrlKey.push(item.fileDownloadUrlKey!);
+      }
+    }
+
+    if (fileDownloadUrlKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('선택된 파일 다운로드 URL이 없습니다.')
+        .show();
+      return;
+    }
+
+    this.common.getAlertComponent()
+      ?.setDefault()
+      .setTitle('안내')
+      .setMessage('선택된 ' + fileDownloadUrlKey.length + '개 파일 다운로드 URL을 삭제하시겠습니까?')
+      .setCancelButton(true)
+      .setConfirmButton(true)
+      .setCancelCallback(() => {
+        this.common.getAlertComponent()?.hide();
+      })
+      .setConfirmCallback(() => {
+        this.deleteFileDownloadUrl(fileDownloadUrlKey);
+        this.common.getAlertComponent()?.hide();
+      })
+      .show();
+      return;
+  }
+
+  deleteFileDownloadUrl(fileDownloadUrlKey: string[]): void {
+    if (this.isFileDownloadUrlDeleting) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제 중입니다. 잠시만 기다려주세요.')
+        .show();
+      return;
+    }
+
+    if (fileDownloadUrlKey.length === 0) {
+      this.common.getAlertComponent()
+        ?.setDefault()
+        .setTitle('안내')
+        .setMessage('삭제할 파일 다운로드 URL이 없습니다.')
+        .show();
+      return;
+    }
+    
+    // console.log('fileDownloadUrlKey', fileDownloadUrlKey);
+
+    const data = {
+      fileDownloadUrlKey: fileDownloadUrlKey,
+    };
+
+    this.isFileDownloadUrlDeleting = true;
+    const observable = this.ajax.post(environment.api.fileDownloadUrl.deleteFileDownloadUrl, data);
+    const subscribe = observable.subscribe(
+      data => {
+        this.isFileDownloadUrlDeleting = false;
+        // console.log('response', data);
+
+        if (data.result !== 'success') {
+          this.common.alertMessage(data);
+          return;
+        }
+
+        this.common.getAlertComponent()
+          ?.setDefault()
+          .setMessage('선택된 파일 다운로드 URL이 삭제 되었습니다.')
+          .setConfirmCallback(() => {
+            this.common.getAlertComponent()?.hide();
+            this.getList(1);
+          })
+          .show();
+        return;
+      },
+      error => {
+        this.isFileDownloadUrlDeleting = false;
+        this.common.alertMessage(error);
+        return;
+      },
+    );
   }
 
   fileDownloadUrlUploadButtonClick(): void {
