@@ -32,6 +32,7 @@ table.download-url-key-info-list {
         padding: 4px;
         border-right: 1px solid $table-stoke-color;
         border-bottom: 1px solid $table-stoke-color;
+        word-break: break-all;
   
         &.url-key {
   

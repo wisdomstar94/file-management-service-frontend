@@ -116,11 +116,16 @@
     justify-items: center;
     // flex-wrap: wrap;
 
+    &.mobile {
+      flex-wrap: wrap;
+    }
+
     .left-button-area {
       width: 100%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      margin-bottom: 6px;
     }
 
     .right-button-area {
@@ -128,6 +133,12 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      margin-bottom: 6px;
+
+      &.mobile {
+        text-align: left;
+        justify-content: flex-start;
+      }
     }
   }
 }

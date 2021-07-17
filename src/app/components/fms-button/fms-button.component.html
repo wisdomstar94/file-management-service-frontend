@@ -1,5 +1,6 @@
 <button class="button-span" [ngClass]="[color]" (click)="onClick.emit();" [ngStyle]="{
-  'margin-right': marginRight
+  'margin-right': marginRight,
+  'margin-bottom': marginBottom
 }">
   <ng-content></ng-content>
 </button>

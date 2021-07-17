@@ -52,11 +52,15 @@
       </ng-container>
     </ul>
   </div>
-  <div class="bottom-area">
+  <div class="bottom-area" [ngClass]="{
+    'mobile': deviceMode === 'mobile'
+  }">
     <div class="left-button-area">
       <ng-content select="[leftButton]"></ng-content>
     </div>
-    <div class="right-button-area" *ngIf="isRightButtonShow">
+    <div class="right-button-area" *ngIf="isRightButtonShow" [ngClass]="{
+      'mobile': deviceMode === 'mobile'
+    }">
       <ng-content select="[rightButton]"></ng-content>
     </div>
   </div>

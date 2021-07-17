@@ -3,6 +3,9 @@ import { SearchItem } from 'src/app/interfaces/search-item.interface';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
 import { CommonService } from 'src/app/services/common.service';
 import * as dayjs from 'dayjs';
+import { Store } from '@ngrx/store';
+import { DeviceMode } from 'src/app/types/device-mode.type';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search-box',
@@ -21,8 +24,12 @@ export class SearchBoxComponent implements OnInit {
   months: string[] = [];
   monthSelectItems: SelectItem[];
 
+  deviceMode: DeviceMode;
+  deviceMode$: Observable<DeviceMode>;
+
   constructor(
     private common: CommonService,
+    private store: Store<{ deviceMode: DeviceMode }>,
   ) { 
     this.isRightButtonShow = true;
 
@@ -52,6 +59,20 @@ export class SearchBoxComponent implements OnInit {
       };
     });
     // this.yearSelectItems =
+
+
+    this.deviceMode = 'pc';
+    this.deviceMode$ = this.store.select('deviceMode');
+    this.deviceMode$.subscribe(
+      data => {
+        this.deviceMode = data as DeviceMode;
+        if (this.deviceMode === 'pc') {
+
+        } else {
+          
+        }
+      }
+    );
   }
 
   ngOnInit(): void {
