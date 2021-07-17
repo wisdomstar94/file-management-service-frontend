@@ -9,6 +9,7 @@ import { CompanyItem } from 'src/app/interfaces/company-item.interface';
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { SearchOptionService } from 'src/app/services/search-option.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
 import { TableViewType } from 'src/app/types/table-view-type.type';
@@ -95,6 +96,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
+    private searchOption: SearchOptionService,
   ) { 
     const statusCodeList: CodeItem[] = this.route.snapshot.data.CompanyStatusCode;
     const companyStatusSearchItem = this.common.getSearchItem(this.searchItemList, 'companyStatus');
@@ -111,6 +113,10 @@ export class IndexPageComponent implements OnInit, DoCheck {
     
     this.isCompanyListAllCheck = false;
     this.companyTableViewType = 'row';
+
+    if (this.searchOption.searchOption.companySearchItemList.length !== 0) {
+      this.searchItemList = this.searchOption.searchOption.companySearchItemList;
+    }
   }
 
   ngOnInit(): void {
@@ -174,10 +180,10 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
     const data = {
       companyName: forms.companyName,
-      businessNumber: forms.businessNumber,
+      companyBusinessNumber: forms.businessNumber,
       companyAddress: forms.companyAddress,
-      leaderName: forms.leaderName,
-      leaderTel: forms.leaderTel,
+      companyCEOName: forms.leaderName,
+      companyCEOTel: forms.leaderTel,
       companyTel: forms.companyTel,
       createdAtStart: forms.createdAtStart,
       createdAtEnd: forms.createdAtEnd,
@@ -192,6 +198,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
     // console.log('data', data);
 
     t.isCompanyListGetting = true;
+    this.searchOption.searchOption.companySearchItemList = this.searchItemList;
 
     const observable = t.ajax.post(
       environment.api.company.getCompany,

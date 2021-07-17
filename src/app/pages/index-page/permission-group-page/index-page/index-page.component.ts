@@ -9,6 +9,7 @@ import { PermissionGroupItem } from 'src/app/interfaces/permission-group-item.in
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { SearchOptionService } from 'src/app/services/search-option.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
 import { TableViewType } from 'src/app/types/table-view-type.type';
@@ -64,6 +65,7 @@ export class IndexPageComponent implements OnInit {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
+    private searchOption: SearchOptionService,
   ) { 
     this.isPermissionGroupListAllCheck = false;
 
@@ -78,6 +80,10 @@ export class IndexPageComponent implements OnInit {
           checked: false,
         };
       });
+    }
+
+    if (this.searchOption.searchOption.permissionGroupSearchItemList.length !== 0) {
+      this.searchItemList = this.searchOption.searchOption.permissionGroupSearchItemList;
     }
   }
 
@@ -149,6 +155,7 @@ export class IndexPageComponent implements OnInit {
     // console.log('data', data);
 
     t.isPermissionGroupListGetting = true;
+    this.searchOption.searchOption.permissionGroupSearchItemList = this.searchItemList;
 
     const observable = t.ajax.post(
       environment.api.permissionGroup.getPermissionGroup,

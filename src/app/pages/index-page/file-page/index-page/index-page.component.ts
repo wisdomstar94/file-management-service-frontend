@@ -9,6 +9,7 @@ import { FileItem } from 'src/app/interfaces/file-item.interface';
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { SearchOptionService } from 'src/app/services/search-option.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
 import { TableViewType } from 'src/app/types/table-view-type.type';
@@ -70,6 +71,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
+    private searchOption: SearchOptionService,
   ) { 
     this.isFileListAllCheck = false;
 
@@ -84,6 +86,10 @@ export class IndexPageComponent implements OnInit, DoCheck {
           checked: false,
         };
       });
+    }
+
+    if (this.searchOption.searchOption.fileSearchItemList.length !== 0) {
+      this.searchItemList = this.searchOption.searchOption.fileSearchItemList;
     }
   }
 
@@ -157,6 +163,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
     // console.log('data', data);
 
     t.isFileListGetting = true;
+    this.searchOption.searchOption.fileSearchItemList = this.searchItemList;
 
     const observable = t.ajax.post(
       environment.api.file.getFile,

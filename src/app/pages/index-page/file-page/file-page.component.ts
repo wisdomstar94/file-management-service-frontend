@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SearchOptionService } from 'src/app/services/search-option.service';
 
 @Component({
   selector: 'app-file-page',
   templateUrl: './file-page.component.html',
   styleUrls: ['./file-page.component.scss']
 })
-export class FilePageComponent implements OnInit {
+export class FilePageComponent implements OnInit, OnDestroy {
 
-  constructor() { 
+  constructor(
+    private searchOption: SearchOptionService,
+  ) { 
     
   }
 
@@ -15,4 +18,7 @@ export class FilePageComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    this.searchOption.searchOption.fileSearchItemList = [];
+  }
 }
