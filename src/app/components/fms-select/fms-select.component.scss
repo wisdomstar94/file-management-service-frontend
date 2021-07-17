@@ -15,4 +15,8 @@ select.select {
   &.width-auto {
     width: auto;
   }
+
+  &.disabled {
+    background-color: #ddd;
+  }
 }

@@ -12,6 +12,7 @@ export class FmsInputComponent implements OnInit {
   @Input() inputType!: InputType;
   @Input() disabled!: boolean;
   @Input() placeHolder: string;
+  @Input() marginBottom!: string;
   @Output() inputValueChange = new EventEmitter<string>();
 
   constructor() { 

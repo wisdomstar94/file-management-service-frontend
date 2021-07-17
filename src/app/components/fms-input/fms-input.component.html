@@ -1,1 +1,8 @@
-<input [type]="inputType" class="input" [disabled]="disabled" [placeholder]="placeHolder" [(ngModel)]="inputValue" (ngModelChange)="inputValueChange.emit($event);" />
+<input [type]="inputType" class="input"
+  [ngClass]="{
+    'disabled': disabled
+  }"
+  [ngStyle]="{
+    'margin-bottom': marginBottom ?? '0'
+  }"
+  [disabled]="disabled" [placeholder]="placeHolder" [(ngModel)]="inputValue" (ngModelChange)="inputValueChange.emit($event);" />

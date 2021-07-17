@@ -16,7 +16,7 @@
       (infoTaken)="isLoading = false;"
       #fileDownloadUrlFormBox></app-file-download-url-form-box>
     <app-fms-row>
-      <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="closeButtonClick();">
+      <app-fms-button [color]="'gray'" [marginRight]="closeButtonMarginRight" [marginBottom]="'6px'" (onClick)="closeButtonClick();">
         닫기
       </app-fms-button>
       <app-fms-button [color]="'green'" (onClick)="fileDownloadUrlInfoEditButtonClick();" *ngIf="popupMode === 'modify'">

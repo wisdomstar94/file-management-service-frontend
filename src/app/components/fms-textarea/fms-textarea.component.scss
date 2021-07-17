@@ -14,4 +14,8 @@ textarea.textarea {
   font-weight: normal;
   text-align: left;
   background-color: #fff;
+
+  &.disabled {
+    background-color: #ddd;
+  }
 }

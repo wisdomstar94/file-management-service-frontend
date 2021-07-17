@@ -11,6 +11,7 @@ export class FmsSelectComponent implements OnInit {
   @Input() selectedValue!: string;
   @Input() disabled!: boolean;
   @Input() width: string;
+  @Input() marginBottom!: string;
   @Output() valueChanged = new EventEmitter<string>();
 
   constructor() { 

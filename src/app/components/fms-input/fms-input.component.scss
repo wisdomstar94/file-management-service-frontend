@@ -10,4 +10,8 @@ input.input {
   color: #333;
   box-sizing: border-box;
   background-color: #fff;
+
+  &.disabled {
+    background-color: #ddd;
+  }
 }

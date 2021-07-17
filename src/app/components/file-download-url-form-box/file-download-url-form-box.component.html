@@ -114,13 +114,29 @@
     </app-fms-info-title>
     <app-fms-info-content>
       <div class="condition-input-area">
-        <app-fms-select [selectItems]="conditionCodeListSelectItems" [selectedValue]="currentSelectedConditionInfo.conditionType" (valueChanged)="currentSelectedConditionInfo.conditionType = $event;"></app-fms-select>
+        <app-fms-select 
+          [selectItems]="conditionCodeListSelectItems" 
+          [selectedValue]="currentSelectedConditionInfo.conditionType" 
+          (valueChanged)="currentSelectedConditionInfo.conditionType = $event;"
+          [marginBottom]="'6px'"></app-fms-select>
         <ng-container *ngIf="['FDUCT00000001', 'FDUCT00000003'].includes(currentSelectedConditionInfo.conditionType)">
-          <app-fms-input [placeHolder]="'값 입력'" [inputValue]="currentConditionValueInfo.value" (inputValueChange)="currentConditionValueInfo.value = $event"></app-fms-input>
+          <app-fms-input 
+            [placeHolder]="'값 입력'" 
+            [inputValue]="currentConditionValueInfo.value" 
+            (inputValueChange)="currentConditionValueInfo.value = $event"
+            [marginBottom]="'6px'"></app-fms-input>
         </ng-container>
         <ng-container *ngIf="['FDUCT00000002'].includes(currentSelectedConditionInfo.conditionType)">
-          <app-fms-input [placeHolder]="'키 입력'" [inputValue]="currentConditionKeyInfo.key" (inputValueChange)="currentConditionKeyInfo.key = $event"></app-fms-input>
-          <app-fms-input [placeHolder]="'값 입력'" [inputValue]="currentConditionValueInfo.value" (inputValueChange)="currentConditionValueInfo.value = $event"></app-fms-input>
+          <app-fms-input 
+            [placeHolder]="'키 입력'" 
+            [inputValue]="currentConditionKeyInfo.key" 
+            (inputValueChange)="currentConditionKeyInfo.key = $event"
+            [marginBottom]="'6px'"></app-fms-input>
+          <app-fms-input 
+            [placeHolder]="'값 입력'" 
+            [inputValue]="currentConditionValueInfo.value" 
+            (inputValueChange)="currentConditionValueInfo.value = $event"
+            [marginBottom]="'6px'"></app-fms-input>
         </ng-container>
         <app-fms-button [color]="'red'" (onClick)="conditionUploadButtonClick();">
           등록

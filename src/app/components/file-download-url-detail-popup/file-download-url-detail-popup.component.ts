@@ -1,10 +1,13 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { ModifyFileDownloadUrlData } from 'src/app/interfaces/modify-file-download-url-data.interface';
 import { UploadFileDownloadUrlData } from 'src/app/interfaces/upload-file-download-url-data.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { DeviceMode } from 'src/app/types/device-mode.type';
 import { PopupMode } from 'src/app/types/popup-mode.type';
 import { environment } from 'src/environments/environment';
 import { FileDownloadUrlFormBoxComponent } from '../file-download-url-form-box/file-download-url-form-box.component';
@@ -41,10 +44,16 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
 
   @ViewChild('fileDownloadUrlFormBox') fileDownloadUrlFormBox!: FileDownloadUrlFormBoxComponent;
 
+  deviceMode: DeviceMode;
+  deviceMode$: Observable<DeviceMode>;
+
+  closeButtonMarginRight = '0';
+
   constructor(
     private common: CommonService,
     private ajax: AjaxService,
     private route: ActivatedRoute,
+    private store: Store<{ deviceMode: DeviceMode }>,
   ) { 
     this.isShow = false;
     this.isLoading = false;
@@ -52,6 +61,19 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
     this.isFileDownloadUrlModifying = false;
     this.isFileDownloadUrlUploading = false;
     this.popupMode = 'modify';
+
+    this.deviceMode = 'pc';
+    this.deviceMode$ = this.store.select('deviceMode');
+    this.deviceMode$.subscribe(
+      data => {
+        this.deviceMode = data as DeviceMode;
+        if (this.deviceMode === 'pc') {
+          this.closeButtonMarginRight = '10px';
+        } else {
+          this.closeButtonMarginRight = '0';
+        }
+      }
+    );
   }
 
   ngOnInit(): void {

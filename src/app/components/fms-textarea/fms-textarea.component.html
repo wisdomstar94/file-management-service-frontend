@@ -1,1 +1,5 @@
-<textarea class="textarea" [disabled]="disabled" [(ngModel)]="textareaValue" (ngModelChange)="textareaValueChange.emit($event);"></textarea>
+<textarea class="textarea" [disabled]="disabled" 
+  [ngClass]="{
+    'disabled': disabled
+  }"
+  [(ngModel)]="textareaValue" (ngModelChange)="textareaValueChange.emit($event);"></textarea>
