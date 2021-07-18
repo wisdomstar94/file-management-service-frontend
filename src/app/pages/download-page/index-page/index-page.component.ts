@@ -47,7 +47,14 @@ export class IndexPageComponent implements OnInit {
       });
       myObservable.subscribe(
         data => {
-          location.href = baseUrl + '/api/download/file/' + this.fileDownloadUrlKey;
+          const downloadjwt = data.downloadjwt;
+          const locationHref = ''
+            .concat(baseUrl)
+            .concat('/api/download/file/')
+            .concat(this.fileDownloadUrlKey)
+            .concat('?', 'downloadjwt=', downloadjwt)
+          ;
+          location.href = locationHref;
           return;
         },
         error => {
@@ -75,7 +82,17 @@ export class IndexPageComponent implements OnInit {
         }
 
         this.password = '';
-        location.href = baseUrl + '/api/download/file/' + this.fileDownloadUrlKey;
+
+        const downloadjwt = data.downloadjwt;
+        const passwordjwt = data.passwordjwt;
+        const locationHref = ''
+          .concat(baseUrl)
+          .concat('/api/download/file/')
+          .concat(this.fileDownloadUrlKey)
+          .concat('?', 'downloadjwt=', downloadjwt)
+          .concat('&', 'passwordjwt=', passwordjwt)
+        ;
+        location.href = locationHref;
         return;
       },
       error => {
