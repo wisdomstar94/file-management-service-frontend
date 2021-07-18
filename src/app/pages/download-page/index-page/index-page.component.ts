@@ -64,6 +64,8 @@ export class IndexPageComponent implements OnInit {
     const myObservable = this.ajax.post(environment.api.download.downloadPasswordCheck, {
       fileDownloadUrlKey: this.fileDownloadUrlKey,
       password: this.password,
+    }, {
+      withCredentials: true,
     });
     myObservable.subscribe(
       data => {
