@@ -150,6 +150,8 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
   }
 
   dataInit(): void {
+    this.getFileVersionList();
+
     this.fileDownloadUrlInfo = {
       fileDownloadPossibleDateTimeStart: ' ',
       fileDownloadPossibleDateTimeEnd: ' ',
