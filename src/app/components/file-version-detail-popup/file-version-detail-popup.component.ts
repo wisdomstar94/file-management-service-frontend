@@ -105,6 +105,8 @@ export class FileVersionDetailPopupComponent implements OnInit {
 
     setTimeout(() => {
       this.isShow = true;
+      this.fileVersionFormBox.dataInit();
+      this.fileVersionFormBox.getFileVersionInfo(fileVersionKey);
     }, 100);  
   }
 

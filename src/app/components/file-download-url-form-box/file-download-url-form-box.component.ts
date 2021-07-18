@@ -12,6 +12,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { FileDownloadUrlColumn } from 'src/app/types/file-download-url-column.type';
 import { PopupMode } from 'src/app/types/popup-mode.type';
 import { environment } from 'src/environments/environment';
+import { FmsDatetimeInputComponent } from '../fms-datetime-input/fms-datetime-input.component';
 
 @Component({
   selector: 'app-file-download-url-form-box',
@@ -19,6 +20,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./file-download-url-form-box.component.scss']
 })
 export class FileDownloadUrlFormBoxComponent implements OnInit {
+  @ViewChild('fileDownloadPossibleDateTimeStartElement') fileDownloadPossibleDateTimeStartElement!: FmsDatetimeInputComponent;
+  @ViewChild('fileDownloadPossibleDateTimeEndElement') fileDownloadPossibleDateTimeEndElement!: FmsDatetimeInputComponent;
+
   @Output() infoTaking = new EventEmitter();
   @Output() infoTaken = new EventEmitter();
 
@@ -145,12 +149,56 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     this.setFileDownloadUrlInfo(this.fileDownloadUrlInfo);
   }
 
+  dataInit(): void {
+    this.fileDownloadUrlInfo = {
+      fileDownloadPossibleDateTimeStart: ' ',
+      fileDownloadPossibleDateTimeEnd: ' ',
+      FmsFileDownloadUrlTargetUsers: {
+        userKey: '',
+        userId: '',
+        userName: '',
+      },
+      FmsTargetFiles: {
+        fileKey: '',
+        fileLabelName: '',
+      },
+      FmsTargetFileVersions: {
+        fileVersionKey: 'null',
+        fileKey: '',
+        fileVersionName: '',
+        fileVersionCode: '',
+        fileDownloadName: '',
+      },
+      FmsCreaterUsers: {
+        userKey: '',
+        userId: '',
+        userName: '',
+      },
+      FmsUpdaterUsers: {
+        userKey: '',
+        userId: '',
+        userName: '',
+      },
+      FmsFileDownloadUrlStatusCodes: {
+        code: 'FDUST00000001',
+        codeName: '',
+      },
+    };
+    this.setFileDownloadUrlInfo(this.fileDownloadUrlInfo);
+
+    this.fileDownloadPossibleDateTimeStartElement.dataInit();
+    this.fileDownloadPossibleDateTimeEndElement.dataInit();
+
+    this.cleanConditionItems = [];
+    this.conditionItems = [];
+  }
+
   ngOnInit(): void {
     // console.log('이 부분 호출 확인 abab', this.fileVersionKey);
-    this.getFileVersionList();
-    setTimeout(() => {
-      this.getFileDownloadUrlInfo(this.fileDownloadUrlKey);
-    });
+    // this.getFileVersionList();
+    // setTimeout(() => {
+    //   this.getFileDownloadUrlInfo(this.fileDownloadUrlKey);
+    // });
   }
 
   setFileDownloadUrlInfo(v: FileDownloadUrlInfo): void {
@@ -232,6 +280,8 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     const data = {
       fileDownloadUrlKey: fileDownloadUrlKey,
     };
+
+    this.getFileVersionList();
 
     const myObservable = this.ajax.post(environment.api.fileDownloadUrl.fileDownloadUrlInfo, data);
     myObservable.subscribe(

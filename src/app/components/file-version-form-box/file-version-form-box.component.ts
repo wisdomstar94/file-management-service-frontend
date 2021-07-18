@@ -66,6 +66,28 @@ export class FileVersionFormBoxComponent implements OnInit {
     this.setFileVersionInfo(this.fileVersionInfo);
   }
 
+  dataInit(): void {
+    this.fileVersionInfo = {
+      FmsFiles: {
+        fileKey: '',
+        fileLabelName: '',
+      },
+      FmsCreaterUsers: {
+        userId: '',
+        userKey: '',
+      },
+      FmsUpdaterUsers: {
+        userId: '',
+        userKey: '',
+      },
+      FmsFileVersionStatusCodes: {
+        code: 'FVSTS00000001',
+        codeName: '',
+      }
+    };
+    this.setFileVersionInfo(this.fileVersionInfo);
+  }
+
   ngOnInit(): void {
     // console.log('이 부분 호출 확인 abab', this.fileVersionKey);
     setTimeout(() => {

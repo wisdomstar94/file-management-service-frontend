@@ -28,6 +28,11 @@ export class FmsDatetimeInputComponent implements OnInit, OnChanges {
     this.fixedSecond = '00';
   }
 
+  dataInit(): void {
+    this.dateValue = '';
+    this.timeValue = '';
+  }
+
   ngOnInit(): void {
     // this.valueCheck();
     // console.log('this.value', this.value);

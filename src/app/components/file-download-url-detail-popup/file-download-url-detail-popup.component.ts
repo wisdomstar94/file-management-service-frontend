@@ -103,6 +103,8 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
 
     setTimeout(() => {
       this.isShow = true;
+      this.fileDownloadUrlFormBox.dataInit();
+      this.fileDownloadUrlFormBox.getFileDownloadUrlInfo(fileDownloadUrlKey);
     }, 100);  
   }
 
