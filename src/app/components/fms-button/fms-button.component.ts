@@ -10,6 +10,8 @@ export class FmsButtonComponent implements OnInit {
   @Input() color: ButtonColor = 'basic';
   @Input() marginRight: string = '0';
   @Input() marginBottom: string = '0';
+  @Input() marginLeft: string = '0';
+  @Input() display: string = 'inline-block';
   @Output() onClick: EventEmitter<void> = new EventEmitter();
 
   constructor() { 

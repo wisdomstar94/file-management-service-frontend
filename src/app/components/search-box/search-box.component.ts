@@ -121,7 +121,17 @@ export class SearchBoxComponent implements OnInit {
       switch (item.searchType) {
         case 'text': item.currentValue = ''; break;
         case 'datetime': item.startDatetime = ''; item.endDatetime = ''; break;
+        case 'one-datetime': item.oneDatetime = ''; break;
         case 'checkbox': item.checkboxItemList?.filter((x) => { x.checked = false; return; }); break;
+        case 'number': item.startNumber = '' as any; item.endNumber = '' as any; break;
+        case 'year-month': item.startYear = ''; item.startMonth = ''; item.endYear = ''; item.endMonth = ''; item.endLastDate = ''; break;
+        case 'select':  
+          item.currentValue = '';
+          if (Array.isArray(item.selectItems)) {
+            const firstValue = item.selectItems[0].optionValue;
+            item.currentValue = firstValue;
+          }
+          break;
       }
     }
   }

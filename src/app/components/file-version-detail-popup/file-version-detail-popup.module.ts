@@ -6,6 +6,7 @@ import { FmsButtonModule } from '../fms-button/fms-button.module';
 import { ArticleTitleModule } from '../article-title/article-title.module';
 import { FmsInfoModule } from '../fms-info/fms-info.module';
 import { FileVersionFormBoxModule } from '../file-version-form-box/file-version-form-box.module';
+import { PopupBoxModule } from '../popup-box/popup-box.module';
 
 
 
@@ -20,6 +21,7 @@ import { FileVersionFormBoxModule } from '../file-version-form-box/file-version-
     ArticleTitleModule,
     FmsInfoModule,
     FileVersionFormBoxModule,
+    PopupBoxModule,
   ],
   exports: [
     FileVersionDetailPopupComponent

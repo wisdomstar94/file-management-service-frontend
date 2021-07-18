@@ -6,6 +6,7 @@ import { FmsButtonModule } from '../fms-button/fms-button.module';
 import { FmsInfoModule } from '../fms-info/fms-info.module';
 import { FmsRowModule } from '../fms-row/fms-row.module';
 import { FileDownloadUrlFormBoxModule } from '../file-download-url-form-box/file-download-url-form-box.module';
+import { PopupBoxModule } from '../popup-box/popup-box.module';
 
 
 
@@ -20,6 +21,7 @@ import { FileDownloadUrlFormBoxModule } from '../file-download-url-form-box/file
     ArticleTitleModule,
     FmsInfoModule,
     FileDownloadUrlFormBoxModule,
+    PopupBoxModule,
   ],
   exports: [
     FileDownloadUrlDetailPopupComponent

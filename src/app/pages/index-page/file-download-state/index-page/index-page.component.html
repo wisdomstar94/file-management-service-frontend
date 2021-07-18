@@ -2,7 +2,7 @@
 <app-article>
   <app-article-title>조회조건</app-article-title>
   <app-search-box (onEnter)="getList(1);"
-    [searchItemList]="searchItemList" #userSearchBox>
+    [searchItemList]="searchItemList" #fileDownloadStateSearchBox>
     <div leftButton>
       <app-fms-button [color]="'gray'" [marginRight]="'10px'" (onClick)="clearSearchItem();">
         검색 값 초기화

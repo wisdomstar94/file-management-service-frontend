@@ -1,7 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { DeviceMode } from 'src/app/types/device-mode.type';
 import { PopupMode } from 'src/app/types/popup-mode.type';
 import { environment } from 'src/environments/environment';
 import { FileVersionFormBoxComponent } from '../file-version-form-box/file-version-form-box.component';
@@ -38,9 +41,17 @@ export class FileVersionDetailPopupComponent implements OnInit {
 
   @ViewChild('fileVersionFormBox') fileVersionFormBox!: FileVersionFormBoxComponent;
 
+  deviceMode: DeviceMode;
+  deviceMode$: Observable<DeviceMode>;
+
+  closeButtonMarginRight = '0';
+  submitButtonMarginLeft = '0';
+  buttonDisplay: string = 'inline-block';
+
   constructor(
     private common: CommonService,
     private ajax: AjaxService,
+    private store: Store<{ deviceMode: DeviceMode }>,
   ) { 
     this.isShow = false;
     this.isLoading = false;
@@ -48,6 +59,23 @@ export class FileVersionDetailPopupComponent implements OnInit {
     this.isFileVersionModifying = false;
     this.isFileVersionUploading = false;
     this.popupMode = 'modify';
+
+    this.deviceMode = 'pc';
+    this.deviceMode$ = this.store.select('deviceMode');
+    this.deviceMode$.subscribe(
+      data => {
+        this.deviceMode = data as DeviceMode;
+        if (this.deviceMode === 'pc') {
+          this.closeButtonMarginRight = '10px';
+          this.submitButtonMarginLeft = '0';
+          // this.buttonDisplay = 'inline-block';
+        } else {
+          this.closeButtonMarginRight = '0';
+          this.submitButtonMarginLeft = '6px';
+          // this.buttonDisplay = 'block';
+        }
+      }
+    );
   }
 
   ngOnInit(): void {
