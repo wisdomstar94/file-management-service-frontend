@@ -79,6 +79,8 @@ export class FileVersionBoardComponent implements OnInit {
   isFileVersionDeleting = false;
   fileVersionList: FileVersionItem[] = [];
 
+  isSearchAreaShow: boolean;
+
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
@@ -86,6 +88,12 @@ export class FileVersionBoardComponent implements OnInit {
     private common: CommonService,
     private ajax: AjaxService,
   ) { 
+    this.isSearchAreaShow = true;
+
+    if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
+      this.isSearchAreaShow = false;
+    }	
+
     this.isFileVersionListAllCheck = false;
     this.fileVersionTableViewType = 'row';
     this.fileKey = route.snapshot.params.fileKey;

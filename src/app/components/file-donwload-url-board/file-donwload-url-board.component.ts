@@ -75,6 +75,8 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
   isFileDownloadUrlDeleting = false;
   fileDownloadUrlList: FileDownloadUrlItem[] = [];
 
+  isSearchAreaShow: boolean;
+
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
@@ -82,6 +84,12 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
     private common: CommonService,
     private ajax: AjaxService,
   ) { 
+    this.isSearchAreaShow = true;
+
+    if (this.route.snapshot.data.SearchAreaShowFlag[1] === false) {
+      this.isSearchAreaShow = false;
+    }	
+
     this.isFileDownloadUrlListAllCheck = false;
     this.fileDownloadUrlTableViewType = 'row';
     this.fileKey = route.snapshot.params.fileKey;

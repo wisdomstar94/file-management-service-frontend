@@ -54,6 +54,8 @@ export class IndexPageComponent implements OnInit {
   isfileDownloadStateGetting = false;
   fileDownloadStateList: FileDownloadStateItem[] = [];
 
+  isSearchAreaShow: boolean;
+
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
@@ -61,6 +63,12 @@ export class IndexPageComponent implements OnInit {
     private common: CommonService,
     private ajax: AjaxService,
   ) { 
+    this.isSearchAreaShow = true;
+
+    if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
+      this.isSearchAreaShow = false;
+    }
+
     this.isFileDownloadStateListAllCheck = false;
     this.fileDownloadStateTableViewType = 'row';
 

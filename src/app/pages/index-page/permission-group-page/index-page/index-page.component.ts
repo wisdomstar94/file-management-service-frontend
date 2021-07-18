@@ -59,6 +59,8 @@ export class IndexPageComponent implements OnInit {
   isPermissionGroupDeleting = false;
   permissionGroupList: PermissionGroupItem[] = [];
 
+  isSearchAreaShow: boolean;
+
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
@@ -67,6 +69,12 @@ export class IndexPageComponent implements OnInit {
     private ajax: AjaxService,
     private searchOption: SearchOptionService,
   ) { 
+    this.isSearchAreaShow = true;
+
+    if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
+      this.isSearchAreaShow = false;
+    }
+
     this.isPermissionGroupListAllCheck = false;
 
     const permissionGroupStatusCodeList: CodeItem[] = this.route.snapshot.data.PermissionGroupStatusCode;

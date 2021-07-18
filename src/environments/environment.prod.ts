@@ -48,6 +48,7 @@ export const environment = {
       createUser: baseUrl + '/api/user/createUser',
       permissionCheck: baseUrl + '/api/user/permissionCheck',
       deleteUser: baseUrl + '/api/user/deleteUser',
+      getSearchAreaShowFlag: baseUrl + '/api/user/getSearchAreaShowFlag',
     },
     company: {
       getCompany: baseUrl + '/api/company/getCompany',

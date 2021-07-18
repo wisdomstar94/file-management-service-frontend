@@ -1,5 +1,5 @@
 <app-page-title-box>파일관리</app-page-title-box>
-<app-article>
+<app-article *ngIf="isSearchAreaShow">
   <app-article-title>조회조건</app-article-title>
   <app-search-box (onEnter)="getList(1);"
     [searchItemList]="searchItemList" #userSearchBox>

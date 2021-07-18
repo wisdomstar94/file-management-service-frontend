@@ -7,6 +7,7 @@ import { FileDownloadUrlStatusCodeResolver } from 'src/app/resolvers/file-downlo
 import { FileStatusCodeResolver } from 'src/app/resolvers/file-status-code.resolver';
 import { FileVersionListResolver } from 'src/app/resolvers/file-version-list.resolver';
 import { FileVersionStatusCodeResolver } from 'src/app/resolvers/file-version-status-code.resolver';
+import { SearchAreaShowFlagResolver } from 'src/app/resolvers/search-area-show-flag.resolver';
 import { UserListResolver } from 'src/app/resolvers/user-list.resolver';
 import { InfoPageComponent } from './info-page.component';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       FileDownloadUrlStatusCode: FileDownloadUrlStatusCodeResolver,
       FileVersionList: FileVersionListResolver,
       UserList: UserListResolver,
+      SearchAreaShowFlag: SearchAreaShowFlagResolver,
     },
   }
 ];

@@ -65,6 +65,8 @@ export class IndexPageComponent implements OnInit, DoCheck {
   isFileDeleting = false;
   fileList: FileItem[] = [];
 
+  isSearchAreaShow: boolean;
+
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
@@ -73,6 +75,12 @@ export class IndexPageComponent implements OnInit, DoCheck {
     private ajax: AjaxService,
     private searchOption: SearchOptionService,
   ) { 
+    this.isSearchAreaShow = true;
+
+    if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
+      this.isSearchAreaShow = false;
+    }
+
     this.isFileListAllCheck = false;
 
     const statusCodeList: CodeItem[] = this.route.snapshot.data.FileStatusCode;

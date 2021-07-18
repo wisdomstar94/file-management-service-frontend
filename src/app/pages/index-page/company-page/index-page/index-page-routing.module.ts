@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PermissionCheckGuard } from 'src/app/guards/permission-check.guard';
 import { CompanyStatusCodeResolver } from 'src/app/resolvers/company-status-code.resolver';
+import { SearchAreaShowFlagResolver } from 'src/app/resolvers/search-area-show-flag.resolver';
 import { IndexPageComponent } from './index-page.component';
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
       PermissionCheckGuard,
     ],
     resolve: { 
-      CompanyStatusCode: CompanyStatusCodeResolver 
+      CompanyStatusCode: CompanyStatusCodeResolver, 
+      SearchAreaShowFlag: SearchAreaShowFlagResolver,
     },
   }
 ];
