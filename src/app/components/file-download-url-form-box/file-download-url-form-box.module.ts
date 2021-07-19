@@ -9,6 +9,7 @@ import { FmsSelectModule } from '../fms-select/fms-select.module';
 import { FmsTextareaModule } from '../fms-textarea/fms-textarea.module';
 import { FormsModule } from '@angular/forms';
 import { FmsDatetimeInputModule } from '../fms-datetime-input/fms-datetime-input.module';
+import { FmsRadioModule } from '../fms-radio/fms-radio.module';
 
 
 
@@ -26,6 +27,7 @@ import { FmsDatetimeInputModule } from '../fms-datetime-input/fms-datetime-input
     FmsRowModule,
     FmsButtonModule,
     FmsDatetimeInputModule,
+    FmsRadioModule,
   ],
   exports: [
     FileDownloadUrlFormBoxComponent

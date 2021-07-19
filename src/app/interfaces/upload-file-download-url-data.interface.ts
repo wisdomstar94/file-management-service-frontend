@@ -1,3 +1,4 @@
+import { YN } from "../types/yn.type";
 import { FileDownloadUrlAccessConditionInfo } from "./file-download-url-access-condition-info.interface";
 
 export interface UploadFileDownloadUrlData {
@@ -9,4 +10,6 @@ export interface UploadFileDownloadUrlData {
   fileDownloadLimitMaxCount: string;
   fileDownloadUrlAccessConditionInfo?: FileDownloadUrlAccessConditionInfo[];
   fileDownloadUrlStatus: string;
+  isPossibleDatetimeShow: YN;
+  isDownloadCountInfoShow: YN;
 }

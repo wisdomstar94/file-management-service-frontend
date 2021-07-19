@@ -5,6 +5,7 @@ import { ConditionInfo } from 'src/app/interfaces/condition-info.interface';
 import { FileDownloadUrlAccessConditionInfo } from 'src/app/interfaces/file-download-url-access-condition-info.interface';
 import { FileDownloadUrlInfo } from 'src/app/interfaces/file-download-url-info.interface';
 import { FileOnlyVersionItem } from 'src/app/interfaces/file-only-version-item.interface';
+import { RadioItem } from 'src/app/interfaces/radio-item.interface';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
 import { UserItem } from 'src/app/interfaces/user-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
@@ -13,6 +14,7 @@ import { FileDownloadUrlColumn } from 'src/app/types/file-download-url-column.ty
 import { PopupMode } from 'src/app/types/popup-mode.type';
 import { environment } from 'src/environments/environment';
 import { FmsDatetimeInputComponent } from '../fms-datetime-input/fms-datetime-input.component';
+import { FmsRadioComponent } from '../fms-radio/fms-radio.component';
 
 @Component({
   selector: 'app-file-download-url-form-box',
@@ -22,6 +24,8 @@ import { FmsDatetimeInputComponent } from '../fms-datetime-input/fms-datetime-in
 export class FileDownloadUrlFormBoxComponent implements OnInit {
   @ViewChild('fileDownloadPossibleDateTimeStartElement') fileDownloadPossibleDateTimeStartElement!: FmsDatetimeInputComponent;
   @ViewChild('fileDownloadPossibleDateTimeEndElement') fileDownloadPossibleDateTimeEndElement!: FmsDatetimeInputComponent;
+  @ViewChild('fileDownloadPossibleDatetimeShowRadio') fileDownloadPossibleDatetimeShowRadio!: FmsRadioComponent;
+  @ViewChild('fileDownloadCountInfoShowRadio') fileDownloadCountInfoShowRadio!: FmsRadioComponent;
 
   @Output() infoTaking = new EventEmitter();
   @Output() infoTaken = new EventEmitter();
@@ -61,6 +65,36 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
   isFileVersionGetting = false;
 
   baseUrl = environment.baseUrl;
+
+  fileDownloadPossibleDatetimeShowRadioItems: RadioItem[] = [
+    {
+      valueUniqueID: 'Y',
+      value: 'Y',
+      displayText: '파일 다운로드 제한 기간을 노출합니다.',
+      checked: false,
+    },
+    {
+      valueUniqueID: 'N',
+      value: 'N',
+      displayText: '파일 다운로드 제한 기간을 노출하지 않습니다.',
+      checked: true,
+    },
+  ];
+
+  fileDownloadCountInfoShowRadioItems: RadioItem[] = [
+    {
+      valueUniqueID: 'Y',
+      value: 'Y',
+      displayText: '파일 다운로드 횟수 정보를 노출합니다.',
+      checked: false,
+    },
+    {
+      valueUniqueID: 'N',
+      value: 'N',
+      displayText: '파일 다운로드 횟수 정보를 노출하지 않습니다.',
+      checked: true,
+    },
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -155,6 +189,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     this.fileDownloadUrlInfo = {
       fileDownloadPossibleDateTimeStart: ' ',
       fileDownloadPossibleDateTimeEnd: ' ',
+      isPossibleDatetimeShow: 'N',
       FmsFileDownloadUrlTargetUsers: {
         userKey: '',
         userId: '',
@@ -381,6 +416,16 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         break;
       case 'fileDownloadUrlStatus':
         if (this.fileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code !== this.cleanFileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code) {
+          result = true;
+        }
+        break;
+      case 'isPossibleDatetimeShow':
+        if (this.fileDownloadPossibleDatetimeShowRadio.getValue() !== this.cleanFileDownloadUrlInfo.isPossibleDatetimeShow) {
+          result = true;
+        }
+        break;
+      case 'isDownloadCountInfoShow':
+        if (this.fileDownloadCountInfoShowRadio.getValue() !== this.cleanFileDownloadUrlInfo.isDownloadCountInfoShow) {
           result = true;
         }
         break;

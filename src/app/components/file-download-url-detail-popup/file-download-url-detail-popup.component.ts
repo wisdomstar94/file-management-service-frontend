@@ -9,6 +9,7 @@ import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { DeviceMode } from 'src/app/types/device-mode.type';
 import { PopupMode } from 'src/app/types/popup-mode.type';
+import { YN } from 'src/app/types/yn.type';
 import { environment } from 'src/environments/environment';
 import { FileDownloadUrlFormBoxComponent } from '../file-download-url-form-box/file-download-url-form-box.component';
 
@@ -163,6 +164,14 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
       data.fileDownloadUrlAccessConditionInfo = this.fileDownloadUrlFormBox.conditionItems;
     }
 
+    if (this.fileDownloadUrlFormBox.isChanged('isPossibleDatetimeShow')) {
+      data.isPossibleDatetimeShow = this.fileDownloadUrlFormBox.fileDownloadPossibleDatetimeShowRadio.getValue() as YN;
+    }
+
+    if (this.fileDownloadUrlFormBox.isChanged('isDownloadCountInfoShow')) {
+      data.isDownloadCountInfoShow = this.fileDownloadUrlFormBox.fileDownloadCountInfoShowRadio.getValue() as YN;
+    } 
+
     this.isFileDownloadUrlModifying = true;
 
     const options = {
@@ -212,6 +221,8 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
       fileDownloadLimitMaxCount: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.fileDownloadLimitMaxCount as string,
       fileDownloadUrlAccessConditionInfo: this.fileDownloadUrlFormBox.conditionItems,
       fileDownloadUrlStatus: this.fileDownloadUrlFormBox.fileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code as string,
+      isPossibleDatetimeShow: this.fileDownloadUrlFormBox.fileDownloadPossibleDatetimeShowRadio.getValue() as YN,
+      isDownloadCountInfoShow: this.fileDownloadUrlFormBox.fileDownloadCountInfoShowRadio.getValue() as YN,
     };
     // ...
   

@@ -1,3 +1,4 @@
+import { YN } from "../types/yn.type";
 import { FileVersionHistoryItem } from "./file-version-history-item.intreface";
 
 export interface FileNormalInfo {
@@ -7,4 +8,10 @@ export interface FileNormalInfo {
   requirePassword: boolean;
   fileVersionHistoryList: FileVersionHistoryItem[];
   fileDescription: string;
+  isPossibleDatetimeShow: YN;
+  fileDownloadPossibleDateTimeStart?: string;
+  fileDownloadPossibleDateTimeEnd?: string;
+  isDownloadCountInfoShow: YN;
+  fileDownloadCount?: number;
+  fileDownloadLimitMaxCount?: number;
 }

@@ -1,3 +1,5 @@
+import { YN } from "../types/yn.type";
+
 interface FmsFileDownloadUrlTargetUsers {
   userKey: string;
   userId: string;
@@ -44,6 +46,8 @@ export interface FileDownloadUrlInfo {
   fileDownloadPossibleDateTimeEnd?: string;
   fileDownloadLimitMaxCount?: string;
   fileDownloadCount?: string;
+  isPossibleDatetimeShow?: YN;
+  isDownloadCountInfoShow?: YN;
   createdAt?: string;
   createdIp?: string;
   createrUserKey?: string;
