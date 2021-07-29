@@ -190,6 +190,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
       fileDownloadPossibleDateTimeStart: ' ',
       fileDownloadPossibleDateTimeEnd: ' ',
       isPossibleDatetimeShow: 'N',
+      isDownloadCountInfoShow: 'N',
       FmsFileDownloadUrlTargetUsers: {
         userKey: '',
         userId: '',
