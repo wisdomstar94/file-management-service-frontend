@@ -5,11 +5,13 @@ import { FileBasicInfo } from 'src/app/interfaces/file-basic-info.interface';
 import { ImageItem } from 'src/app/interfaces/image-item.interface';
 import { RadioItem } from 'src/app/interfaces/radio-item.interface';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
+import { SwiperSlideItem } from 'src/app/interfaces/swiper-slide-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { FileBasicColumn } from 'src/app/types/file-basic-column.type';
 import { YN } from 'src/app/types/yn.type';
 import { environment } from 'src/environments/environment';
+import { FmsImageSlidePopupComponent } from '../fms-image-slide-popup/fms-image-slide-popup.component';
 import { FmsMultipleImageComponent } from '../fms-multiple-image/fms-multiple-image.component';
 import { FmsRadioComponent } from '../fms-radio/fms-radio.component';
 import { FmsSingleImageComponent } from '../fms-single-image/fms-single-image.component';
@@ -20,6 +22,8 @@ import { FmsSingleImageComponent } from '../fms-single-image/fms-single-image.co
   styleUrls: ['./file-basic-form-box.component.scss']
 })
 export class FileBasicFormBoxComponent implements OnInit {
+  @ViewChild('fmsImageSlidePopup') fmsImageSlidePopup!: FmsImageSlidePopupComponent;
+
   cleanFileBasicInfo!: FileBasicInfo;
   fileBasicInfo!: FileBasicInfo;
   
@@ -270,4 +274,28 @@ export class FileBasicFormBoxComponent implements OnInit {
     return result;
   }
 
+  representImageClick(event: MouseEvent): void {
+    const slideList: SwiperSlideItem[] = [
+      {
+        slideType: 'image',
+        imageSrc: this.fileRepresentImageSrc,
+      }
+    ];
+    this.fmsImageSlidePopup.setImageSrcList(slideList);
+    this.fmsImageSlidePopup.show(0);
+  }
+
+  screenShotImageClick(event: any): void {
+    // console.log('event', event);
+    const index = event.index;
+    // return;
+    const slideList: SwiperSlideItem[] = this.fileScreenShotImageItems.map((x) => {
+      return {
+        slideType: 'image',
+        imageSrc: x.imageUrl as string,
+      };
+    });
+    this.fmsImageSlidePopup.setImageSrcList(slideList);
+    this.fmsImageSlidePopup.show(index);
+  }
 }

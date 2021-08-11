@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ImageItem } from 'src/app/interfaces/image-item.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { SortType } from 'src/app/types/sort-type.type';
@@ -12,16 +12,20 @@ import { environment } from 'src/environments/environment';
 export class FmsMultipleImageComponent implements OnInit {
   environment = environment;
 
+  @Output() onImageClick = new EventEmitter();
+
   @ViewChild('file') file!: ElementRef;
 
   cleanImageItems: ImageItem[] = [];
   @Input() imageItems: ImageItem[] = [];
   deletedImageItems: ImageItem[] = [];
 
+  imageClickBlock: boolean;
+
   constructor(
     private common: CommonService,
   ) { 
-
+    this.imageClickBlock = false;
   }
 
   ngOnInit(): void {
@@ -59,11 +63,15 @@ export class FmsMultipleImageComponent implements OnInit {
     this.refreshSortNo();
   }
 
-  sortClick(sortType: SortType, imageItem: ImageItem): void {
+  sortClick(sortType: SortType, imageItem: ImageItem, event: MouseEvent): boolean {
+    console.log('sortClick');
+    this.imageClickBlock = true;
     switch (sortType) {
       case 'prev': this.sortPrev(imageItem); break;
       case 'next': this.sortNext(imageItem); break;
     }
+    // event.preventDefault();
+    return false;
   }
 
   getClickedImageItemIndex(imageItem: ImageItem): number {
@@ -174,5 +182,19 @@ export class FmsMultipleImageComponent implements OnInit {
     const clickedImageItemIndex = this.getClickedImageItemIndex(imageItem);
     this.deletedImageItems.push(imageItem);
     this.imageItems.splice(clickedImageItemIndex, 1);
+  }
+
+  imageClick(event: MouseEvent, index: number): void {
+    console.log('imageClick');
+
+    if (this.imageClickBlock === true) {
+      this.imageClickBlock = false;
+      return;
+    }
+
+    this.onImageClick.emit({
+      event,
+      index
+    });
   }
 }

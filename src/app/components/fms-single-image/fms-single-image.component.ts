@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,6 +10,7 @@ export class FmsSingleImageComponent implements OnInit {
   @ViewChild('file') file!: ElementRef;
   realFile!: File | null;
   @Input() imgSrc: string | ArrayBuffer;
+  @Output() onImageClick = new EventEmitter();
 
   constructor() { 
     this.imgSrc = environment.image.fileSingleDefaulImageSrc;
@@ -61,5 +62,9 @@ export class FmsSingleImageComponent implements OnInit {
     }
 
     return false;
+  }
+
+  imageClick(event: MouseEvent): void {
+    this.onImageClick.emit(event);
   }
 }

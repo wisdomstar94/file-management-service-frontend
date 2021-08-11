@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { FmsRadioModule } from '../fms-radio/fms-radio.module';
 import { FmsSingleImageModule } from '../fms-single-image/fms-single-image.module';
 import { FmsMultipleImageModule } from '../fms-multiple-image/fms-multiple-image.module';
+import { FmsImageSlidePopupModule } from '../fms-image-slide-popup/fms-image-slide-popup.module';
 
 
 
@@ -28,6 +29,7 @@ import { FmsMultipleImageModule } from '../fms-multiple-image/fms-multiple-image
     FmsRadioModule,
     FmsSingleImageModule,
     FmsMultipleImageModule,
+    FmsImageSlidePopupModule,
   ],
   exports: [
     FileBasicFormBoxComponent

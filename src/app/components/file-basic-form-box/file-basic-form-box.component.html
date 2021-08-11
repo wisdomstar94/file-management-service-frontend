@@ -52,7 +52,7 @@
       파일 대표 이미지
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-single-image #fileRepresentImage [imgSrc]="fileRepresentImageSrc"></app-fms-single-image>
+      <app-fms-single-image #fileRepresentImage [imgSrc]="fileRepresentImageSrc" (onImageClick)="representImageClick($event);"></app-fms-single-image>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li class="half">
@@ -60,7 +60,7 @@
       파일 관련 스크린샷
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-multiple-image #fileScreenShotImage [imageItems]="fileScreenShotImageItems"></app-fms-multiple-image>
+      <app-fms-multiple-image #fileScreenShotImage [imageItems]="fileScreenShotImageItems" (onImageClick)="screenShotImageClick($event)"></app-fms-multiple-image>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
@@ -72,3 +72,5 @@
     </app-fms-info-content>
   </app-fms-info-li>
 </app-fms-info-ul>
+
+<app-fms-image-slide-popup #fmsImageSlidePopup></app-fms-image-slide-popup>

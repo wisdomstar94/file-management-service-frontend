@@ -1,0 +1,6 @@
+<div class="window-parent" [@popupAnimation]="isShow" *ngIf="isShow" (click)="outerAreaClick();">
+  <div class="close-button-area" (click)="closeButtonClick();">X</div>
+  <div class="window">
+    <app-fms-swiper [slideList]="imageSrcList" [index]="index"></app-fms-swiper>
+  </div>
+</div>
