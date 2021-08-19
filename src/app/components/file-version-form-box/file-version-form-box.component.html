@@ -20,13 +20,21 @@
       파일명
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-input [inputValue]="fileVersionInfo?.fileDownloadName!" [marginBottom]="'6px'" (inputValueChange)="fileVersionInfo.fileDownloadName= $event;"></app-fms-input>
+      <app-fms-input [inputValue]="fileVersionInfo?.fileDownloadName!" [marginBottom]="'6px'" (inputValueChange)="fileVersionInfo.fileDownloadName = $event;"></app-fms-input>
       <app-fms-row>
         <app-fms-button [color]="'red'" (onClick)="versionFileUploadButtonClick();">
           파일 업로드
         </app-fms-button>
         <input #versionFileElement type="file" class="version-file" (change)="fileChanged($event);" />
       </app-fms-row>
+    </app-fms-info-content>
+  </app-fms-info-li>
+  <app-fms-info-li>
+    <app-fms-info-title>
+      용량
+    </app-fms-info-title>
+    <app-fms-info-content>
+      <app-fms-input [inputValue]="common.getFileSizeString(fileVersionInfo?.fileSize!)" [disabled]="true" (inputValueChange)="$event;"></app-fms-input>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>

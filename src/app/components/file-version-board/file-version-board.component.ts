@@ -80,15 +80,17 @@ export class FileVersionBoardComponent implements OnInit {
   fileVersionList: FileVersionItem[] = [];
 
   isSearchAreaShow: boolean;
+  isShowFileDownloadButton: boolean;
 
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private route: ActivatedRoute,
     private router: Router,
-    private common: CommonService,
+    public common: CommonService,
     private ajax: AjaxService,
   ) { 
     this.isSearchAreaShow = true;
+    this.isShowFileDownloadButton = false;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
       this.isSearchAreaShow = false;
@@ -192,6 +194,7 @@ export class FileVersionBoardComponent implements OnInit {
     observable.subscribe(
       data => {
         t.isFileVersionListGetting = false;
+        t.isShowFileDownloadButton = data.isShowFileDownloadButton;
 
         if (data.result === 'success') {
           const list: FileVersionItem[] = data.list;
@@ -329,4 +332,11 @@ export class FileVersionBoardComponent implements OnInit {
     // this.router.navigate(['file/upload']);
     this.fileVersionDetailPopup.show('', 'upload');
   }  
+
+  executeFileDownload(item: FileVersionItem): void {
+    const baseUrl = environment.baseUrl;
+    const link = baseUrl + '/api/download/fileAdmin/' + item.fileVersionKey;
+    // console.log('link', link);
+    location.href = link;
+  }
 }

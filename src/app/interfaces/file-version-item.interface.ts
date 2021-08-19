@@ -18,6 +18,7 @@ export interface FileVersionItem {
   fileVersionName?: string;
   fileVersionCode?: number;
   fileOriginalName?: string;
+  fileSize?: number;
   fileDownloadName?: string;
   createrUserKey?: string;
   FmsCreaterUsers?: FmsCreaterUsers;

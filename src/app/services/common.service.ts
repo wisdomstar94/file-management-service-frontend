@@ -199,6 +199,14 @@ export class CommonService {
     };
   }
 
+  getFileSizeString(num: number | undefined): string {
+    if (num === undefined) {
+      return '';
+    }
+    const fileSizeInfo = this.byteConvert(num);
+    return fileSizeInfo.sizeToFixed + ' ' + fileSizeInfo.unit;
+  }
+
   getLastDate(obj: dayjs.Dayjs): string {
     return this.fillZero(obj.add(1, 'months').date(0).date(), 2);
   }

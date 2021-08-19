@@ -32,7 +32,7 @@ export class FileVersionFormBoxComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private ajax: AjaxService,
-    private common: CommonService,
+    public common: CommonService,
   ) { 
     const statusCodeList: CodeItem[] = this.route.snapshot.data.FileVersionStatusCode;
     this.fileVersionStatusSelectItems = statusCodeList.map((x) => {
