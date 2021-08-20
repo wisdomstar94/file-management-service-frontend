@@ -13,7 +13,7 @@ import { UserInfo } from '../interfaces/user-info.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class UserInfoResolver implements Resolve<boolean> {
+export class UserInfoResolver implements Resolve<UserInfo> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,7 +22,7 @@ export class UserInfoResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<UserInfo> {
     const myObservable = this.http.post<UserInfo>(
       environment.api.user.getUserInfo, { userKey: route.params.userKey }, { withCredentials: true })
       .pipe(
@@ -48,7 +48,7 @@ export class UserInfoResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of({} as UserInfo);
         }),
       );
 

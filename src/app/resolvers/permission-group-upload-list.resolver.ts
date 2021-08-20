@@ -13,7 +13,7 @@ import { PermissionGroupUploadItem } from '../interfaces/permission-group-upload
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionGroupUploadListResolver implements Resolve<boolean> {
+export class PermissionGroupUploadListResolver implements Resolve<PermissionGroupUploadItem[]> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,13 +22,16 @@ export class PermissionGroupUploadListResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PermissionGroupUploadItem[]> {
     const myObservable = this.http.post<PermissionGroupUploadItem[]>(
       environment.api.permissionGroupUpload.getPermissionGroupUpload, { permissionGroupKey: route.params.permissionGroupKey }, { withCredentials: true })
       .pipe(
         retry(1),
         map(e => {
-          const result: PermissionGroupUploadItem[] = (e as any).list;
+          let result: PermissionGroupUploadItem[] = (e as any).list;
+          if (result === undefined) {
+            result = [];
+          }
           return result;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -48,7 +51,7 @@ export class PermissionGroupUploadListResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of([]);
         }),
       );
 

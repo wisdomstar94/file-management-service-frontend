@@ -13,7 +13,7 @@ import { FileNormalInfo } from '../interfaces/file-normal-info.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class FileDownloadUrlOuterInfoResolver implements Resolve<boolean> {
+export class FileDownloadUrlOuterInfoResolver implements Resolve<FileNormalInfo> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -21,7 +21,7 @@ export class FileDownloadUrlOuterInfoResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FileNormalInfo> {
     const t = this;
 
     const myObservable = t.http.post<FileNormalInfo>(
@@ -50,7 +50,7 @@ export class FileDownloadUrlOuterInfoResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of({} as FileNormalInfo);
         }),
       );
 

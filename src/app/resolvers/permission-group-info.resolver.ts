@@ -13,7 +13,7 @@ import { PermissionGroupInfo } from '../interfaces/permission-group-info.interfa
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionGroupInfoResolver implements Resolve<boolean> {
+export class PermissionGroupInfoResolver implements Resolve<PermissionGroupInfo> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,7 +22,7 @@ export class PermissionGroupInfoResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PermissionGroupInfo> {
     const myObservable = this.http.post<PermissionGroupInfo>(
       environment.api.permissionGroup.getPermissionGroupInfo, { permissionGroupKey: route.params.permissionGroupKey }, { withCredentials: true })
       .pipe(
@@ -48,7 +48,7 @@ export class PermissionGroupInfoResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of({} as PermissionGroupInfo);
         }),
       );
 

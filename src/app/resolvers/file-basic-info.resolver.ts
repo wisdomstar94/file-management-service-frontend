@@ -15,7 +15,7 @@ import { FileInfo } from '../interfaces/file-info.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class FileBasicInfoResolver implements Resolve<boolean> {
+export class FileBasicInfoResolver implements Resolve<FileBasicInfo> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -24,7 +24,7 @@ export class FileBasicInfoResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FileBasicInfo> {
     const myObservable = this.http.post<FileBasicInfo>(
       environment.api.file.fileBasicInfo, { fileKey: route.params.fileKey }, { withCredentials: true })
       .pipe(
@@ -57,7 +57,7 @@ export class FileBasicInfoResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of({} as FileBasicInfo);
         }),
       );
 

@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LogYyyymmListResolver implements Resolve<boolean> {
+export class LogYyyymmListResolver implements Resolve<string[]> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -20,15 +20,18 @@ export class LogYyyymmListResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string[]> {
     const t = this;
     const myObservable = t.http.post<string[]>(
       environment.api.download.yyyymmList, {  }, { withCredentials: true })
       .pipe(
         retry(1),
         map(e => {
-          const result: string[] = (e as any).list;
+          let result: string[] = (e as any).list;
           // return of(result);
+          if (result === undefined) {
+            result = [];
+          }
           return result;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -48,7 +51,7 @@ export class LogYyyymmListResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of([]);
         }),
       );
 

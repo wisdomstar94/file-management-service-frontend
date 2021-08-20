@@ -13,7 +13,7 @@ import { PermissionGrouppingItem } from '../interfaces/permission-groupping-item
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionAllListResolver implements Resolve<boolean> {
+export class PermissionAllListResolver implements Resolve<PermissionGrouppingItem[]> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,13 +22,16 @@ export class PermissionAllListResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PermissionGrouppingItem[]> {
     const myObservable = this.http.post<PermissionGrouppingItem[]>(
       environment.api.permission.getPermission, { isGroupping: true }, { withCredentials: true })
       .pipe(
         retry(1),
         map(e => {
-          const result: PermissionGrouppingItem[] = (e as any).groupping_list;
+          let result: PermissionGrouppingItem[] = (e as any).groupping_list;
+          if (result === undefined) {
+            result = [];
+          }
           return result;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -48,7 +51,7 @@ export class PermissionAllListResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of([]);
         }),
       );
 

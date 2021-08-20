@@ -13,7 +13,7 @@ import { UserItem } from '../interfaces/user-item.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class UserListResolver implements Resolve<boolean> {
+export class UserListResolver implements Resolve<UserItem[]> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,13 +22,16 @@ export class UserListResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<UserItem[]> {
     const myObservable = this.http.post<UserItem[]>(
       environment.api.user.getUser, { page: 1, pageViewCount: 1, viewCount: 9999999, }, { withCredentials: true })
       .pipe(
         retry(1),
         map(e => {
-          const result: UserItem[] = (e as any).list;
+          let result: UserItem[] = (e as any).list;
+          if (result === undefined) {
+            result = [];
+          }
           return result;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -48,7 +51,7 @@ export class UserListResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of([]);
         }),
       );
 

@@ -13,7 +13,7 @@ import { CodeItem } from '../interfaces/code-item.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class UserStatusCodeResolver implements Resolve<boolean> {
+export class UserStatusCodeResolver implements Resolve<CodeItem[]> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -21,15 +21,18 @@ export class UserStatusCodeResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<CodeItem[]> {
     const t = this;
     const myObservable = t.http.post<CodeItem[]>(
       environment.api.code.getCode, { codeGroup: 'USRST' }, { withCredentials: true })
       .pipe(
         retry(1),
         map(e => {
-          const result: CodeItem[] = (e as any).list;
+          let result: CodeItem[] = (e as any).list;
           // return of(result);
+          if (result === undefined) {
+            result = [];
+          }
           return result;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -49,7 +52,7 @@ export class UserStatusCodeResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of([]);
         }),
       );
 

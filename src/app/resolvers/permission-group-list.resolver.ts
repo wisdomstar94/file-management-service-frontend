@@ -13,7 +13,7 @@ import { PermissionGroupItem } from '../interfaces/permission-group-item.interfa
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionGroupListResolver implements Resolve<boolean> {
+export class PermissionGroupListResolver implements Resolve<PermissionGroupItem[]> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -21,15 +21,18 @@ export class PermissionGroupListResolver implements Resolve<boolean> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PermissionGroupItem[]> {
     const t = this;
     const myObservable = t.http.post<PermissionGroupItem[]>(
       environment.api.permissionGroup.getPermissionGroup, { page: 1, pageViewCount: 1, viewCount: 99999 }, { withCredentials: true })
       .pipe(
         retry(1),
         map(e => {
-          const result: PermissionGroupItem[] = (e as any).list;
+          let result: PermissionGroupItem[] = (e as any).list;
           // return of(result);
+          if (result === undefined) {
+            result = [];
+          }
           return result;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -49,7 +52,7 @@ export class PermissionGroupListResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of([]);
         }),
       );
 

@@ -14,7 +14,7 @@ import { AjaxService } from '../services/ajax.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserMenuListResolver implements Resolve<boolean> {
+export class UserMenuListResolver implements Resolve<NavMenuItem[]> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,7 +22,7 @@ export class UserMenuListResolver implements Resolve<boolean> {
     
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<NavMenuItem[]> {
     const t = this;
     
     const userMenuListObservable = t.http.post<NavMenuItem[]>(
@@ -30,8 +30,11 @@ export class UserMenuListResolver implements Resolve<boolean> {
       .pipe(
         retry(1),
         map(e => {
-          const menuList: NavMenuItem[] = (e as any).menuCategoryListReal;
+          let menuList: NavMenuItem[] = (e as any).menuCategoryListReal;
           // return of(menuList);
+          if (menuList === undefined) {
+            menuList = [];
+          }
           return menuList;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -51,7 +54,7 @@ export class UserMenuListResolver implements Resolve<boolean> {
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
           // return of(error.error);  
-          return of(error.error);
+          return of([]);
         }),
       );
 
