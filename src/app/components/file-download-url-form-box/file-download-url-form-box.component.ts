@@ -10,6 +10,7 @@ import { SelectItem } from 'src/app/interfaces/select-item.interface';
 import { UserItem } from 'src/app/interfaces/user-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
+import { MyDateService } from 'src/app/services/my-date.service';
 import { FileDownloadUrlColumn } from 'src/app/types/file-download-url-column.type';
 import { PopupMode } from 'src/app/types/popup-mode.type';
 import { environment } from 'src/environments/environment';
@@ -100,6 +101,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     private route: ActivatedRoute,
     private ajax: AjaxService,
     private common: CommonService,
+    private myDate: MyDateService,
   ) { 
     this.userList = this.route.snapshot.data.UserList;
     this.userSelectItems = this.userList.map((x) => {
@@ -564,5 +566,45 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
       }
     );
+  }
+
+  quickLimitDatetimeButtonClick(type: string | number) {
+    const dateInfo = {
+      startDateTime: '',
+      endDateTime: '',
+    };
+
+    if (typeof type === 'string') {
+      switch (type) {
+        case 'today':
+          dateInfo.startDateTime = this.myDate.myDate().format('YYYY-MM-DD 00:00:00');
+          dateInfo.endDateTime = this.myDate.myDate().format('YYYY-MM-DD 23:59:59');
+          break;
+        case 'weekend':
+          dateInfo.startDateTime = this.myDate.myDate().format('YYYY-MM-DD 00:00:00');
+          dateInfo.endDateTime = this.myDate.myDate().getThisWeekLastDateObject().format('YYYY-MM-DD 23:59:59');
+          break;
+        case 'month':
+          dateInfo.startDateTime = this.myDate.myDate().format('YYYY-MM-DD 00:00:00');
+          dateInfo.endDateTime = this.myDate.myDate().format('YYYY-MM-${LD} 23:59:59');
+          console.log('dateInfo.endDateTime', dateInfo.endDateTime);
+          break;
+      }
+
+      this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart = dateInfo.startDateTime;
+      this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd = dateInfo.endDateTime;
+      return;
+    }
+
+    if (typeof type === 'number') {
+      dateInfo.startDateTime = this.myDate.myDate().format('YYYY-MM-DD HH:mm:ss');
+      dateInfo.endDateTime = this.myDate.myDate().add(type, 'date').format('YYYY-MM-DD HH:mm:ss');
+
+      this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart = dateInfo.startDateTime;
+      this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd = dateInfo.endDateTime;
+      return;
+    }
+
+    return;
   }
 }

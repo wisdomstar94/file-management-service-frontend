@@ -37,11 +37,19 @@
       다운로드 제한 기간
     </app-fms-info-title>
     <app-fms-info-content>
-      <!-- <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeStart!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeStart = $event;"></app-fms-input> -->
-      <app-fms-datetime-input #fileDownloadPossibleDateTimeStartElement [value]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeStart!" [fixedSecond]="'00'" (valueChanged)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeStart = $event;"></app-fms-datetime-input>
-      <span class="datetime-period-char">~</span>
-      <!-- <app-fms-input [inputValue]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeEnd!" (inputValueChange)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeEnd = $event;"></app-fms-input> -->
-      <app-fms-datetime-input #fileDownloadPossibleDateTimeEndElement [value]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeEnd!" [fixedSecond]="'59'" (valueChanged)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeEnd = $event;"></app-fms-datetime-input>
+      <div>
+        <app-fms-datetime-input #fileDownloadPossibleDateTimeStartElement [value]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeStart!" [fixedSecond]="'00'" (valueChanged)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeStart = $event;"></app-fms-datetime-input>
+        <span class="datetime-period-char">~</span>
+        <app-fms-datetime-input #fileDownloadPossibleDateTimeEndElement [value]="fileDownloadUrlInfo?.fileDownloadPossibleDateTimeEnd!" [fixedSecond]="'59'" (valueChanged)="fileDownloadUrlInfo!.fileDownloadPossibleDateTimeEnd = $event;"></app-fms-datetime-input>
+      </div>
+      <div class="quick-set-datetime-button-box">
+        <app-fms-button class="margin-style-a" [color]="'gray'" (onClick)="quickLimitDatetimeButtonClick('today');">오늘까지</app-fms-button>
+        <app-fms-button class="margin-style-a" [color]="'gray'" (onClick)="quickLimitDatetimeButtonClick('weekend');">이번주까지</app-fms-button>
+        <app-fms-button class="margin-style-a" [color]="'gray'" (onClick)="quickLimitDatetimeButtonClick('month');">이번달까지</app-fms-button>
+        <app-fms-button class="margin-style-a" [color]="'gray'" (onClick)="quickLimitDatetimeButtonClick(1);">+1일</app-fms-button>
+        <app-fms-button class="margin-style-a" [color]="'gray'" (onClick)="quickLimitDatetimeButtonClick(7);">+7일</app-fms-button>
+        <app-fms-button class="margin-style-a" [color]="'gray'" (onClick)="quickLimitDatetimeButtonClick(30);">+30일</app-fms-button>
+      </div>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li>
