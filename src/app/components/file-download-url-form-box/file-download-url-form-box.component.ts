@@ -587,7 +587,10 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         case 'month':
           dateInfo.startDateTime = this.myDate.myDate().format('YYYY-MM-DD 00:00:00');
           dateInfo.endDateTime = this.myDate.myDate().format('YYYY-MM-${LD} 23:59:59');
-          console.log('dateInfo.endDateTime', dateInfo.endDateTime);
+          break;
+        case 'semi-permanent':
+          dateInfo.startDateTime = this.myDate.myDate().format('YYYY-MM-DD 00:00:00');
+          dateInfo.endDateTime = this.myDate.myDate().format('2150-MM-DD 23:59:59');
           break;
       }
 
