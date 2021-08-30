@@ -11,8 +11,10 @@ export class FmsSingleImageComponent implements OnInit {
   realFile!: File | null;
   @Input() imgSrc: string | ArrayBuffer;
   @Output() onImageClick = new EventEmitter();
+  @Output() onImageChanged = new EventEmitter();
 
   constructor() { 
+    this.realFile = null;
     this.imgSrc = environment.image.fileSingleDefaulImageSrc;
   }
 
@@ -38,6 +40,7 @@ export class FmsSingleImageComponent implements OnInit {
     // 이미지가 로드가 된 경우
     reader.onload = e => {
       this.imgSrc = e.target?.result!;
+      this.onImageChanged.emit(this.imgSrc);
     };
     // reader가 이미지 읽도록 하기
     reader.readAsDataURL((event.target as any).files[0]);

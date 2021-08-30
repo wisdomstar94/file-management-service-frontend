@@ -275,6 +275,10 @@ export class FileBasicFormBoxComponent implements OnInit {
   }
 
   representImageClick(event: MouseEvent): void {
+    if (this.fileRepresentImage.realFile === null) {
+      return;
+    }
+
     const slideList: SwiperSlideItem[] = [
       {
         slideType: 'image',

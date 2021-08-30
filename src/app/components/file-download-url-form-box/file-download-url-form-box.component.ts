@@ -243,6 +243,10 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     this.fileDownloadUrlInfo = v;
     this.cleanFileDownloadUrlInfo = { ...v };
     if (this.fileDownloadUrlInfo !== undefined) {
+      if (this.fileDownloadUrlInfo.fileVersionKey === null) {
+        this.fileDownloadUrlInfo.FmsTargetFileVersions!.fileVersionKey = 'null';
+      }
+
       this.cleanFileDownloadUrlInfo.FmsFileDownloadUrlTargetUsers = { ...this.fileDownloadUrlInfo.FmsFileDownloadUrlTargetUsers! };
       this.cleanFileDownloadUrlInfo.FmsTargetFiles = { ...this.fileDownloadUrlInfo.FmsTargetFiles! };
       this.cleanFileDownloadUrlInfo.FmsTargetFileVersions = { ...this.fileDownloadUrlInfo.FmsTargetFileVersions! };

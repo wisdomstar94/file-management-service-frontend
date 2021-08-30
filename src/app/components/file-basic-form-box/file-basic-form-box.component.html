@@ -52,7 +52,7 @@
       파일 대표 이미지
     </app-fms-info-title>
     <app-fms-info-content>
-      <app-fms-single-image #fileRepresentImage [imgSrc]="fileRepresentImageSrc" (onImageClick)="representImageClick($event);"></app-fms-single-image>
+      <app-fms-single-image #fileRepresentImage [imgSrc]="fileRepresentImageSrc" (onImageClick)="representImageClick($event);" (onImageChanged)="fileRepresentImageSrc = $event;"></app-fms-single-image>
     </app-fms-info-content>
   </app-fms-info-li>
   <app-fms-info-li class="half">
