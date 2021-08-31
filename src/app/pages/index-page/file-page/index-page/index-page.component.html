@@ -28,6 +28,7 @@
       <app-fms-tr [ngClass]="[fileTableViewType]">
         <app-fms-th [ngClass]="[fileTableViewType]"><input type="checkbox" (change)="fileListAllCheckChanged();" [(ngModel)]="isFileListAllCheck" /></app-fms-th>
         <app-fms-th [ngClass]="[fileTableViewType]">No.</app-fms-th>
+        <app-fms-th [ngClass]="[fileTableViewType]">대표이미지</app-fms-th>
         <app-fms-th [ngClass]="[fileTableViewType]">파일라벨명</app-fms-th>
         <app-fms-th [ngClass]="[fileTableViewType]">최신버전 파일명</app-fms-th>
         <app-fms-th [ngClass]="[fileTableViewType]">최초 업로드 날짜</app-fms-th>
@@ -44,6 +45,26 @@
         <app-fms-tr [ngClass]="[fileTableViewType]">
           <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType"><input type="checkbox" [(ngModel)]="item.isChecked" /></app-fms-td>
           <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'No.'">{{ item.seq }}</app-fms-td>
+          <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'대표이미지'">
+            <ng-container *ngIf="item.fileRepresentImageAccessUrl !== null">
+              <img class="represent-image" 
+                [ngStyle]="{
+                  'max-width': fileTableViewType === 'card' ? '100%' : '100px'
+                }"
+                [src]="item.fileRepresentImageAccessUrl" 
+                alt="대표 이미지" 
+                title="대표 이미지" />
+            </ng-container>
+            <ng-container *ngIf="item.fileRepresentImageAccessUrl === null">
+              <img class="represent-image" 
+                [ngStyle]="{
+                  'max-width': fileTableViewType === 'card' ? '100%' : '100px'
+                }"
+                [src]="noRepresentImageAccessUrl" 
+                alt="대표 이미지" 
+                title="대표 이미지" />
+            </ng-container>
+          </app-fms-td>
           <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'파일라벨명'">{{ item.fileLabelName }}</app-fms-td>
           <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'최신버전 파일명'">{{ item.recentFileVersionFileName }}</app-fms-td>
           <app-fms-td [ngClass]="[fileTableViewType]" [tableViewType]="fileTableViewType" [columnName]="'최초 업로드 날짜'">{{ item.createdAt }}</app-fms-td>

@@ -66,6 +66,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
   fileList: FileItem[] = [];
 
   isSearchAreaShow: boolean;
+  noRepresentImageAccessUrl: string;
 
   constructor(
     private store: Store<{ destination: string[], activeMenuKey: string }>,
@@ -99,6 +100,8 @@ export class IndexPageComponent implements OnInit, DoCheck {
     if (this.searchOption.searchOption.fileSearchItemList.length !== 0) {
       this.searchItemList = this.searchOption.searchOption.fileSearchItemList;
     }
+
+    this.noRepresentImageAccessUrl = environment.image.noImage;
   }
 
   ngOnInit(): void {

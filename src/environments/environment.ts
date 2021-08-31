@@ -119,6 +119,8 @@ export const environment = {
     grid: baseUrl + '/public/images/grid.jpg',
     fileSingleDefaulImageSrc: baseUrl + '/public/images/no-image.jpg',
     plusImage: baseUrl + '/public/images/plus-image.png',
+
+    noImage: baseUrl + '/public/images/no-image.jpg',
   },
 };
 

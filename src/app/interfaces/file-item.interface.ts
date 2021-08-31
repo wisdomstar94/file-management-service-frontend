@@ -15,6 +15,7 @@ export interface FileItem {
   fileKey?: string;
   fileLabelName?: string;
   fileMemo?: string;
+  fileRepresentImageAccessUrl?: string;
   fileDescription?: string;
   recentFileVersionFileName?: string;
   recentFileVersionCreatedAt?: string;
