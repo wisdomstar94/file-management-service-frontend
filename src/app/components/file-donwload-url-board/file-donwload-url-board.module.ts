@@ -10,6 +10,7 @@ import { PaginationBoxModule } from '../pagination-box/pagination-box.module';
 import { SearchBoxModule } from '../search-box/search-box.module';
 import { TableTopBoxModule } from '../table-top-box/table-top-box.module';
 import { FileDownloadUrlDetailPopupModule } from '../file-download-url-detail-popup/file-download-url-detail-popup.module';
+import { FileDownloadUrlLogPopupModule } from '../file-download-url-log-popup/file-download-url-log-popup.module';
 
 
 
@@ -28,6 +29,7 @@ import { FileDownloadUrlDetailPopupModule } from '../file-download-url-detail-po
     PaginationBoxModule,
     FmsTableModule,
     FileDownloadUrlDetailPopupModule,
+    FileDownloadUrlLogPopupModule,
   ],
   exports: [
     FileDonwloadUrlBoardComponent

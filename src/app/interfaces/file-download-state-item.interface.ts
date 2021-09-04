@@ -1,9 +1,4 @@
-interface FileDownloadUrlKeyItem {
-  fileDownloadUrlKey: string;
-  fileLabelName: string;
-  fileVersionName: string;
-  downloadCount: number;
-}
+import { FileDownloadUrlKeyItem } from "./file-download-url-key-item";
 
 export interface FileDownloadStateItem {
   downloadTargetUserKey: string;

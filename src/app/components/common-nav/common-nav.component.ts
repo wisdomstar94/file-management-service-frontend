@@ -287,4 +287,8 @@ export class CommonNavComponent implements OnInit {
     const t = this;
     item.menuHover = false;
   }
+
+  titleClicked(): void {
+    this.router.navigate(['dashboard']);
+  }
 }

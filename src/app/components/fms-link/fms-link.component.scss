@@ -1,0 +1,11 @@
+.link {
+  display: inline-block;
+  font-size: 10pt;
+  font-weight: normal;
+  color: #59b5f5;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

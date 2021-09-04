@@ -44,6 +44,11 @@ nav.common-nav {
       font-weight: bolder;
       margin-right: 14px;
       transition: all 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        color: #f6d539;
+      }
 
       &.minimal {
         white-space: nowrap;

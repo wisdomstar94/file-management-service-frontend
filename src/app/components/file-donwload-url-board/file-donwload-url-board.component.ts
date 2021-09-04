@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { TableViewType } from 'src/app/types/table-view-type.type';
 import { environment } from 'src/environments/environment';
 import { FileDownloadUrlDetailPopupComponent } from '../file-download-url-detail-popup/file-download-url-detail-popup.component';
+import { FileDownloadUrlLogPopupComponent } from '../file-download-url-log-popup/file-download-url-log-popup.component';
 import { PaginationBoxComponent } from '../pagination-box/pagination-box.component';
 import { SearchBoxComponent } from '../search-box/search-box.component';
 import { TableTopBoxComponent } from '../table-top-box/table-top-box.component';
@@ -28,6 +29,7 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
   @ViewChild('fileDownloadUrlListPaginationBox') fileDownloadUrlListPaginationBox!: PaginationBoxComponent;
 
   @ViewChild('fileDownloadUrlDetailPopup') fileDownloadUrlDetailPopup!: FileDownloadUrlDetailPopupComponent;
+  @ViewChild('fileDownloadUrlLogPopup') fileDownloadUrlLogPopup!: FileDownloadUrlLogPopupComponent;
 
   searchItemList: SearchItem[] = [
     {
@@ -341,5 +343,9 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
   fileDownloadUrlUploadButtonClick(): void {
     // this.router.navigate(['file/upload']);
     this.fileDownloadUrlDetailPopup.show('', 'upload');
-  }  
+  } 
+  
+  fileDownloadUrlLogCheckButtonClick(item: FileDownloadUrlItem): void {
+    this.fileDownloadUrlLogPopup.show(item.fileDownloadUrlKey as string);
+  }
 }

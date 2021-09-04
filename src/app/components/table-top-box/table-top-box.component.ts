@@ -17,6 +17,7 @@ export class TableTopBoxComponent implements OnInit {
   @Input() viewCountHide: boolean;
   @Input() tableViewType: TableViewType = 'row';
   @Output() tableViewTypeChanged = new EventEmitter();
+  @Output() viewCountChanged = new EventEmitter();
 
   viewCountSelectList: SelectItem[] = [
     {
@@ -87,5 +88,13 @@ export class TableTopBoxComponent implements OnInit {
   getViewCount(): number {
     const t = this;
     return Number(t.viewCountInfo.selectedValue);
+  }
+
+  setViewCount(v: string): void {
+    this.viewCountInfo.selectedValue = v;
+  }
+
+  viewCountChange(): void {
+    this.viewCountChanged.emit(this.viewCountInfo.selectedValue);
   }
 }

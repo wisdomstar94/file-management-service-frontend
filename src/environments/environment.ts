@@ -99,6 +99,7 @@ export const environment = {
       modifyFileDownloadUrl: baseUrl + '/api/fileDownloadUrl/modifyFileDownloadUrl',
       createFileDownloadUrl: baseUrl + '/api/fileDownloadUrl/createFileDownloadUrl',
       deleteFileDownloadUrl: baseUrl + '/api/fileDownloadUrl/deleteFileDownloadUrl',
+      getFileDownloadUrlLog: baseUrl + '/api/fileDownloadUrl/getFileDownloadUrlLog',
     },
     download: {
       yyyymmList: baseUrl + '/api/download/yyyymmList',

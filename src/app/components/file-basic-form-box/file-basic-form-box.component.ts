@@ -275,7 +275,7 @@ export class FileBasicFormBoxComponent implements OnInit {
   }
 
   representImageClick(event: MouseEvent): void {
-    if (this.fileRepresentImage.realFile === null) {
+    if (this.fileRepresentImage.realFile === null && this.fileRepresentImage.imgSrc === environment.image.fileSingleDefaulImageSrc) {
       return;
     }
 

@@ -224,4 +224,14 @@ export class CommonService {
 
     return zeroString + v;
   }
+
+  givePriorityContent(): void {
+    this.components.commonNav!.zIndex = 2;
+    this.components.commonContent!.zIndex = 3;
+  }
+
+  givePriorityNav(): void {
+    this.components.commonNav!.zIndex = 3;
+    this.components.commonContent!.zIndex = 2;
+  }
 }

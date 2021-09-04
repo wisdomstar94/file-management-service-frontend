@@ -12,6 +12,8 @@ import { PageTitleBoxModule } from 'src/app/components/page-title-box/page-title
 import { PaginationBoxModule } from 'src/app/components/pagination-box/pagination-box.module';
 import { SearchBoxModule } from 'src/app/components/search-box/search-box.module';
 import { TableTopBoxModule } from 'src/app/components/table-top-box/table-top-box.module';
+import { FileDownloadUrlLogPopupModule } from 'src/app/components/file-download-url-log-popup/file-download-url-log-popup.module';
+import { FmsLinkModule } from 'src/app/components/fms-link/fms-link.module';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { TableTopBoxModule } from 'src/app/components/table-top-box/table-top-bo
     TableTopBoxModule,
     FmsTableModule,
     PaginationBoxModule,
+    FileDownloadUrlLogPopupModule,
+    FmsLinkModule,
   ]
 })
 export class IndexPageModule { }

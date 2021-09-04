@@ -1,3 +1,6 @@
 <div class="row" [ngStyle]="{
-  'text-align': textAlign
+  'text-align': textAlign,
+  'display': display
+}" [ngClass]="{
+  'align-items-center': isAlignItemsCenter
 }"><ng-content></ng-content></div>

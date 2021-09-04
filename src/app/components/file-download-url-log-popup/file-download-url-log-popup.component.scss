@@ -1,0 +1,47 @@
+.margin-bottom-a {
+  margin-bottom: 10px;
+  display: block;
+}
+
+
+
+
+
+ul.ip-info-list {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  > li.item {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    margin-bottom: 4px;
+    padding: 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccc;;
+    position: relative;
+    justify-content: flex-start;
+
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .title-area {
+      display: inline-block;
+      font-size: 10pt;
+      color: #333;
+      min-width: 50px;
+      text-align: left;
+    }
+
+    .content-area {
+      display: inline-block;
+      font-size: 10pt;
+      color: #888;
+      text-align: left;
+    }
+  }
+}

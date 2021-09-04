@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { FileDownloadUrlLogPopupComponent } from 'src/app/components/file-download-url-log-popup/file-download-url-log-popup.component';
 import { PaginationBoxComponent } from 'src/app/components/pagination-box/pagination-box.component';
 import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component';
 import { TableTopBoxComponent } from 'src/app/components/table-top-box/table-top-box.component';
 import { CodeItem } from 'src/app/interfaces/code-item.interface';
 import { FileDownloadStateItem } from 'src/app/interfaces/file-download-state-item.interface';
+import { FileDownloadUrlKeyItem } from 'src/app/interfaces/file-download-url-key-item';
 import { FileItem } from 'src/app/interfaces/file-item.interface';
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
@@ -23,6 +25,7 @@ import { environment } from 'src/environments/environment';
 export class IndexPageComponent implements OnInit {
   @ViewChild('fileDownloadStateSearchBox') fileDownloadStateSearchBox!: SearchBoxComponent;
   @ViewChild('fileDownloadStateTableTopBox') fileDownloadStateTableTopBox!: TableTopBoxComponent;
+  @ViewChild('fileDownloadUrlLogPopup') fileDownloadUrlLogPopup!: FileDownloadUrlLogPopupComponent;
   // @ViewChild('fileDownloadStatePaginationBox') fileDownloadStatePaginationBox!: PaginationBoxComponent;
 
   searchItemList: SearchItem[] = [
@@ -195,5 +198,13 @@ export class IndexPageComponent implements OnInit {
 
   fileUploadButtonClick(): void {
     this.router.navigate(['file/upload']);
-  }  
+  } 
+  
+  fileDownloadUrlKeyClicked(item: FileDownloadUrlKeyItem): void {
+    const targetYYYYMMSearchItem = this.searchItemList.filter((x) => { if (x.uniqueID === 'targetYYYYMM') { return true; } else { return false; } })[0];
+    console.log('targetYYYYMMSearchItem.currentValue', targetYYYYMMSearchItem.currentValue);
+    // this.fileDownloadUrlLogPopup.selectedYYYYMMInfo.selectedValue = targetYYYYMMSearchItem.currentValue as string;
+    // this.fileDownloadUrlLogPopup.selectedYYYYMMInfo.selectedValue = '202108';
+    this.fileDownloadUrlLogPopup.show(item.fileDownloadUrlKey, targetYYYYMMSearchItem.currentValue as string);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectItem } from 'src/app/interfaces/select-item.interface';
 import { SelectedInfo } from 'src/app/interfaces/selected-info.interface';
 
@@ -10,6 +10,7 @@ import { SelectedInfo } from 'src/app/interfaces/selected-info.interface';
 export class SelectComponent implements OnInit {
   @Input() selectItemList: SelectItem[] = [];
   @Input() selectedInfo: SelectedInfo;
+  @Output() valueChanged = new EventEmitter();
 
   constructor() { 
     // this.selectedValue = '';
@@ -22,4 +23,7 @@ export class SelectComponent implements OnInit {
     // console.log('..', this.selectItemList)
   }
 
+  ngModelChanged(): void {
+    this.valueChanged.emit(this.selectedInfo.selectedValue);
+  }
 }

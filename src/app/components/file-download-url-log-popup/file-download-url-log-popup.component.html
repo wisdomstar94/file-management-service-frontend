@@ -1,0 +1,70 @@
+<app-popup-box [isShow]="isShow" #popupBox>
+  <app-fms-row class="margin-bottom-a" [textAlign]="'left'" [display]="'flex'" [isAlignItemsCenter]="true">
+    <app-fms-select 
+      [width]="'140px'"
+      [selectItems]="LogYyyymmListSelectItemList" 
+      [selectedValue]="selectedYYYYMMInfo.selectedValue" 
+      (valueChanged)="selectedYYYYMMInfo.selectedValue = $event; getList(1);"></app-fms-select>
+    &nbsp;<app-fms-button [color]="'green'" (onClick)="getList(1);">새로고침</app-fms-button>
+    &nbsp;<app-loading-icon [isShow]="isFileDownloadUrlLogGetting"></app-loading-icon>
+  </app-fms-row>
+  <app-fms-row class="margin-bottom-a">
+    <app-table-top-box 
+      (tableViewTypeChanged)="fileDownloadUrlLogTableViewType = $event;"
+      (viewCountChanged)="getList(1);"
+      #fileDownloadUrlLogTableTopBox></app-table-top-box>
+    <app-fms-table [ngClass]="[fileDownloadUrlLogTableViewType]">
+      <app-fms-thead [ngClass]="[fileDownloadUrlLogTableViewType]">
+        <app-fms-tr [ngClass]="[fileDownloadUrlLogTableViewType]">
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">파일 다운로드 URL 키</app-fms-th>
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">파일 라벨명</app-fms-th>
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">버전명</app-fms-th>
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">버전 코드</app-fms-th>
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">다운로드 파일명</app-fms-th>
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">다운로드 IP</app-fms-th>
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">다운로드 IP 정보</app-fms-th>
+          <app-fms-th [ngClass]="[fileDownloadUrlLogTableViewType]">다운로드 날짜</app-fms-th>
+        </app-fms-tr>
+      </app-fms-thead>
+      <app-fms-tbody [ngClass]="[fileDownloadUrlLogTableViewType]">
+        <ng-container *ngFor="let item of fileDownloadUrlLogList">
+          <app-fms-tr [ngClass]="[fileDownloadUrlLogTableViewType]">
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'파일 다운로드 URL 키'">{{ item.fileDownloadUrlKey }}</app-fms-td>
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'파일 라벨명'">{{ item.fileLabelNameLogAt }}</app-fms-td>
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'버전명'">{{ item.fileVersionNameLogAt }}</app-fms-td>
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'버전 코드'">{{ item.fileVersionCodeLogAt }}</app-fms-td>
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'다운로드 파일명'">{{ item.fileDownloadNameLogAt }}</app-fms-td>
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'다운로드 IP'">{{ item.createdIp }}</app-fms-td>
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'다운로드 IP 정보'">
+              <ng-container *ngIf="item.createdIpInfo !== null">
+                <ul class="ip-info-list">
+                  <li class="item">
+                    <div class="title-area">
+                      국가 :
+                    </div>
+                    <div class="content-area">
+                      {{ item.createdIpInfo.country }}
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div class="title-area">
+                      도시 :
+                    </div>
+                    <div class="content-area">
+                      {{ item.createdIpInfo.city === '' ? '정보없음' : item.createdIpInfo.city }}
+                    </div>
+                  </li>
+                </ul>
+              </ng-container>
+            </app-fms-td>
+            <app-fms-td [ngClass]="[fileDownloadUrlLogTableViewType]" [tableViewType]="fileDownloadUrlLogTableViewType" [columnName]="'다운로드 날짜'">{{ item.createdAt }}</app-fms-td>
+          </app-fms-tr>
+        </ng-container>
+      </app-fms-tbody>
+    </app-fms-table>
+    <app-pagination-box #fileDownloadUrlLogListPaginationBox (pageClicked)="getList($event);"></app-pagination-box>
+  </app-fms-row>
+  <app-fms-row [textAlign]="'right'">
+    <app-fms-button [color]="'gray'" (onClick)="closeButtonClick();">닫기</app-fms-button>
+  </app-fms-row>
+</app-popup-box>

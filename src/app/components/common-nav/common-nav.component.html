@@ -14,7 +14,7 @@
   [@navAnimation]="deviceMode === 'pc' || (navOpend$ | async)"
   [@.disabled]="navAnimationDisabled">
   <div class="top-area" [ngStyle]="navTopAreaStyle">
-    <div class="title-area" [ngClass]="navAppTitleClass">
+    <div class="title-area" [ngClass]="navAppTitleClass" (click)="titleClicked();">
       {{ appTitle$ | async }}
     </div>
     <div class="toggle-button-area" [ngClass]="navToggleButtonAreaClass" *ngIf="(deviceMode$ | async) === 'pc'" (click)="pcNavToggleButtonClick();">
