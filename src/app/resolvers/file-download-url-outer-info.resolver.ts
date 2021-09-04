@@ -9,11 +9,12 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { FileNormalInfo } from '../interfaces/file-normal-info.interface';
+import { ResultObject } from '../interfaces/result-object';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FileDownloadUrlOuterInfoResolver implements Resolve<FileNormalInfo> {
+export class FileDownloadUrlOuterInfoResolver implements Resolve<FileNormalInfo | ResultObject> {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -21,7 +22,7 @@ export class FileDownloadUrlOuterInfoResolver implements Resolve<FileNormalInfo>
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FileNormalInfo> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FileNormalInfo | ResultObject> {
     const t = this;
 
     const myObservable = t.http.post<FileNormalInfo>(
@@ -29,7 +30,10 @@ export class FileDownloadUrlOuterInfoResolver implements Resolve<FileNormalInfo>
       .pipe(
         retry(1),
         map(e => {
-          const result: FileNormalInfo = (e as any).fileNormalInfo;
+          let result: FileNormalInfo = (e as any).fileNormalInfo;
+          if (result === undefined) {
+            result = e;
+          }
           // return of(result);
           return result;
         }),
@@ -49,8 +53,8 @@ export class FileDownloadUrlOuterInfoResolver implements Resolve<FileNormalInfo>
       
           // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
           // return throwError('Something bad happened; please try again later.');
-          // return of(error.error);  
-          return of({} as FileNormalInfo);
+          return of(error.error);  
+          // return of({} as FileNormalInfo);
         }),
       );
 

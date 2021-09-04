@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileVersionHistoryPopupComponent } from 'src/app/components/file-version-history-popup/file-version-history-popup.component';
 import { FileNormalInfo } from 'src/app/interfaces/file-normal-info.interface';
 import { FileSizeUnit } from 'src/app/interfaces/file-size-unit.interface';
@@ -24,14 +24,21 @@ export class IndexPageComponent implements OnInit {
   constructor(
     private ajax: AjaxService,
     private route: ActivatedRoute,
+    private router: Router,
     public common: CommonService,
   ) { 
     this.fileDownloadUrlKey = this.route.snapshot.params.fileDownloadUrlKey;
     this.fileNormalInfo = this.route.snapshot.data.FileDownloadUrlOuterInfo;
+    if (this.fileNormalInfo === undefined || this.fileNormalInfo?.fileSize === undefined) {
+      localStorage.setItem(environment.localStorageName.fileDownloadUrlErrorResult, JSON.stringify(this.route.snapshot.data.FileDownloadUrlOuterInfo));
+      this.router.navigate(['file/download/error']);
+    }
+
+
     this.byteConvertInfo = this.common.byteConvert(this.fileNormalInfo.fileSize);
     this.password = '';
     this.requirePassword = this.route.snapshot.queryParams.requirePassword;
-    console.log('this.requirePassword', this.requirePassword);
+    // console.log('this.requirePassword', this.requirePassword);
   }
 
   ngOnInit(): void {

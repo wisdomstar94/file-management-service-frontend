@@ -7,9 +7,17 @@ const routes: Routes = [
     path: '', 
     component: DownloadPageComponent, 
     children: [
-      { path: ':fileDownloadUrlKey', loadChildren: () => import('./index-page/index-page.module').then(m => m.IndexPageModule) }
+      { 
+        path: 'error', 
+        loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPageModule) 
+      },
+      { 
+        path: ':fileDownloadUrlKey', 
+        loadChildren: () => import('./index-page/index-page.module').then(m => m.IndexPageModule) 
+      },
     ],
   },
+  
 ];
 
 @NgModule({

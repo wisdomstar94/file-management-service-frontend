@@ -1,0 +1,35 @@
+.background {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background-color: #54b4f1;
+}
+
+.full-box {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  .content-box {
+    max-width: 90%;
+    min-width: 250px;
+    max-height: 400px;
+    display: inline-block;
+    margin: 0;
+    padding: 14px;
+    position: relative;
+    box-sizing: border-box;
+    font-size: 10pt;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.3);
+  }
+}

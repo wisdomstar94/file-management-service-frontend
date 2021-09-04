@@ -123,6 +123,10 @@ export const environment = {
 
     noImage: baseUrl + '/public/images/no-image.jpg',
   },
+
+  localStorageName: {
+    fileDownloadUrlErrorResult: 'fileDownloadUrlErrorResult',
+  },
 };
 
 /*
