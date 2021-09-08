@@ -139,7 +139,8 @@ export class FileDownloadUrlLogPopupComponent implements OnInit, OnChanges {
   }
 
   closeButtonClick(): void {
-    this.isShow = false;
+    // this.isShow = false;
+    this.hide();
   }
 
   show(fileDownloadUrlKey: string, targetYYYYMM?: string): void {
