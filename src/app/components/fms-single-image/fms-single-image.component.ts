@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { YN } from 'src/app/types/yn.type';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,10 +13,12 @@ export class FmsSingleImageComponent implements OnInit {
   @Input() imgSrc: string | ArrayBuffer;
   @Output() onImageClick = new EventEmitter();
   @Output() onImageChanged = new EventEmitter();
+  @Input() isDeleted: YN;
 
   constructor() { 
     this.realFile = null;
     this.imgSrc = environment.image.fileSingleDefaulImageSrc;
+    this.isDeleted = 'N';
   }
 
   ngOnInit(): void {
@@ -44,15 +47,21 @@ export class FmsSingleImageComponent implements OnInit {
     };
     // reader가 이미지 읽도록 하기
     reader.readAsDataURL((event.target as any).files[0]);
+    this.isDeleted = 'N';
   }
 
   imageClear(): void {
     this.realFile = null;
     this.imgSrc = environment.image.fileSingleDefaulImageSrc;
+    this.isDeleted = 'Y';
   }
 
   getFile(): File | null | undefined {
     return this.realFile;
+  }
+
+  getIsDeleted(): YN {
+    return this.isDeleted;
   }
 
   isChanged(): boolean {

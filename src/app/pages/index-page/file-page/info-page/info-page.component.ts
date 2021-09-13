@@ -99,7 +99,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
           sortNo: 1,
         }]));
       } else {
-        formData.append('isFileRepresentImageDelete', 'Y');
+        formData.append('isFileRepresentImageDelete', this.fileBasicFormBox.fileRepresentImage.getIsDeleted());
         formData.append('fileImageRepresentInfoJsonString', JSON.stringify([]));
       }
     } else {
