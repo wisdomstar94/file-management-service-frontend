@@ -7,6 +7,7 @@ import { ContentCenterModule } from 'src/app/components/content-center/content-c
 import { FmsButtonModule } from 'src/app/components/fms-button/fms-button.module';
 import { FmsInputModule } from 'src/app/components/fms-input/fms-input.module';
 import { FileVersionHistoryPopupModule } from 'src/app/components/file-version-history-popup/file-version-history-popup.module';
+import { ContentCenterTModule } from 'src/app/components/content-center-t/content-center-t.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FileVersionHistoryPopupModule } from 'src/app/components/file-version-h
     FmsButtonModule,
     FmsInputModule,
     FileVersionHistoryPopupModule,
+    ContentCenterTModule,
   ]
 })
 export class IndexPageModule { }

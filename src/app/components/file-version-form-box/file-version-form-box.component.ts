@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CodeItem } from 'src/app/interfaces/code-item.interface';
 import { FileVersionInfo } from 'src/app/interfaces/file-version-info.interface';
@@ -33,6 +33,7 @@ export class FileVersionFormBoxComponent implements OnInit {
     private route: ActivatedRoute,
     private ajax: AjaxService,
     public common: CommonService,
+    private app: ApplicationRef,
   ) { 
     const statusCodeList: CodeItem[] = this.route.snapshot.data.FileVersionStatusCode;
     this.fileVersionStatusSelectItems = statusCodeList.map((x) => {
@@ -179,6 +180,7 @@ export class FileVersionFormBoxComponent implements OnInit {
     this.versionFile = (event.target as any).files[0] as File;
     // console.log('this.versionFile', this.versionFile);
     this.fileVersionInfo.fileDownloadName = this.versionFile.name;
+    this.app.tick();
   }
 
   infoValidationCheck(): boolean {

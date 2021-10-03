@@ -1,0 +1,30 @@
+.table-a {
+  width: 100%;
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.table-a-row-group {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+  margin: 0;
+  padding: 0;
+}
+.table-a-row {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+  margin: 0;
+  padding: 0;
+}
+.table-a-row-td {
+  display: table-cell;
+  vertical-align: inherit;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
