@@ -1,11 +1,11 @@
-<select class="select" [disabled]="disabled" 
+<select class="select" [disabled]="disabled"
   [(ngModel)]="selectedValue" (ngModelChange)="valueChanged.emit($event);"
   [ngClass]="{
     'disabled': disabled
   }"
   [ngStyle]="{
     'width': width,
-    'margin-bottom': marginBottom ?? '0'
+    'margin-bottom': marginBottom === undefined ? '0' : marginBottom
   }">
   <ng-container *ngFor="let item of selectItems">
     <option [value]="item.optionValue" [selected]="item.selected">{{ item.optionDisplayText }}</option>

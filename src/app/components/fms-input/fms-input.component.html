@@ -3,6 +3,6 @@
     'disabled': disabled
   }"
   [ngStyle]="{
-    'margin-bottom': marginBottom ?? '0'
+    'margin-bottom': marginBottom === undefined ? '0' : marginBottom
   }"
   [disabled]="disabled" [placeholder]="placeHolder" [(ngModel)]="inputValue" (ngModelChange)="inputValueChange.emit($event);" />

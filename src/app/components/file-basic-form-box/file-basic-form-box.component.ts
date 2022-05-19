@@ -26,7 +26,7 @@ export class FileBasicFormBoxComponent implements OnInit {
 
   cleanFileBasicInfo!: FileBasicInfo;
   fileBasicInfo!: FileBasicInfo;
-  
+
   fileStatusCodeList: CodeItem[] = [];
   fileStatusSelectItems: SelectItem[] = [];
 
@@ -76,7 +76,7 @@ export class FileBasicFormBoxComponent implements OnInit {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
+  ) {
     const fileBasicInfo: FileBasicInfo = this.route.snapshot.data.FileBasicInfo;
     console.log('fileBasicInfo', fileBasicInfo);
     this.fileBasicInfo = fileBasicInfo;
@@ -101,10 +101,10 @@ export class FileBasicFormBoxComponent implements OnInit {
     } else {
       this.fileStoreVersionHistoryCheckValud = this.fileBasicInfo.fileInfo.fileStoreVersionHistoryOpen!;
       this.fileStoreDescriptionOpenCheckValud = this.fileBasicInfo.fileInfo.fileStoreDescriptionOpen!;
-      this.cleanFileBasicInfo.fileInfo = { ...fileBasicInfo?.fileInfo! };
+      this.cleanFileBasicInfo.fileInfo = { ...fileBasicInfo?.fileInfo };
       this.cleanFileBasicInfo.fileInfo.FmsFileStatusCodes = { ...fileBasicInfo?.fileInfo?.FmsFileStatusCodes! };
-      this.cleanFileBasicInfo.fileScreenShotImageInfo = { ...fileBasicInfo?.fileScreenShotImageInfo! };
-      this.cleanFileBasicInfo.fileRepresentImageInfo = { ...fileBasicInfo?.fileRepresentImageInfo! };
+      this.cleanFileBasicInfo.fileScreenShotImageInfo = { ...fileBasicInfo?.fileScreenShotImageInfo };
+      this.cleanFileBasicInfo.fileRepresentImageInfo = { ...fileBasicInfo?.fileRepresentImageInfo };
 
       // console.log('this.fileBasicInfo.fileRepresentImageInfo', this.fileBasicInfo.fileRepresentImageInfo);
       if (this.fileBasicInfo.fileRepresentImageInfo.length > 0) {
@@ -121,7 +121,7 @@ export class FileBasicFormBoxComponent implements OnInit {
         });
       }
     }
-    
+
 
     this.fileStatusCodeList = this.route.snapshot.data.FileStatusCode;
     this.fileStatusSelectItems = this.fileStatusCodeList.map((x) => {
@@ -174,7 +174,7 @@ export class FileBasicFormBoxComponent implements OnInit {
 
     if (this.fileBasicInfo.fileInfo.fileLabelName.length > environment.stringLengthLimit.fileLabelNameMaxLength) {
       this.common.getAlertComponent()?.setMessage('파일 라벨명은 ' + environment.stringLengthLimit.fileLabelNameMaxLength + '자를 넘을 수 없습니다.').show();
-      return false; 
+      return false;
     }
 
     // fileMemo 체크

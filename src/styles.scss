@@ -1,4 +1,4 @@
-@import '~swiper/swiper-bundle';
+@import '~swiper/swiper-bundle.min.css';
 
 .swiper-pagination-bullet {
   background: #fff;
@@ -53,7 +53,7 @@ button.button-style-a {
   margin: 0;
   position: relative;
   cursor: pointer;
-  
+
   &.radius {
     border-radius: 10px;
   }

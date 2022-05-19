@@ -6,7 +6,7 @@
   </li>
   <ng-container *ngFor="let item of imageItems; let i = index;">
     <li class="item img" [ngStyle]="{
-      'background-image': 'url(' + item.imageUrl + ')'
+      'background-image': 'url(\'' + item.imageUrl + '\')'
     }" (mouseenter)="item.isShowSortControlBar = true;" (mouseleave)="item.isShowSortControlBar = false;" *ngIf="item.isDeleted !== true" (click)="imageClick($event, i);">
       <div class="sort-no-control-bar-area" *ngIf="item.isShowSortControlBar === true">
         <span class="arrow-button prev" (click)="sortClick('prev', item, $event);">

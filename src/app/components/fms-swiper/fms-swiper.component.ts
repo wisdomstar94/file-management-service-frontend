@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { SwiperSlideItem } from 'src/app/interfaces/swiper-slide-item.interface';
-import { SwiperComponent, AutoplayOptions } from 'swiper/types';
+import { AutoplayOptions } from 'swiper/types';
 
 import Swiper, { Navigation, Pagination } from 'swiper';
+import { SwiperComponent } from 'swiper/angular';
 Swiper.use([Navigation, Pagination]);
 
 @Component({
@@ -22,13 +23,13 @@ export class FmsSwiperComponent implements OnInit {
 
   @Input() slideList!: SwiperSlideItem[];
 
-  exampleConfig = { 
-    slidesPerView: 0 
+  exampleConfig = {
+    slidesPerView: 0
   };
 
   aMaxHeight: number;
 
-  constructor() { 
+  constructor() {
     this.slidesPerView = 1;
     this.centeredSlides = true;
     this.autoplay = true;
