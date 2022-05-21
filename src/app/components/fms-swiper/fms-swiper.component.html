@@ -10,7 +10,7 @@
       <ng-container *ngIf="item.imageLink !== undefined && item.imageLink !== ''">
         <a class="image-a" [href]="item.imageLink" target="_blank" [style]="{
           'height': aMaxHeight + 'px',
-          'background-image': 'url(' + item.imageSrc + ')'
+          'background-image': 'url(\'' + item.imageSrc + '\')'
         }">
           <!-- <img [src]="item.imageSrc" /> -->
         </a>
@@ -18,7 +18,7 @@
       <ng-container *ngIf="item.imageLink === undefined">
         <div class="image-a" [style]="{
           'height': aMaxHeight + 'px',
-          'background-image': 'url(' + item.imageSrc + ')'
+          'background-image': 'url(\'' + item.imageSrc + '\')'
         }">
           <!-- <img [src]="item.imageSrc" /> -->
       </div>
