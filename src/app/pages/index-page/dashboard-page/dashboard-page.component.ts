@@ -20,7 +20,7 @@ import { SearchBoxComponent } from 'src/app/components/search-box/search-box.com
 })
 export class DashboardPageComponent implements OnInit, DoCheck {
   @ViewChild('dashboardSearchBox') dashboardSearchBox!: SearchBoxComponent;
- 
+
   cardInfoList: CardInfo[] = [
     {
       id: 'totalDownloadedCount',
@@ -38,7 +38,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
           .concat('-', '01').concat(' 00:00:00');
-        
+
         const endDatetime = ''
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
@@ -63,12 +63,12 @@ export class DashboardPageComponent implements OnInit, DoCheck {
               const t = this;
 
               if (error.error instanceof ErrorEvent) {
-                
+
               } else {
-                
+
               }
 
-              return throwError(error.error);  
+              return throwError(error.error);
             }),
           );
 
@@ -110,7 +110,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
           .concat('-', '01').concat(' 00:00:00');
-        
+
         const endDatetime = ''
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
@@ -133,14 +133,14 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             retry(1),
             catchError((error: HttpErrorResponse) => {
               const t = this;
-          
+
               if (error.error instanceof ErrorEvent) {
-                
+
               } else {
-                
+
               }
 
-              return throwError(error.error);  
+              return throwError(error.error);
             }),
           );
 
@@ -162,7 +162,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
               return;
             }
             item.isRefreshing = false;
-          }, 
+          },
         );
       },
     },
@@ -182,7 +182,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
           .concat('-', '01').concat(' 00:00:00');
-        
+
         const endDatetime = ''
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
@@ -205,14 +205,14 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             retry(1),
             catchError((error: HttpErrorResponse) => {
               const t = this;
-          
+
               if (error.error instanceof ErrorEvent) {
-                
+
               } else {
-                
+
               }
 
-              return throwError(error.error);  
+              return throwError(error.error);
             }),
           );
 
@@ -225,7 +225,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
 
             const checkFileSize = this.common.checkFileSize(data.targetDateTotalSize);
             const checkSubFileSize = this.common.checkFileSize(data.todayTotalSizeByte);
-            
+
 
             item.mainResult = Number((data.targetDateTotalSize / checkFileSize.division).toFixed(2));
             item.resultUnit = checkFileSize.unit;
@@ -242,7 +242,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
               return;
             }
             item.isRefreshing = false;
-          }, 
+          },
         );
       },
     },
@@ -262,7 +262,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.startMonth!)
           .concat('-', '01').concat(' 00:00:00');
-        
+
         const endDatetime = ''
           .concat(this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endYear!)
           .concat('-', this.dashboardSearchBox?.getSearchItem('targetDatetime')?.endMonth!)
@@ -285,14 +285,14 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             retry(1),
             catchError((error: HttpErrorResponse) => {
               const t = this;
-          
+
               if (error.error instanceof ErrorEvent) {
-                
+
               } else {
-                
+
               }
 
-              return throwError(error.error);  
+              return throwError(error.error);
             }),
           );
 
@@ -314,7 +314,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
               return;
             }
             item.isRefreshing = false;
-          }, 
+          },
         );
       },
     },
@@ -326,7 +326,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private http: HttpClient,
     public common: CommonService,
-  ) { 
+  ) {
     this.searchItemList = [
       {
         uniqueID: 'targetDatetime',
@@ -391,9 +391,9 @@ export class DashboardPageComponent implements OnInit, DoCheck {
 
   clearSearchItem(): void {
     // this.dashboardSearchBox.clearSearchItem();
-    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.startYear = dayjs().add(3, 'months').format('YYYY');
-    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.startMonth = dayjs().add(3, 'months').format('MM');
-    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.endYear = dayjs().format('YYYY');
-    this.dashboardSearchBox!.getSearchItem('targetDatetime')!.endMonth = dayjs().format('MM');
+    this.dashboardSearchBox.getSearchItem('targetDatetime')!.startYear = dayjs().add(-3, 'months').format('YYYY');
+    this.dashboardSearchBox.getSearchItem('targetDatetime')!.startMonth = dayjs().add(-3, 'months').format('MM');
+    this.dashboardSearchBox.getSearchItem('targetDatetime')!.endYear = dayjs().format('YYYY');
+    this.dashboardSearchBox.getSearchItem('targetDatetime')!.endMonth = dayjs().format('MM');
   }
 }
