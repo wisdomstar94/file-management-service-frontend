@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -85,12 +86,12 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
+  ) {
     this.isSearchAreaShow = true;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[1] === false) {
       this.isSearchAreaShow = false;
-    }	
+    }
 
     this.isFileDownloadUrlListAllCheck = false;
     this.fileDownloadUrlTableViewType = 'row';
@@ -154,7 +155,7 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
 
   getList(page: number): void {
     const t = this;
-    
+
     if (t.isFileDownloadUrlListGetting === true) {
       t.common.getAlertComponent()
         ?.setDefault()
@@ -189,7 +190,7 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
       createdAtEnd: forms.createdAtEnd,
       fileDownloadUrlAccessConditionType: forms.fileDownloadUrlAccessConditionType,
       fileDownloadUrlStatus: forms.fileDownloadUrlStatus,
-      
+
       page: page,
       pageViewCount: 5,
       viewCount: t.fileDownloadUrlTableTopBox?.getViewCount(),
@@ -205,22 +206,20 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         t.isFileDownloadUrlListGetting = false;
 
-        if (data.result === 'success') {
-          const list: FileDownloadUrlItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: FileDownloadUrlItem[] = data2.list;
           t.fileDownloadUrlList = list;
-          t.fileDownloadUrlTableTopBox.setTotalCount(data.totalCount);
-          t.fileDownloadUrlListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          t.fileDownloadUrlTableTopBox.setTotalCount(data2.totalCount);
+          t.fileDownloadUrlListPaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        t.isFileDownloadUrlListGetting = false;
-        this.common.alertMessage(error);
-      }
     );
   }
 
@@ -237,8 +236,6 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
     }
 
     this.fileDownloadUrlDetailPopup.show(item.fileDownloadUrlKey, 'modify');
-    // this.router.navigate(['file/info/' + item.fileVersionKey]);
-    return;
   }
 
   fileDownloadUrlDeleteButtonClick(): void {
@@ -282,7 +279,6 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
         this.common.getAlertComponent()?.hide();
       })
       .show();
-      return;
   }
 
   deleteFileDownloadUrl(fileDownloadUrlKey: string[]): void {
@@ -303,7 +299,7 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
         .show();
       return;
     }
-    
+
     // console.log('fileDownloadUrlKey', fileDownloadUrlKey);
 
     const data = {
@@ -312,13 +308,16 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
 
     this.isFileDownloadUrlDeleting = true;
     const observable = this.ajax.post(environment.api.fileDownloadUrl.deleteFileDownloadUrl, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isFileDownloadUrlDeleting = false;
-        // console.log('response', data);
+        // console.log('response', data2);
 
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -330,12 +329,6 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
             this.getList(1);
           })
           .show();
-        return;
-      },
-      error => {
-        this.isFileDownloadUrlDeleting = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }
@@ -343,8 +336,8 @@ export class FileDonwloadUrlBoardComponent implements OnInit {
   fileDownloadUrlUploadButtonClick(): void {
     // this.router.navigate(['file/upload']);
     this.fileDownloadUrlDetailPopup.show('', 'upload');
-  } 
-  
+  }
+
   fileDownloadUrlLogCheckButtonClick(item: FileDownloadUrlItem): void {
     this.fileDownloadUrlLogPopup.show(item.fileDownloadUrlKey as string);
   }

@@ -4,17 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MyDateService {
-  constructor() { 
+  constructor() {
 
   }
 
-  myDate(_dateValue?: string | Date | undefined): myDateClass {
-    return new myDateClass(_dateValue);
+  myDate(_dateValue?: string | Date): MyDateClass {
+    return new MyDateClass(_dateValue);
   }
 }
 
 
-class myDateClass {
+class MyDateClass {
   _dateValue!: string | Date | undefined;
 
   constructor(_dateValue?: string | Date | undefined) {
@@ -73,7 +73,7 @@ class myDateClass {
       dateObject.setDate(date);
       const setDateAfterYear = dateObject.getFullYear();
       const setDateAfterMonth = dateObject.getMonth() + 1;
-      const setDateAfterDate = dateObject.getDate();
+      // const setDateAfterDate = dateObject.getDate();
 
       if (setYearAfterYear !== setDateAfterYear) {
         return false;
@@ -140,7 +140,7 @@ class myDateClass {
   }
 
 
-  add(value: number, unit: string): myDateClass {
+  add(value: number, unit: string): MyDateClass {
     const t = this;
 
     if (value === undefined) {
@@ -352,7 +352,7 @@ class myDateClass {
     let return_year: any = dateInfo.year;
 
     if (type === 'YY') {
-      return_year = (return_year + '').substr(2, 2);
+      return_year = (return_year + '').substring(2, 4);
     }
 
     return return_year;
@@ -464,15 +464,15 @@ class myDateClass {
       throw new Error('myDate함수의 format_string인자는 문자열이어야 합니다.');
     }
 
-    const allow_format_unit = [
-      'yy', 'YY', 'yyyy', 'YYYY', // 년도
-      'M', 'MM', // 월
-      'd', 'dd', 'D', 'DD', // 일
-      'h', 'hh', 'H', 'HH', // 시
-      'm', 'mm', 'i', 'ii', // 분
-      's', 'ss', // 초
-      '${LD}', // 현재 월의 마지막일
-    ];
+    // const allow_format_unit = [
+    //   'yy', 'YY', 'yyyy', 'YYYY', // 년도
+    //   'M', 'MM', // 월
+    //   'd', 'dd', 'D', 'DD', // 일
+    //   'h', 'hh', 'H', 'HH', // 시
+    //   'm', 'mm', 'i', 'ii', // 분
+    //   's', 'ss', // 초
+    //   '${LD}', // 현재 월의 마지막일
+    // ];
 
     let return_format = format_string;
     const dateInfo = t.getDateInfo();
@@ -483,8 +483,8 @@ class myDateClass {
     // 년도 치환
     return_format = return_format.replace(/YYYY/g, (dateInfo.year + ''));
     return_format = return_format.replace(/yyyy/g, (dateInfo.year + ''));
-    return_format = return_format.replace(/YY/g, (dateInfo.year + '').substr(2, 2));
-    return_format = return_format.replace(/yy/g, (dateInfo.year + '').substr(2, 2));
+    return_format = return_format.replace(/YY/g, (dateInfo.year + '').substring(2, 4));
+    return_format = return_format.replace(/yy/g, (dateInfo.year + '').substring(2, 4));
 
     // 월 치환
     return_format = return_format.replace(/MM/g, t.zeroFill(dateInfo.month));
@@ -545,11 +545,11 @@ class myDateClass {
   }
 
   getDatePeriodMonthList(start_datetime: string, end_datetime: string) {
-    if (!new myDateClass(start_datetime).isValid()) {
+    if (!new MyDateClass(start_datetime).isValid()) {
       return [this.format('YYYYMM')];
     }
 
-    if (!new myDateClass(end_datetime).isValid()) {
+    if (!new MyDateClass(end_datetime).isValid()) {
       return [this.format('YYYYMM')];
     }
 
@@ -560,24 +560,24 @@ class myDateClass {
       // console.log('i', i);
       // console.log('currentDatetime', currentDatetime);
       // console.log('targetEndDatetime', targetEndDatetime);
-      if (new myDateClass(currentDatetime).getTime() > new myDateClass(end_datetime).getTime()) {
+      if (new MyDateClass(currentDatetime).getTime() > new MyDateClass(end_datetime).getTime()) {
         break;
       }
-      const YYYYMM = new myDateClass(currentDatetime).format('YYYYMM');
+      const YYYYMM = new MyDateClass(currentDatetime).format('YYYYMM');
       targetYYYYMM.push(YYYYMM);
-      currentDatetime = new myDateClass(currentDatetime).add(1, 'month').format('YYYY-MM-DD 00:00:00');
+      currentDatetime = new MyDateClass(currentDatetime).add(1, 'month').format('YYYY-MM-DD 00:00:00');
     }
     return targetYYYYMM;
   }
 
-  getThisWeekLastDateObject(): myDateClass {
+  getThisWeekLastDateObject(): MyDateClass {
     let currentTime = this.getTime();
     for (let i = 1; i <= 7; i++) {
-      const dateObject = new myDateClass(new Date(currentTime));
+      const dateObject = new MyDateClass(new Date(currentTime));
 
       const day = dateObject.getDay();
       if (day === 0) {
-        return new myDateClass(new Date(currentTime));
+        return new MyDateClass(new Date(currentTime));
       }
 
       currentTime += (1000 * 60 * 60 * 24);
@@ -587,7 +587,7 @@ class myDateClass {
   }
 
   zeroFill(number_value: number) {
-    const t = this;
+    // const t = this;
 
     if (number_value === undefined) {
       throw new Error('myDate함수의 zeroFill함수는 number_value인자가 필요합니다.');

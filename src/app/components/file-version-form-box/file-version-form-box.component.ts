@@ -34,7 +34,7 @@ export class FileVersionFormBoxComponent implements OnInit {
     private ajax: AjaxService,
     public common: CommonService,
     private app: ApplicationRef,
-  ) { 
+  ) {
     const statusCodeList: CodeItem[] = this.route.snapshot.data.FileVersionStatusCode;
     this.fileVersionStatusSelectItems = statusCodeList.map((x) => {
       return {
@@ -145,13 +145,13 @@ export class FileVersionFormBoxComponent implements OnInit {
 
     const myObservable = this.ajax.post(environment.api.fileVersion.versionInfo, data);
     myObservable.subscribe(
-      data => {
-        // console.log('getFileVersionInfo.data', data);
+      data2 => {
+        // console.log('getFileVersionInfo.data2', data2);
 
         this.isFileVersionInfoGetting = false;
         this.infoTaken.emit();
 
-        const fileVersionInfo: FileVersionInfo = data.fileVersionInfo;
+        const fileVersionInfo: FileVersionInfo = data2.fileVersionInfo;
         if (fileVersionInfo.FmsUpdaterUsers === null) {
           fileVersionInfo.FmsUpdaterUsers = {
             userKey: '',
@@ -159,16 +159,8 @@ export class FileVersionFormBoxComponent implements OnInit {
           };
         }
 
-        this.setFileVersionInfo(data.fileVersionInfo);
+        this.setFileVersionInfo(data2.fileVersionInfo);
       },
-      error => {
-        this.isFileVersionInfoGetting = false;
-        this.infoTaken.emit();
-
-      },
-      () => {
-        this.isFileVersionInfoGetting = false;
-      }
     );
   }
 
@@ -233,12 +225,12 @@ export class FileVersionFormBoxComponent implements OnInit {
       return false;
     }
 
-    // fileVersionMemo 체크 
+    // fileVersionMemo 체크
     if (typeof this.fileVersionInfo.fileVersionMemo !== 'string') {
       this.common.getAlertComponent()?.setMessage('파일 메모 정보가 없습니다.').show();
       return false;
     }
-    
+
     if (this.fileVersionInfo.fileVersionMemo.trim() === '') {
       this.common.getAlertComponent()?.setMessage('파일 메모를 입력해주세요.').show();
       return false;
@@ -249,7 +241,7 @@ export class FileVersionFormBoxComponent implements OnInit {
       this.common.getAlertComponent()?.setMessage('파일 설명 정보가 없습니다.').show();
       return false;
     }
-    
+
     if (this.fileVersionInfo.fileVersionDescription.trim() === '') {
       this.common.getAlertComponent()?.setMessage('파일 설명을 입력해주세요.').show();
       return false;
@@ -276,33 +268,28 @@ export class FileVersionFormBoxComponent implements OnInit {
         if (this.fileVersionInfo.fileDownloadName !== this.cleanFileVersionInfo.fileDownloadName) {
           result = true;
         }
-        break;  
+        break;
       case 'fileVersionCode':
         if (this.fileVersionInfo.fileVersionCode !== this.cleanFileVersionInfo.fileVersionCode) {
           result = true;
         }
-        break;  
-      case 'fileDownloadName':
-        if (this.fileVersionInfo.fileDownloadName !== this.cleanFileVersionInfo.fileDownloadName) {
-          result = true;
-        }
-        break;  
+        break;
       case 'fileVersionMemo':
         if (this.fileVersionInfo.fileVersionMemo !== this.cleanFileVersionInfo.fileVersionMemo) {
           result = true;
         }
-        break;  
+        break;
       case 'fileVersionDescription':
         if (this.fileVersionInfo.fileVersionDescription !== this.cleanFileVersionInfo.fileVersionDescription) {
           result = true;
         }
-        break;  
+        break;
       case 'fileVersionStatus':
         if (this.fileVersionInfo.FmsFileVersionStatusCodes?.code !== this.cleanFileVersionInfo.FmsFileVersionStatusCodes?.code) {
           result = true;
         }
-        break;  
-      case 'versionFile': 
+        break;
+      case 'versionFile':
         if (this.versionFile instanceof File) {
           result = true;
         }

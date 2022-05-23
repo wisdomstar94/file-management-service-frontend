@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -49,7 +50,7 @@ export class CommonTopHeaderComponent implements OnInit {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
+  ) {
     const t = this;
 
     this.topHeaderStyleWidth = 'calc(100% - 240px)';
@@ -59,7 +60,7 @@ export class CommonTopHeaderComponent implements OnInit {
     this.destination$ = this.store.select('destination');
     this.destination$.subscribe(
       data => {
-        
+
       },
     );
 
@@ -93,8 +94,8 @@ export class CommonTopHeaderComponent implements OnInit {
   setDeviceStyle(deviceMode: DeviceMode): void {
     const t = this;
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+    // const windowWidth = window.innerWidth;
+    // const windowHeight = window.innerHeight;
 
     if (deviceMode === 'mobile') {
       t.topHeaderStyleWidth = '100%';
@@ -135,12 +136,14 @@ export class CommonTopHeaderComponent implements OnInit {
         myObservable.subscribe(
           data => {
             t.isLogouting = false;
+
+            if (data instanceof HttpErrorResponse) {
+              t.common.alertMessage(data.error);
+              return;
+            }
+
             alertComponent.hide();
             t.router.navigate(['login']);
-          },
-          error => {
-            t.isLogouting = false;
-            t.common.alertMessage(error);
           },
         )
       })

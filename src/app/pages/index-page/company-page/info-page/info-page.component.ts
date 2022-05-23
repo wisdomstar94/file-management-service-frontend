@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -34,7 +35,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
+  ) {
     const companyInfo: CompanyInfo = this.route.snapshot.data.companyInfo;
     this.fixedCompanyName = companyInfo.companyName;
     this.isModifyingCompany = false;
@@ -42,7 +43,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
 
-  } 
+  }
 
   ngDoCheck(): void {
     const t = this;
@@ -68,36 +69,36 @@ export class InfoPageComponent implements OnInit, DoCheck {
     if (this.companyFormBox.isChanged('companyName')) {
       data.companyName = this.companyFormBox.companyInfo.companyName;
     }
-     
+
     if (this.companyFormBox.isChanged('companyCEOName')) {
       data.companyCEOName = this.companyFormBox.companyInfo.companyCEOName;
     }
-     
+
     if (this.companyFormBox.isChanged('companyCEOTel')) {
       data.companyCEOTel = this.companyFormBox.companyInfo.companyCEOTel;
     }
 
     if (this.companyFormBox.isChanged('companyTel')) {
       data.companyTel = this.companyFormBox.companyInfo.companyTel;
-    } 
-     
+    }
+
     if (this.companyFormBox.isChanged('companyBusinessNumber')) {
       data.companyBusinessNumber = this.companyFormBox.companyInfo.companyBusinessNumber;
-    } 
-     
+    }
+
     if (this.companyFormBox.isChanged('companyAddress')) {
       data.companyAddress = this.companyFormBox.companyInfo.companyAddress;
-    } 
+    }
 
     if (this.companyFormBox.isChanged('memo')) {
       data.memo = this.companyFormBox.companyInfo.memo;
-    } 
-      
+    }
+
     console.log(`this.companyFormBox.isChanged('companyStatus')`, this.companyFormBox.isChanged('companyStatus'));
 
     if (this.companyFormBox.isChanged('companyStatus')) {
       data.companyStatus = this.companyFormBox.companyInfo.FmsCompanyStatusCodes?.code;
-    } 
+    }
 
     console.log('data', data);
 
@@ -107,22 +108,20 @@ export class InfoPageComponent implements OnInit, DoCheck {
     }
 
     const observable = this.ajax.post(environment.api.company.modifyCompany, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isModifyingCompany = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('회사 정보가 수정되었습니다.').show();
-        return;
-      },
-      error => {
-        this.isModifyingCompany = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

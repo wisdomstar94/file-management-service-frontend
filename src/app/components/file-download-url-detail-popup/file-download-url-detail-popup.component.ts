@@ -1,4 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -55,7 +56,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
     private ajax: AjaxService,
     private route: ActivatedRoute,
     private store: Store<{ deviceMode: DeviceMode }>,
-  ) { 
+  ) {
     this.isShow = false;
     this.isLoading = false;
     this.fileDownloadUrlKey = '';
@@ -67,7 +68,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
     this.deviceMode$ = this.store.select('deviceMode');
     this.deviceMode$.subscribe(
       data => {
-        this.deviceMode = data as DeviceMode;
+        this.deviceMode = data;
         if (this.deviceMode === 'pc') {
           this.closeButtonMarginRight = '10px';
         } else {
@@ -106,7 +107,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
       this.isShow = true;
       this.fileDownloadUrlFormBox.dataInit();
       this.fileDownloadUrlFormBox.getFileDownloadUrlInfo(fileDownloadUrlKey);
-    }, 100);  
+    }, 100);
   }
 
   hide(): void {
@@ -170,7 +171,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
 
     if (this.fileDownloadUrlFormBox.isChanged('isDownloadCountInfoShow')) {
       data.isDownloadCountInfoShow = this.fileDownloadUrlFormBox.fileDownloadCountInfoShowRadio.getValue() as YN;
-    } 
+    }
 
     this.isFileDownloadUrlModifying = true;
 
@@ -179,12 +180,16 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
     };
 
     const observable = this.ajax.post(environment.api.fileDownloadUrl.modifyFileDownloadUrl, data, options);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isFileDownloadUrlModifying = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -192,12 +197,6 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
         // this.isShow = false;
         this.hide();
         this.newFileDownloadUrlModifyed.emit(this);
-        return;
-      },
-      error => {
-        this.isFileDownloadUrlModifying = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }
@@ -225,7 +224,7 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
       isDownloadCountInfoShow: this.fileDownloadUrlFormBox.fileDownloadCountInfoShowRadio.getValue() as YN,
     };
     // ...
-  
+
     this.isFileDownloadUrlUploading = true;
 
     const options = {
@@ -234,12 +233,16 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
     };
 
     const observable = this.ajax.post(environment.api.fileDownloadUrl.createFileDownloadUrl, data, options);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isFileDownloadUrlUploading = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -247,12 +250,6 @@ export class FileDownloadUrlDetailPopupComponent implements OnInit {
         // this.isShow = false;
         this.hide();
         this.newFileDownloadUrlUploaded.emit(this);
-        return;
-      },
-      error => {
-        this.isFileDownloadUrlUploading = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

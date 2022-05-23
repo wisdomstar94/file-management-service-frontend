@@ -7,7 +7,6 @@ import { CommonNavComponent } from '../components/common-nav/common-nav.componen
 import { CommonTopHeaderComponent } from '../components/common-top-header/common-top-header.component';
 import { CommonComponent } from '../interfaces/common-componen.interfacet';
 import { FileSizeUnit } from '../interfaces/file-size-unit.interface';
-import { NavMenuItem } from '../interfaces/nav-menu-item.interface';
 import { ResponseData } from '../interfaces/response-data.interface';
 import { SearchItem } from '../interfaces/search-item.interface';
 import * as dayjs from 'dayjs';
@@ -27,7 +26,7 @@ export class CommonService {
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-  ) { 
+  ) {
 
   }
 
@@ -102,8 +101,6 @@ export class CommonService {
   }
 
   checkFileSize(fileSize: number) {
-    const t = this;
-
     if (fileSize < 1.0486e+9) {
       return {
         division: 1048576,
@@ -118,7 +115,6 @@ export class CommonService {
   }
 
   getSearchItem(searchItemList: SearchItem[], searchItemUniqueID: string): SearchItem {
-    const t = this;
     let targetItem: SearchItem | undefined;
     for (const item of searchItemList) {
       if (item.uniqueID === searchItemUniqueID) {

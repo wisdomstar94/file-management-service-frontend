@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -99,7 +100,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
     private common: CommonService,
     private ajax: AjaxService,
     private searchOption: SearchOptionService,
-  ) { 
+  ) {
     this.isSearchAreaShow = true;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
@@ -118,7 +119,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
         };
       });
     }
-    
+
     this.isCompanyListAllCheck = false;
     this.companyTableViewType = 'row';
 
@@ -161,7 +162,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
   getList(page: number): void {
     const t = this;
-    
+
     if (t.isCompanyListGetting === true) {
       t.common.getAlertComponent()
         ?.setDefault()
@@ -214,22 +215,20 @@ export class IndexPageComponent implements OnInit, DoCheck {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         t.isCompanyListGetting = false;
 
-        if (data.result === 'success') {
-          const list: CompanyItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: CompanyItem[] = data2.list;
           t.companyList = list;
-          t.companyTableTopBox.setTotalCount(data.totalCount);
-          t.companyListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          t.companyTableTopBox.setTotalCount(data2.totalCount);
+          t.companyListPaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        t.isCompanyListGetting = false;
-        this.common.alertMessage(error);
-      }
     );
   }
 
@@ -246,7 +245,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
     }
 
     this.router.navigate(['company/info/' + item.companyKey]);
-    return;
   }
 
   companyDeleteButtonClick(): void {
@@ -290,7 +288,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
         this.common.getAlertComponent()?.hide();
       })
       .show();
-      return;
   }
 
   deleteCompany(companyKey: string[]): void {
@@ -311,7 +308,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
         .show();
       return;
     }
-    
+
     // console.log('companyKey', companyKey);
 
     const data = {
@@ -320,13 +317,16 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
     this.isCompanyDeleting = true;
     const observable = this.ajax.post(environment.api.company.deleteCompany, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isCompanyDeleting = false;
-        // console.log('response', data);
+        // console.log('response', data2);
 
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -338,12 +338,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
             this.getList(1);
           })
           .show();
-        return;
-      },
-      error => {
-        this.isCompanyDeleting = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

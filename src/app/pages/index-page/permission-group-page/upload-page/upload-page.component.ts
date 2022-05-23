@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -28,8 +29,8 @@ export class UploadPageComponent implements OnInit, DoCheck {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
-    this.isUploadingPermissionGroup = false; 
+  ) {
+    this.isUploadingPermissionGroup = false;
   }
 
   ngOnInit(): void {
@@ -58,7 +59,7 @@ export class UploadPageComponent implements OnInit, DoCheck {
 
     const permissionKeyInfo: PermissionKeyItem[] = this.permissionFormBox.getPermissionActiveStatusInfo().map((x) => {
       return {
-        permissionKey: x.permissionKey as string,
+        permissionKey: x.permissionKey,
         isActive: x.isActive as YN,
       };
     });
@@ -71,12 +72,16 @@ export class UploadPageComponent implements OnInit, DoCheck {
     };
 
     const observable = this.ajax.post(environment.api.permissionGroupUpload.applyPermissionGroupUpload, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isUploadingPermissionGroup = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -86,12 +91,6 @@ export class UploadPageComponent implements OnInit, DoCheck {
             this.common.getAlertComponent()?.hide();
           })
           .setMessage('권한 그룹 정보가 등록되었습니다.').show();
-        return;
-      },
-      error => {
-        this.isUploadingPermissionGroup = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -26,7 +27,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
+  ) {
     this.userInfo = this.route.snapshot.data.userInfo;
     this.isModifyingUser = false;
   }
@@ -62,26 +63,26 @@ export class InfoPageComponent implements OnInit, DoCheck {
     if (this.userFormBox.isChanged('companyKey')) {
       data.companyKey = this.userFormBox.userInfo.FmsCompany?.companyKey;
     }
-     
+
     if (this.userFormBox.isChanged('userName')) {
       data.userName = this.userFormBox.userInfo.userName;
     }
-     
+
     if (this.userFormBox.isChanged('userPhone')) {
       data.userPhone = this.userFormBox.userInfo.userPhone;
     }
 
     if (this.userFormBox.isChanged('permissionGroupKey')) {
       data.permissionGroupKey = this.userFormBox.userInfo.FmsPermissionGroup?.permissionGroupKey;
-    } 
-     
+    }
+
     if (this.userFormBox.isChanged('userStatus')) {
       data.userStatus = this.userFormBox.userInfo.FmsUserStatusCodes?.code;
-    } 
-     
+    }
+
     if (this.userFormBox.isChanged('userMemo')) {
       data.userMemo = this.userFormBox.userInfo.userMemo;
-    } 
+    }
 
     if (this.userFormBox.isChanged('userPassword')) {
       data.userPassword = this.userFormBox.userInfo.userPassword;
@@ -95,22 +96,20 @@ export class InfoPageComponent implements OnInit, DoCheck {
     }
 
     const observable = this.ajax.post(environment.api.user.modifyUser, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isModifyingUser = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('회원 정보가 수정되었습니다.').show();
-        return;
-      },
-      error => {
-        this.isModifyingUser = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

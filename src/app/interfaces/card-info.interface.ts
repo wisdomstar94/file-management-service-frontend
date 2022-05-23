@@ -1,5 +1,3 @@
-import { Observable } from "rxjs";
-
 export interface CardInfo {
   id: string;
   bgColor: string;

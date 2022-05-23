@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -75,7 +76,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
     private common: CommonService,
     private ajax: AjaxService,
     private searchOption: SearchOptionService,
-  ) { 
+  ) {
     this.isSearchAreaShow = true;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
@@ -137,7 +138,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
   getList(page: number): void {
     const t = this;
-    
+
     if (t.isFileListGetting === true) {
       t.common.getAlertComponent()
         ?.setDefault()
@@ -164,7 +165,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
       fileDescription: forms.fileDescription,
       createdAtStart: forms.createdAtStart,
       createdAtEnd: forms.createdAtEnd,
-      fileStatus: forms.fileStatus, 
+      fileStatus: forms.fileStatus,
 
       page: page,
       pageViewCount: 5,
@@ -182,22 +183,20 @@ export class IndexPageComponent implements OnInit, DoCheck {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         t.isFileListGetting = false;
 
-        if (data.result === 'success') {
-          const list: FileItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: FileItem[] = data2.list;
           t.fileList = list;
-          t.fileTableTopBox.setTotalCount(data.totalCount);
-          t.fileListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          t.fileTableTopBox.setTotalCount(data2.totalCount);
+          t.fileListPaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        t.isFileListGetting = false;
-        this.common.alertMessage(error);
-      }
     );
   }
 
@@ -214,7 +213,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
     }
 
     this.router.navigate(['file/info/' + item.fileKey]);
-    return;
   }
 
   fileDeleteButtonClick(): void {
@@ -258,7 +256,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
         this.common.getAlertComponent()?.hide();
       })
       .show();
-      return;
   }
 
   deleteFile(fileKey: string[]): void {
@@ -288,13 +285,16 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
     this.isFileDeleting = true;
     const observable = this.ajax.post(environment.api.file.deleteFile, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isFileDeleting = false;
-        // console.log('response', data);
+        // console.log('response', data2);
 
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -306,17 +306,11 @@ export class IndexPageComponent implements OnInit, DoCheck {
             this.getList(1);
           })
           .show();
-        return;
-      },
-      error => {
-        this.isFileDeleting = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }
 
   fileUploadButtonClick(): void {
     this.router.navigate(['file/upload']);
-  }  
+  }
 }

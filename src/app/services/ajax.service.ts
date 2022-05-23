@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, retry, take } from 'rxjs/operators';
 import { HttpOptions } from '../interfaces/http-options.interface';
 
 @Injectable({
@@ -10,14 +10,14 @@ import { HttpOptions } from '../interfaces/http-options.interface';
 export class AjaxService {
   constructor(
     private http: HttpClient,
-  ) { 
+  ) {
 
   }
 
   post(url: string, data: any, httpOptions?: HttpOptions): Observable<any> {
     const t = this;
 
-    
+
     if (httpOptions !== undefined) {
       httpOptions.withCredentials = true;
     } else {
@@ -25,11 +25,12 @@ export class AjaxService {
         withCredentials: true,
       };
     }
-    
+
 
     return this.http.post<any>(url, data, httpOptions)
       .pipe(
         retry(1), // 요청이 실패하면 1번 더 시도합니다.
+        take(1),
         catchError(t.handleError),
       );
   }
@@ -46,6 +47,6 @@ export class AjaxService {
 
     // 사용자가 이해할 수 있는 에러 메시지를 반환합니다.
     // return throwError('Something bad happened; please try again later.');
-    return throwError(error.error);
+    return of(error);
   }
 }

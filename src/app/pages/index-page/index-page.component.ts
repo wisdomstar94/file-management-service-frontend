@@ -1,7 +1,6 @@
-import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { NavMenuItem } from 'src/app/interfaces/nav-menu-item.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
@@ -18,12 +17,12 @@ export class IndexPageComponent implements OnInit, DoCheck {
     private common: CommonService,
     private router: Router,
     private route: ActivatedRoute,
-  ) { 
+  ) {
 
   }
 
   ngOnInit(): void {
-    const t = this;
+    // const t = this;
   }
 
   ngDoCheck(): void {

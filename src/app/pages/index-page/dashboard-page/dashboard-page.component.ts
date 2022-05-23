@@ -1,11 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { CardInfo } from 'src/app/interfaces/card-info.interface';
 import { SearchItem } from 'src/app/interfaces/search-item.interface';
-import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
 import { setActiveMenuKey } from 'src/app/store/menu/menu.action';
@@ -60,15 +59,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
-              const t = this;
-
-              if (error.error instanceof ErrorEvent) {
-
-              } else {
-
-              }
-
-              return throwError(error.error);
+              return of(error);
             }),
           );
 
@@ -78,18 +69,16 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             if (item === null) {
               return;
             }
-            item.mainResult = data.totalCount;
-            item.subResult = data.todayTotalCount;
-          },
-          error => {
-            this.common.alertMessage(error);
-          },
-          () => {
-            const item = this.getCardInfoItem('totalDownloadedCount');
-            if (item === null) {
+            item.isRefreshing = false;
+
+            if (data instanceof HttpErrorResponse) {
+              this.common.alertMessage(data.error);
               return;
             }
-            item.isRefreshing = false;
+
+            item.mainResult = data.totalCount;
+            item.subResult = data.todayTotalCount;
+
           },
         );
       },
@@ -132,15 +121,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
-              const t = this;
-
-              if (error.error instanceof ErrorEvent) {
-
-              } else {
-
-              }
-
-              return throwError(error.error);
+              return of(error);
             }),
           );
 
@@ -150,18 +131,15 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             if (item === null) {
               return;
             }
-            item.mainResult = data.fileVersionTotalCount;
-            item.subResult = data.fileTodayVersionCount;
-          },
-          error => {
-            this.common.alertMessage(error);
-          },
-          () => {
-            const item = this.getCardInfoItem('totalUploadedFileCount');
-            if (item === null) {
+            item.isRefreshing = false;
+
+            if (data instanceof HttpErrorResponse) {
+              this.common.alertMessage(data.error);
               return;
             }
-            item.isRefreshing = false;
+
+            item.mainResult = data.fileVersionTotalCount;
+            item.subResult = data.fileTodayVersionCount;
           },
         );
       },
@@ -204,15 +182,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
-              const t = this;
-
-              if (error.error instanceof ErrorEvent) {
-
-              } else {
-
-              }
-
-              return throwError(error.error);
+              return of(error);
             }),
           );
 
@@ -222,26 +192,21 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             if (item === null) {
               return;
             }
+            item.isRefreshing = false;
+
+            if (data instanceof HttpErrorResponse) {
+              this.common.alertMessage(data.error);
+              return;
+            }
 
             const checkFileSize = this.common.checkFileSize(data.targetDateTotalSize);
             const checkSubFileSize = this.common.checkFileSize(data.todayTotalSizeByte);
-
 
             item.mainResult = Number((data.targetDateTotalSize / checkFileSize.division).toFixed(2));
             item.resultUnit = checkFileSize.unit;
 
             item.subResult = Number(((data.todayTotalSizeByte / checkSubFileSize.division).toFixed(2)));
             item.subUnit = checkSubFileSize.unit;
-          },
-          error => {
-            this.common.alertMessage(error);
-          },
-          () => {
-            const item = this.getCardInfoItem('totalDownloadedFileSize');
-            if (item === null) {
-              return;
-            }
-            item.isRefreshing = false;
           },
         );
       },
@@ -284,15 +249,7 @@ export class DashboardPageComponent implements OnInit, DoCheck {
           .pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
-              const t = this;
-
-              if (error.error instanceof ErrorEvent) {
-
-              } else {
-
-              }
-
-              return throwError(error.error);
+              return of(error);
             }),
           );
 
@@ -302,18 +259,15 @@ export class DashboardPageComponent implements OnInit, DoCheck {
             if (item === null) {
               return;
             }
-            item.mainResult = data.totalAccessCount;
-            item.subResult = data.todayTotalAccessCount;
-          },
-          error => {
-            this.common.alertMessage(error);
-          },
-          () => {
-            const item = this.getCardInfoItem('totalFileDownloadTryCount');
-            if (item === null) {
+            item.isRefreshing = false;
+
+            if (data instanceof HttpErrorResponse) {
+              this.common.alertMessage(data.error);
               return;
             }
-            item.isRefreshing = false;
+
+            item.mainResult = data.totalAccessCount;
+            item.subResult = data.todayTotalAccessCount;
           },
         );
       },
@@ -362,8 +316,6 @@ export class DashboardPageComponent implements OnInit, DoCheck {
   }
 
   getCardInfoItem(id: string): CardInfo | null {
-    const t = this;
-
     for (const item of this.cardInfoList) {
       if (item.id === id) {
         return item;

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -26,7 +26,7 @@ export class UploadPageComponent implements OnInit {
     private common: CommonService,
     private ajax: AjaxService,
     private http: HttpClient,
-  ) { 
+  ) {
     this.isUploadingFileBasic = false;
   }
 
@@ -101,12 +101,12 @@ export class UploadPageComponent implements OnInit {
         sortNo: sortNo,
       };
     })));
-    
+
     formData.append('fileStatus', this.fileBasicFormBox.fileBasicInfo.fileInfo.FmsFileStatusCodes?.code!);
-    
-     
+
+
     console.log('formData', formData);
-    
+
 
     // if (Object.keys(data).length === 1) {
     //   this.common.getAlertComponent()?.setDefault().setMessage('수정된 부분이 없습니다.').show();
@@ -119,23 +119,21 @@ export class UploadPageComponent implements OnInit {
     };
 
     const observable = this.ajax.post(environment.api.file.uploadFile, formData, options);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isUploadingFileBasic = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('파일이 등록되었습니다.').show();
-        this.router.navigate(['file/info/' + data.fileKey]);
-        return;
-      },
-      error => {
-        this.isUploadingFileBasic = false;
-        this.common.alertMessage(error);
-        return;
+        this.router.navigate(['file/info/' + data2.fileKey]);
       },
     );
   }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -29,8 +30,8 @@ export class InfoPageComponent implements OnInit, DoCheck {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
-    this.isModifyingPermissionGroup = false; 
+  ) {
+    this.isModifyingPermissionGroup = false;
     this.isCopyingPermissionGroup = false;
   }
 
@@ -66,7 +67,6 @@ export class InfoPageComponent implements OnInit, DoCheck {
         this.common.getAlertComponent()?.hide();
       })
       .show();
-    return;
   }
 
   copyPermissionGroup(): void {
@@ -82,22 +82,20 @@ export class InfoPageComponent implements OnInit, DoCheck {
     };
 
     const observable = this.ajax.post(environment.api.permissionGroup.copyPermissionGroup, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isCopyingPermissionGroup = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('권한 그룹이 복제 되었습니다. 목록으로 돌아가시면 확인 가능합니다.').show();
-        return;
-      },
-      error => {
-        this.isCopyingPermissionGroup = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }
@@ -124,18 +122,18 @@ export class InfoPageComponent implements OnInit, DoCheck {
     if (this.permissionGroupFormBox.isChanged('permissionGroupName')) {
       data.permissionGroupName = this.permissionGroupFormBox.permissionGroupInfo.permissionGroupName;
     }
-     
+
     if (this.permissionGroupFormBox.isChanged('permissionGroupDescription')) {
       data.permissionGroupDescription = this.permissionGroupFormBox.permissionGroupInfo.permissionGroupDescription;
     }
-     
+
     if (this.permissionGroupFormBox.isChanged('permissionGroupStatus')) {
       data.permissionGroupStatus = this.permissionGroupFormBox.permissionGroupInfo.FmsPermissionGroupStatusCodes?.code;
     }
 
     const permissionKeyInfo: PermissionKeyItem[] = this.permissionFormBox.getPermissionActiveStatusInfo().map((x) => {
       return {
-        permissionKey: x.permissionKey as string,
+        permissionKey: x.permissionKey,
         isActive: x.isActive as YN,
       };
     });
@@ -151,22 +149,20 @@ export class InfoPageComponent implements OnInit, DoCheck {
     // }
 
     const observable = this.ajax.post(environment.api.permissionGroupUpload.applyPermissionGroupUpload, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isModifyingPermissionGroup = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('권한 그룹 정보가 수정되었습니다.').show();
-        return;
-      },
-      error => {
-        this.isModifyingPermissionGroup = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -24,7 +25,7 @@ export class UploadPageComponent implements OnInit, DoCheck {
     private router: Router,
     private ajax: AjaxService,
     private common: CommonService,
-  ) { 
+  ) {
     this.isUploadingCompany = false;
   }
 
@@ -67,13 +68,16 @@ export class UploadPageComponent implements OnInit, DoCheck {
     this.isUploadingCompany = true;
 
     const observable = this.ajax.post(environment.api.company.createCompany, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isUploadingCompany = false;
-        console.log('response', data);
+        console.log('response', data2);
 
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -85,12 +89,6 @@ export class UploadPageComponent implements OnInit, DoCheck {
             this.router.navigate(['company']);
           })
           .show();
-        return;
-      },
-      error => {
-        this.isUploadingCompany = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

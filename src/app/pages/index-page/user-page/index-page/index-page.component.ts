@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -86,7 +87,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
     private common: CommonService,
     private ajax: AjaxService,
     private searchOption: SearchOptionService,
-  ) { 
+  ) {
     this.isSearchAreaShow = true;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
@@ -146,7 +147,7 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
   getList(page: number): void {
     const t = this;
-    
+
     if (t.isUserListGetting === true) {
       t.common.getAlertComponent()
         ?.setDefault()
@@ -195,22 +196,20 @@ export class IndexPageComponent implements OnInit, DoCheck {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         t.isUserListGetting = false;
 
-        if (data.result === 'success') {
-          const list: UserItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: UserItem[] = data2.list;
           t.userList = list;
-          t.userTableTopBox.setTotalCount(data.totalCount);
-          t.userListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          t.userTableTopBox.setTotalCount(data2.totalCount);
+          t.userListPaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        t.isUserListGetting = false;
-        this.common.alertMessage(error);
-      }
     );
   }
 
@@ -227,7 +226,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
     }
 
     this.router.navigate(['user/info/' + item.userKey]);
-    return;
   }
 
   userDeleteButtonClick(): void {
@@ -271,7 +269,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
         this.common.getAlertComponent()?.hide();
       })
       .show();
-      return;
   }
 
   deleteUser(userKey: string[]): void {
@@ -301,13 +298,15 @@ export class IndexPageComponent implements OnInit, DoCheck {
 
     this.isUserDeleting = true;
     const observable = this.ajax.post(environment.api.user.deleteUser, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isUserDeleting = false;
-        // console.log('response', data);
+        // console.log('response', data2);
 
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -319,12 +318,6 @@ export class IndexPageComponent implements OnInit, DoCheck {
             this.getList(1);
           })
           .show();
-        return;
-      },
-      error => {
-        this.isUserDeleting = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

@@ -1,4 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -52,7 +53,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
     private common: CommonService,
     private ajax: AjaxService,
     private store: Store<{ deviceMode: DeviceMode }>,
-  ) { 
+  ) {
     this.isShow = false;
     this.isLoading = false;
     this.fileVersionKey = '';
@@ -64,7 +65,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
     this.deviceMode$ = this.store.select('deviceMode');
     this.deviceMode$.subscribe(
       data => {
-        this.deviceMode = data as DeviceMode;
+        this.deviceMode = data;
         if (this.deviceMode === 'pc') {
           this.closeButtonMarginRight = '10px';
           this.submitButtonMarginLeft = '0';
@@ -107,7 +108,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
       this.isShow = true;
       this.fileVersionFormBox.dataInit();
       this.fileVersionFormBox.getFileVersionInfo(fileVersionKey);
-    }, 100);  
+    }, 100);
   }
 
   hide(): void {
@@ -165,12 +166,16 @@ export class FileVersionDetailPopupComponent implements OnInit {
     };
 
     const observable = this.ajax.post(environment.api.fileVersion.modifyFileVersion, formData, options);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isFileVersionModifying = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -178,12 +183,6 @@ export class FileVersionDetailPopupComponent implements OnInit {
         // this.isShow = false;
         this.hide();
         this.fileVersionModified.emit();
-        return;
-      },
-      error => {
-        this.isFileVersionModifying = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }
@@ -213,7 +212,7 @@ export class FileVersionDetailPopupComponent implements OnInit {
     formData.append('fileVersionMemo', this.fileVersionFormBox.fileVersionInfo.fileVersionMemo!);
     formData.append('fileVersionDescription', this.fileVersionFormBox.fileVersionInfo.fileVersionDescription!);
     formData.append('fileVersionStatus', this.fileVersionFormBox.fileVersionInfo.FmsFileVersionStatusCodes?.code!);
-  
+
     this.isFileVersionUploading = true;
 
     const options = {
@@ -222,11 +221,15 @@ export class FileVersionDetailPopupComponent implements OnInit {
     };
 
     const observable = this.ajax.post(environment.api.fileVersion.uploadFileVersion, formData, options);
-    const subscribe = observable.subscribe(
+    observable.subscribe(
       data => {
         this.isFileVersionUploading = false;
         console.log('response', data);
-        if (data.result !== 'success') {
+
+        if (data instanceof HttpErrorResponse) {
+          this.common.alertMessage(data.error);
+          return;
+        } else if (data.result !== 'success') {
           this.common.alertMessage(data);
           return;
         }
@@ -235,12 +238,6 @@ export class FileVersionDetailPopupComponent implements OnInit {
         // this.isShow = false;
         this.hide();
         this.newFileVersionUploaded.emit(this);
-        return;
-      },
-      error => {
-        this.isFileVersionUploading = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

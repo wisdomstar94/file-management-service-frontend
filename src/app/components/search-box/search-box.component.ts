@@ -30,7 +30,7 @@ export class SearchBoxComponent implements OnInit {
   constructor(
     private common: CommonService,
     private store: Store<{ deviceMode: DeviceMode }>,
-  ) { 
+  ) {
     this.isRightButtonShow = true;
 
     const token1 = this.common.getUniqueToken(20);
@@ -39,9 +39,9 @@ export class SearchBoxComponent implements OnInit {
     }
     this.yearSelectItems = this.years.map((x) => {
       return {
-        optionUniqueID: token1 + '_' + x, 
-        optionValue: x, 
-        optionDisplayText: x + '년', 
+        optionUniqueID: token1 + '_' + x,
+        optionValue: x,
+        optionDisplayText: x + '년',
         selected: false,
       };
     });
@@ -52,9 +52,9 @@ export class SearchBoxComponent implements OnInit {
     }
     this.monthSelectItems = this.months.map((x) => {
       return {
-        optionUniqueID: token2 + '_' + x, 
-        optionValue: this.common.fillZero(Number(x), 2), 
-        optionDisplayText: x + '월', 
+        optionUniqueID: token2 + '_' + x,
+        optionValue: this.common.fillZero(Number(x), 2),
+        optionDisplayText: x + '월',
         selected: false,
       };
     });
@@ -65,18 +65,18 @@ export class SearchBoxComponent implements OnInit {
     this.deviceMode$ = this.store.select('deviceMode');
     this.deviceMode$.subscribe(
       data => {
-        this.deviceMode = data as DeviceMode;
-        if (this.deviceMode === 'pc') {
+        // this.deviceMode = data as DeviceMode;
+        // if (this.deviceMode === 'pc') {
 
-        } else {
-          
-        }
+        // } else {
+
+        // }
       }
     );
   }
 
   ngOnInit(): void {
-    
+
   }
 
   getValue(searchItemUniqueID: string): any {
@@ -110,7 +110,7 @@ export class SearchBoxComponent implements OnInit {
           }
         }
         return checkedItems;
-        
+
     }
   }
 
@@ -122,10 +122,10 @@ export class SearchBoxComponent implements OnInit {
         case 'text': item.currentValue = ''; break;
         case 'datetime': item.startDatetime = ''; item.endDatetime = ''; break;
         case 'one-datetime': item.oneDatetime = ''; break;
-        case 'checkbox': item.checkboxItemList?.filter((x) => { x.checked = false; return; }); break;
+        case 'checkbox': item.checkboxItemList?.filter((x) => { x.checked = false; }); break;
         case 'number': item.startNumber = '' as any; item.endNumber = '' as any; break;
         case 'year-month': item.startYear = ''; item.startMonth = ''; item.endYear = ''; item.endMonth = ''; item.endLastDate = ''; break;
-        case 'select':  
+        case 'select':
           item.currentValue = '';
           if (Array.isArray(item.selectItems)) {
             const firstValue = item.selectItems[0].optionValue;

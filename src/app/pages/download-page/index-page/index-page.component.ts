@@ -26,7 +26,7 @@ export class IndexPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public common: CommonService,
-  ) { 
+  ) {
     this.fileDownloadUrlKey = this.route.snapshot.params.fileDownloadUrlKey;
     this.fileNormalInfo = this.route.snapshot.data.FileDownloadUrlOuterInfo;
     if (this.fileNormalInfo === undefined || this.fileNormalInfo?.fileSize === undefined) {
@@ -49,10 +49,10 @@ export class IndexPageComponent implements OnInit {
     const baseUrl = environment.baseUrl;
 
     if (this.fileNormalInfo.requirePassword !== true) {
-      const myObservable = this.ajax.post(environment.api.download.downloadCheck, {
+      const myObservable2 = this.ajax.post(environment.api.download.downloadCheck, {
         fileDownloadUrlKey: this.fileDownloadUrlKey,
       });
-      myObservable.subscribe(
+      myObservable2.subscribe(
         data => {
           const downloadjwt = data.downloadjwt;
           const locationHref = ''
@@ -62,14 +62,7 @@ export class IndexPageComponent implements OnInit {
             .concat('?', 'downloadjwt=', downloadjwt)
           ;
           location.href = locationHref;
-          return;
         },
-        error => {
-
-        },
-        () => {
-
-        }
       );
 
       return;
@@ -100,16 +93,8 @@ export class IndexPageComponent implements OnInit {
           .concat('&', 'passwordjwt=', passwordjwt)
         ;
         location.href = locationHref;
-        return;
       },
-      error => {
-
-      },
-      () => {
-
-      }
     );
-    return;
   }
 
   versionHistoryViewButtonClicked(event: MouseEvent): void {

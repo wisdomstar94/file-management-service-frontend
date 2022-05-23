@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -88,13 +89,13 @@ export class FileVersionBoardComponent implements OnInit {
     private router: Router,
     public common: CommonService,
     private ajax: AjaxService,
-  ) { 
+  ) {
     this.isSearchAreaShow = true;
     this.isShowFileDownloadButton = false;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
       this.isSearchAreaShow = false;
-    }	
+    }
 
     this.isFileVersionListAllCheck = false;
     this.fileVersionTableViewType = 'row';
@@ -142,7 +143,7 @@ export class FileVersionBoardComponent implements OnInit {
 
   getList(page: number): void {
     const t = this;
-    
+
     if (t.isFileVersionListGetting === true) {
       t.common.getAlertComponent()
         ?.setDefault()
@@ -192,23 +193,21 @@ export class FileVersionBoardComponent implements OnInit {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         t.isFileVersionListGetting = false;
-        t.isShowFileDownloadButton = data.isShowFileDownloadButton;
+        t.isShowFileDownloadButton = data2.isShowFileDownloadButton;
 
-        if (data.result === 'success') {
-          const list: FileVersionItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: FileVersionItem[] = data2.list;
           t.fileVersionList = list;
-          t.fileVersionTableTopBox.setTotalCount(data.totalCount);
-          t.fileVersionListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          t.fileVersionTableTopBox.setTotalCount(data2.totalCount);
+          t.fileVersionListPaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        t.isFileVersionListGetting = false;
-        this.common.alertMessage(error);
-      }
     );
   }
 
@@ -225,8 +224,6 @@ export class FileVersionBoardComponent implements OnInit {
     }
 
     this.fileVersionDetailPopup.show(item.fileVersionKey, 'modify');
-    // this.router.navigate(['file/info/' + item.fileVersionKey]);
-    return;
   }
 
   fileVersionDeleteButtonClick(): void {
@@ -270,7 +267,6 @@ export class FileVersionBoardComponent implements OnInit {
         this.common.getAlertComponent()?.hide();
       })
       .show();
-      return;
   }
 
   deleteFileVersion(fileVersionKey: string[]): void {
@@ -291,7 +287,7 @@ export class FileVersionBoardComponent implements OnInit {
         .show();
       return;
     }
-    
+
     // console.log('fileVersionKey', fileVersionKey);
 
     const data = {
@@ -300,13 +296,16 @@ export class FileVersionBoardComponent implements OnInit {
 
     this.isFileVersionDeleting = true;
     const observable = this.ajax.post(environment.api.fileVersion.deleteFileVersion, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isFileVersionDeleting = false;
-        // console.log('response', data);
+        // console.log('response', data2);
 
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -318,12 +317,6 @@ export class FileVersionBoardComponent implements OnInit {
             this.getList(1);
           })
           .show();
-        return;
-      },
-      error => {
-        this.isFileVersionDeleting = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }
@@ -331,7 +324,7 @@ export class FileVersionBoardComponent implements OnInit {
   fileVersionUploadButtonClick(): void {
     // this.router.navigate(['file/upload']);
     this.fileVersionDetailPopup.show('', 'upload');
-  }  
+  }
 
   executeFileDownload(item: FileVersionItem): void {
     const baseUrl = environment.baseUrl;

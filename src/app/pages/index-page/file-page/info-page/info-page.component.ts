@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FileBasicFormBoxComponent } from 'src/app/components/file-basic-form-box/file-basic-form-box.component';
-import { ModifyFileBasicInfoData } from 'src/app/interfaces/modify-file-basic-info-data.interface';
 import { AjaxService } from 'src/app/services/ajax.service';
 import { CommonService } from 'src/app/services/common.service';
 import { changeDestination } from 'src/app/store/destination/destination.action';
@@ -27,7 +26,7 @@ export class InfoPageComponent implements OnInit, DoCheck {
     private common: CommonService,
     private ajax: AjaxService,
     private http: HttpClient,
-  ) { 
+  ) {
     this.isModifyingFileBasic = false;
   }
 
@@ -135,9 +134,9 @@ export class InfoPageComponent implements OnInit, DoCheck {
       // data.fileStatus = this.fileBasicFormBox.fileBasicInfo.fileInfo.FmsFileStatusCodes?.code;
       formData.append('fileStatus', this.fileBasicFormBox.fileBasicInfo.fileInfo.FmsFileStatusCodes?.code!);
     }
-     
+
     console.log('formData', formData);
-    
+
 
     // if (Object.keys(data).length === 1) {
     //   this.common.getAlertComponent()?.setDefault().setMessage('수정된 부분이 없습니다.').show();
@@ -150,22 +149,20 @@ export class InfoPageComponent implements OnInit, DoCheck {
     };
 
     const observable = this.ajax.post(environment.api.file.modifyFile, formData, options);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isModifyingFileBasic = false;
-        console.log('response', data);
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        console.log('response', data2);
+
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
         this.common.getAlertComponent()?.setDefault().setMessage('파일 기본 정보가 수정되었습니다.').show();
-        return;
-      },
-      error => {
-        this.isModifyingFileBasic = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

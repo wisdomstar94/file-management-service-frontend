@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -68,7 +69,7 @@ export class IndexPageComponent implements OnInit {
     private common: CommonService,
     private ajax: AjaxService,
     private searchOption: SearchOptionService,
-  ) { 
+  ) {
     this.isSearchAreaShow = true;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
@@ -128,7 +129,7 @@ export class IndexPageComponent implements OnInit {
 
   getList(page: number): void {
     const t = this;
-    
+
     if (t.isPermissionGroupListGetting === true) {
       t.common.getAlertComponent()
         ?.setDefault()
@@ -171,22 +172,20 @@ export class IndexPageComponent implements OnInit {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         t.isPermissionGroupListGetting = false;
 
-        if (data.result === 'success') {
-          const list: PermissionGroupItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: PermissionGroupItem[] = data2.list;
           t.permissionGroupList = list;
-          t.permissionGroupTableTopBox.setTotalCount(data.totalCount);
-          t.permissionGroupListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          t.permissionGroupTableTopBox.setTotalCount(data2.totalCount);
+          t.permissionGroupListPaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        t.isPermissionGroupListGetting = false;
-        this.common.alertMessage(error);
-      }
     );
   }
 
@@ -203,7 +202,6 @@ export class IndexPageComponent implements OnInit {
     }
 
     this.router.navigate(['permissionGroup/info/' + item.permissionGroupKey]);
-    return;
   }
 
   permissionGroupDeleteButtonClick(): void {
@@ -247,7 +245,6 @@ export class IndexPageComponent implements OnInit {
         this.common.getAlertComponent()?.hide();
       })
       .show();
-      return;
   }
 
   deletePermissionGroup(permissionGroupKey: string[]): void {
@@ -277,13 +274,16 @@ export class IndexPageComponent implements OnInit {
 
     this.isPermissionGroupDeleting = true;
     const observable = this.ajax.post(environment.api.permissionGroup.deletePermissionGroup, data);
-    const subscribe = observable.subscribe(
-      data => {
+    observable.subscribe(
+      data2 => {
         this.isPermissionGroupDeleting = false;
-        // console.log('response', data);
+        // console.log('response', data2);
 
-        if (data.result !== 'success') {
-          this.common.alertMessage(data);
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+          return;
+        } else if (data2.result !== 'success') {
+          this.common.alertMessage(data2);
           return;
         }
 
@@ -295,12 +295,6 @@ export class IndexPageComponent implements OnInit {
             this.getList(1);
           })
           .show();
-        return;
-      },
-      error => {
-        this.isPermissionGroupDeleting = false;
-        this.common.alertMessage(error);
-        return;
       },
     );
   }

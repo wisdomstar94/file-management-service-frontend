@@ -49,7 +49,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
   conditionCodeList: CodeItem[] = [];
   conditionCodeListSelectItems: SelectItem[] = [];
-  
+
   currentSelectedConditionInfo = {
     conditionType: 'FDUCT00000001',
   };
@@ -102,7 +102,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
     private ajax: AjaxService,
     private common: CommonService,
     private myDate: MyDateService,
-  ) { 
+  ) {
     this.userList = this.route.snapshot.data.UserList;
     this.userSelectItems = this.userList.map((x) => {
       return {
@@ -329,17 +329,17 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
     const myObservable = this.ajax.post(environment.api.fileDownloadUrl.fileDownloadUrlInfo, data);
     myObservable.subscribe(
-      data => {
-        // console.log('getFileDownloadUrlInfo.data', data);
+      data2 => {
+        // console.log('getFileDownloadUrlInfo.data2', data2);
 
         this.isFileDownloadUrlInfoGetting = false;
         this.infoTaken.emit();
 
-        if (data.fileDownloadUrlInfo === null) {
+        if (data2.fileDownloadUrlInfo === null) {
           return;
         }
 
-        const fileDownloadUrlInfo: FileDownloadUrlInfo = data.fileDownloadUrlInfo;
+        const fileDownloadUrlInfo: FileDownloadUrlInfo = data2.fileDownloadUrlInfo;
         if (fileDownloadUrlInfo.FmsTargetFileVersions === null) {
           fileDownloadUrlInfo.FmsTargetFileVersions = {
             fileVersionKey: 'null',
@@ -349,18 +349,10 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
             fileKey: '',
           };
         }
-        const conditionInfo: ConditionInfo[] = data.conditionInfo;
+        const conditionInfo: ConditionInfo[] = data2.conditionInfo;
         this.setFileDownloadUrlInfo(fileDownloadUrlInfo);
         this.setConditionInfo(conditionInfo);
       },
-      error => {
-        this.isFileDownloadUrlInfoGetting = false;
-        this.infoTaken.emit();
-
-      },
-      () => {
-        this.isFileDownloadUrlInfoGetting = false;
-      }
     );
   }
 
@@ -395,7 +387,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
         if (this.fileDownloadUrlInfo.FmsTargetFileVersions?.fileVersionKey !== this.cleanFileDownloadUrlInfo.FmsTargetFileVersions?.fileVersionKey) {
           result = true;
         }
-        break;  
+        break;
       case 'fileDownloadPossibleDateTimeStart':
         if (this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart !== this.cleanFileDownloadUrlInfo.fileDownloadPossibleDateTimeStart) {
           result = true;
@@ -419,7 +411,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
       case 'fileDownloadUrlAccessConditionInfo':
         if (this.cleanConditionItems.length !== this.conditionItems.length) {
           result = true;
-        } 
+        }
         break;
       case 'fileDownloadUrlStatus':
         if (this.fileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code !== this.cleanFileDownloadUrlInfo.FmsFileDownloadUrlStatusCodes?.code) {
@@ -484,7 +476,7 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
     switch (currentConditionType) {
       case 'FDUCT00000001': // 특정 IP 제한
-        
+
         break;
       case 'FDUCT00000002': // 특정 Header 값 제한
         if (typeof this.currentConditionKeyInfo.key !== 'string') {
@@ -558,13 +550,6 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
           selected: false,
         });
       },
-      error => {
-        this.isFileVersionGetting = false;
-
-      },
-      () => {
-
-      }
     );
   }
 
@@ -605,9 +590,6 @@ export class FileDownloadUrlFormBoxComponent implements OnInit {
 
       this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeStart = dateInfo.startDateTime;
       this.fileDownloadUrlInfo.fileDownloadPossibleDateTimeEnd = dateInfo.endDateTime;
-      return;
     }
-
-    return;
   }
 }

@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { NavMenuInMenuItem } from 'src/app/interfaces/nav-menu-in-menu-item.interface';
 import { NavMenuItem } from 'src/app/interfaces/nav-menu-item.interface';
 import { environment } from 'src/environments/environment';
-import { navOpen, navClose, navModeBasic, navModeMinimal, changeNavWidth } from 'src/app/store/common-nav/common-nav.action';
+import { navClose, navModeBasic, navModeMinimal, changeNavWidth } from 'src/app/store/common-nav/common-nav.action';
 import { DeviceMode } from 'src/app/types/device-mode.type';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NavMode } from 'src/app/types/nav-mode.type';
@@ -103,7 +103,7 @@ export class CommonNavComponent implements OnInit {
     private router: Router,
     private sanitizer: DomSanitizer,
     private common: CommonService,
-  ) { 
+  ) {
     const t = this;
 
     this.navStyleWidth = '240px';
@@ -121,7 +121,7 @@ export class CommonNavComponent implements OnInit {
     this.navOpend$ = this.store.select('navOpend');
     this.navOpend$.subscribe(
       data => {
-        
+
       }
     );
 
@@ -181,7 +181,7 @@ export class CommonNavComponent implements OnInit {
   setDeviceStyle(deviceMode: DeviceMode): void {
     const t = this;
 
-    const windowWidth = window.innerWidth;
+    // const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
     if (deviceMode === 'mobile') {
@@ -208,7 +208,7 @@ export class CommonNavComponent implements OnInit {
   }
 
   getMenuIconPath(item: NavMenuInMenuItem): string {
-    const t = this;
+    // const t = this;
 
     if (typeof item.menuIconPath !== 'string') {
       return '';
@@ -235,7 +235,6 @@ export class CommonNavComponent implements OnInit {
     t.store.dispatch(navClose());
 
     t.router.navigate([item.menuLink]);
-    return;
   }
 
   activeMenu(menuKey: string): void {
@@ -261,7 +260,7 @@ export class CommonNavComponent implements OnInit {
 
   pcNavToggleButtonClick(): void {
     const t = this;
-    
+
     if (t.navMode === 'basic') {
       t.store.dispatch(navModeMinimal());
     } else {
@@ -284,7 +283,7 @@ export class CommonNavComponent implements OnInit {
   }
 
   menuButtonMouseLeave(item: NavMenuInMenuItem): void {
-    const t = this;
+    // const t = this;
     item.menuHover = false;
   }
 

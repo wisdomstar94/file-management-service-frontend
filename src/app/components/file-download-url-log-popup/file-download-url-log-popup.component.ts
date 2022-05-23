@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -34,7 +35,7 @@ export class FileDownloadUrlLogPopupComponent implements OnInit, OnChanges {
     private store: Store<{ destination: string[], activeMenuKey: string }>,
     private ajax: AjaxService,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     this.isShow = true;
     this.fileDownloadUrlLogTableViewType = 'card';
     this.fileDownloadUrlKey = '';
@@ -45,9 +46,9 @@ export class FileDownloadUrlLogPopupComponent implements OnInit, OnChanges {
     const yyyymmList: string[] = this.route.snapshot.data.LogYyyymmList;
     this.LogYyyymmListSelectItemList = yyyymmList.map((x) => {
       return {
-        optionUniqueID: x, 
-        optionValue: x, 
-        optionDisplayText: x.substr(0, 4) + '년 ' + x.substr(4, 2) + '월', 
+        optionUniqueID: x,
+        optionValue: x,
+        optionDisplayText: x.substring(0, 4) + '년 ' + x.substring(4, 6) + '월',
         selected: false,
       };
     });
@@ -105,24 +106,22 @@ export class FileDownloadUrlLogPopupComponent implements OnInit, OnChanges {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         this.isFileDownloadUrlLogGetting = false;
 
-        if (data.result === 'success') {
-          const list: FileDownloadUrlLogItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: FileDownloadUrlLogItem[] = data2.list;
           this.fileDownloadUrlLogList = list;
-          this.fileDownloadUrlLogTableTopBox.setTotalCount(data.totalCount);
-          this.fileDownloadUrlLogListPaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          this.fileDownloadUrlLogTableTopBox.setTotalCount(data2.totalCount);
+          this.fileDownloadUrlLogListPaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        this.isFileDownloadUrlLogGetting = false;
-        this.common.alertMessage(error);
-      }
     );
-  } 
+  }
 
   ngOnChanges(): void {
     // this.checkIsShow();

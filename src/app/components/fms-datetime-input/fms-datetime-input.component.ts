@@ -1,5 +1,5 @@
-import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Observable, of, Subscriber } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Observable, Subscriber } from 'rxjs';
 import * as dayjs from 'dayjs';
 
 @Component({
@@ -17,7 +17,7 @@ export class FmsDatetimeInputComponent implements OnInit, OnChanges {
 
   @Output() valueChanged = new EventEmitter();
 
-  constructor() { 
+  constructor() {
     this.value = ' ';
     this.valueObservable = new Observable((observer) => {
       this.valueSubscriber = observer;
@@ -38,7 +38,7 @@ export class FmsDatetimeInputComponent implements OnInit, OnChanges {
     // console.log('this.value', this.value);
     // setInterval(() => {
     //   console.log('this.value', this.value);
-    // }, 1000); 
+    // }, 1000);
   }
 
   ngOnChanges(): void {
@@ -68,7 +68,7 @@ export class FmsDatetimeInputComponent implements OnInit, OnChanges {
 
   valueChange(): void {
     // console.log([this.dateValue, this.timeValue]);
-    
+
     let temp = '';
     if (this.timeValue.length === 8) {
       temp = this.dateValue + ' ' + this.timeValue;
@@ -79,4 +79,4 @@ export class FmsDatetimeInputComponent implements OnInit, OnChanges {
     this.value = temp;
     this.valueChanged.emit(this.value);
   }
-} 
+}

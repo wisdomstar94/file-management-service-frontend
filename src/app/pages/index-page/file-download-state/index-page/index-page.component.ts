@@ -1,11 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FileDownloadUrlLogPopupComponent } from 'src/app/components/file-download-url-log-popup/file-download-url-log-popup.component';
-import { PaginationBoxComponent } from 'src/app/components/pagination-box/pagination-box.component';
 import { SearchBoxComponent } from 'src/app/components/search-box/search-box.component';
 import { TableTopBoxComponent } from 'src/app/components/table-top-box/table-top-box.component';
-import { CodeItem } from 'src/app/interfaces/code-item.interface';
 import { FileDownloadStateItem } from 'src/app/interfaces/file-download-state-item.interface';
 import { FileDownloadUrlKeyItem } from 'src/app/interfaces/file-download-url-key-item';
 import { FileItem } from 'src/app/interfaces/file-item.interface';
@@ -65,7 +64,7 @@ export class IndexPageComponent implements OnInit {
     private router: Router,
     private common: CommonService,
     private ajax: AjaxService,
-  ) { 
+  ) {
     this.isSearchAreaShow = true;
 
     if (this.route.snapshot.data.SearchAreaShowFlag[0] === false) {
@@ -81,12 +80,12 @@ export class IndexPageComponent implements OnInit {
       return {
         optionUniqueID: x,
         optionValue: x,
-        optionDisplayText: x.substr(0, 4) + '년 ' + x.substr(4, 2) + '월',
+        optionDisplayText: x.substring(0, 4) + '년 ' + x.substring(4, 6) + '월',
         selected: false,
       };
     });
     targetYYYYMMSearchItem.currentValue = targetYYYYMMSearchItem.selectItems[0].optionValue;
-    
+
   }
 
   ngOnInit(): void {
@@ -122,7 +121,7 @@ export class IndexPageComponent implements OnInit {
 
   getList(page: number): void {
     const t = this;
-    
+
     if (t.isfileDownloadStateGetting === true) {
       t.common.getAlertComponent()
         ?.setDefault()
@@ -141,7 +140,7 @@ export class IndexPageComponent implements OnInit {
     // console.log('forms', forms);
 
     const data = {
-      targetDateTime: forms.targetDateTime?.substr(0, 4) + '-' + forms.targetDateTime?.substr(4, 2) + '-01 00:00:00',
+      targetDateTime: forms.targetDateTime?.substring(0, 4) + '-' + forms.targetDateTime?.substring(4, 6) + '-01 00:00:00',
     };
 
     // console.log('data', data);
@@ -154,22 +153,20 @@ export class IndexPageComponent implements OnInit {
     );
 
     observable.subscribe(
-      data => {
+      data2 => {
         t.isfileDownloadStateGetting = false;
 
-        if (data.result === 'success') {
-          const list: FileDownloadStateItem[] = data.list;
+        if (data2 instanceof HttpErrorResponse) {
+          this.common.alertMessage(data2.error);
+        } else if (data2.result === 'success') {
+          const list: FileDownloadStateItem[] = data2.list;
           t.fileDownloadStateList = list;
           t.fileDownloadStateTableTopBox.setTotalCount(list.length);
-          // t.fileDownloadStatePaginationBox.setBoardCountInfo(data.getBoardCountInfo);
+          // t.fileDownloadStatePaginationBox.setBoardCountInfo(data2.getBoardCountInfo);
         } else {
-          this.common.alertMessage(data);
+          this.common.alertMessage(data2);
         }
       },
-      error => {
-        t.isfileDownloadStateGetting = false;
-        this.common.alertMessage(error);
-      }
     );
   }
 
@@ -181,25 +178,24 @@ export class IndexPageComponent implements OnInit {
         .setTitle('안내')
         .setMessage('준비중입니다.')
         .show();
-    return;
 
-    if (typeof item.fileKey !== 'string' || item.fileKey === '') {
-      this.common.getAlertComponent()
-        ?.setDefault()
-        .setTitle('안내')
-        .setMessage('상세정보를 볼 권한이 없습니다.')
-        .show();
-      return;
-    }
+    // if (typeof item.fileKey !== 'string' || item.fileKey === '') {
+    //   this.common.getAlertComponent()
+    //     ?.setDefault()
+    //     .setTitle('안내')
+    //     .setMessage('상세정보를 볼 권한이 없습니다.')
+    //     .show();
+    //   return;
+    // }
 
-    this.router.navigate(['file/info/' + item.fileKey]);
-    return;
+    // this.router.navigate(['file/info/' + item.fileKey]);
+    // return;
   }
 
   fileUploadButtonClick(): void {
     this.router.navigate(['file/upload']);
-  } 
-  
+  }
+
   fileDownloadUrlKeyClicked(item: FileDownloadUrlKeyItem): void {
     const targetYYYYMMSearchItem = this.searchItemList.filter((x) => { if (x.uniqueID === 'targetYYYYMM') { return true; } else { return false; } })[0];
     console.log('targetYYYYMMSearchItem.currentValue', targetYYYYMMSearchItem.currentValue);

@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { SearchOptionService } from 'src/app/services/search-option.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { SearchOptionService } from 'src/app/services/search-option.service';
 export class CompanyPageComponent implements OnInit, DoCheck, OnDestroy {
   constructor(
     private searchOption: SearchOptionService,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -18,10 +18,10 @@ export class CompanyPageComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngDoCheck(): void {
-    
+
   }
 
   ngOnDestroy(): void {
     this.searchOption.searchOption.companySearchItemList = [];
   }
-} 
+}

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AjaxService } from 'src/app/services/ajax.service';
@@ -39,7 +40,7 @@ export class LoginFormBoxComponent implements OnInit {
       }
 
       const loginObservable = t.ajax.post(
-        environment.api.user.login, 
+        environment.api.user.login,
         {
           userId: t.forms.userId,
           userPassword: t.forms.userPassword,
@@ -48,19 +49,17 @@ export class LoginFormBoxComponent implements OnInit {
 
       t.isLogging = true;
 
-      const result = loginObservable.subscribe(
+      loginObservable.subscribe(
         data => {
-          if (data.result === 'success') {
+          t.isLogging = false;
+
+          if (data instanceof HttpErrorResponse) {
+            t.common.alertMessage(data.error);
+          } else if (data.result === 'success') {
             t.router.navigate(['dashboard']);
           } else {
             t.common.alertMessage(data);
           }
-
-          t.isLogging = false;
-        },
-        error => {
-          t.common.alertMessage(error);
-          t.isLogging = false;
         },
       );
     },
@@ -77,7 +76,7 @@ export class LoginFormBoxComponent implements OnInit {
     private ajax: AjaxService,
     private common: CommonService,
     private router: Router,
-  ) { 
+  ) {
 
   }
 
@@ -95,7 +94,7 @@ export class LoginFormBoxComponent implements OnInit {
     const t = this;
 
     const windowWidth = window.innerWidth;
-    
+
     if (windowWidth < 650) {
       t.loginFormBoxStyle['width'] = (windowWidth - 20) + 'px';
     } else {
